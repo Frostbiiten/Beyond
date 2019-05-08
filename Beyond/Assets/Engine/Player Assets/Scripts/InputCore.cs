@@ -14,7 +14,7 @@ public class InputCore : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        directionalInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     //For future ref
