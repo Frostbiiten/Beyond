@@ -6,6 +6,7 @@ public class OrbitCamera : MonoBehaviour
 {
 
     public Transform target;
+    public Vector3 offset;
     public float distance = 5.0f;
     public float xSpeed = 120.0f;
     public float ySpeed = 120.0f;
@@ -44,6 +45,8 @@ public class OrbitCamera : MonoBehaviour
     public Transform lookTarget;
 
     public float freeDistance;
+    public Transform realLookTarget;
+    public bool playStart;
 
 
 
@@ -58,7 +61,6 @@ public class OrbitCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         if (state == 0)
         {
             if (target)
@@ -71,9 +73,11 @@ public class OrbitCamera : MonoBehaviour
                     //x = x + Input.GetAxis("X"); 2 player mode
                     if (allowMouseFreeMovement == true)
                     {
-                        x = x + (Input.GetAxisRaw("X") * mouseFreeMovementSpeed);
+                        //Debug.Log(PlayerCore.playerAnimationManager.playerSkin.InverseTransformVector(PlayerCore.velocity).z);
+                        //x = x + * mouseFreeMovementSpeed;
+                        //Quaternion.LookRotation(PlayerCore.velocity);
                     }
-
+                    realLookTarget.position = target.position;
 
 
                     if (Input.GetAxis("Drift") != 0f)
@@ -103,7 +107,7 @@ public class OrbitCamera : MonoBehaviour
                     }
 
                     Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
-                    Vector3 position = rotation * negDistance + target.position;
+                    Vector3 position = rotation * negDistance + realLookTarget.position;
 
                     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, LerpRotation);
                     //transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + baseForward.eulerAngles.y, transform.eulerAngles.z);
@@ -111,7 +115,7 @@ public class OrbitCamera : MonoBehaviour
                 }
                 else
                 {
-                    transform.LookAt(target);
+                    transform.LookAt(realLookTarget);
                 }
             }
 

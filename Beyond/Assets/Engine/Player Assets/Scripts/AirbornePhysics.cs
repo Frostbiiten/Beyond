@@ -21,15 +21,13 @@ public class AirbornePhysics : MonoBehaviour
     [Tooltip("extra gravity to be applied")]
     public float extraGravity;
 
-    [Tooltip("Drag in the air")]
-    public float airDrag;
-
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        playerCore.rb.drag = airDrag;
         playerCore.groundedPhysics.currentForce = playerCore.velocityMagnitude * groundSpeedScalar;
+
+        playerCore.rb.AddForce(Vector3.down * extraGravity);
 
         if (playerCore.inputCore.directionalInput != Vector2.zero)
         {
@@ -41,12 +39,17 @@ public class AirbornePhysics : MonoBehaviour
             ball = true;
         }
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(Vector3.zero), 0.1f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(Vector3.zero), 0.05f);
     }
 
     void Update()
     {
         if (Input.GetButton("Jump"))
+        {
+            ball = true;
+        }
+
+        if (Input.GetButtonDown("Jump")) // To make sure
         {
             ball = true;
         }

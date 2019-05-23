@@ -11,16 +11,38 @@ public class InputCore : MonoBehaviour
     public Vector2 directionalInput;
 
     #endregion
+
+    #region Input bools
+    public bool JumpKeyDown;
+    public bool JumpKey;
+    public bool inputLock;
+    #endregion
     // Start is called before the first frame update
     void Update()
     {
-        directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        #region main conditions
+        if (inputLock == false)
+        {
+            JumpKey = Input.GetButton("Jump");
+            JumpKeyDown = Input.GetButtonDown("Jump");
+            directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        }
+        else
+        {
+            JumpKeyDown = false;
+            JumpKey = false;
+            directionalInput = Vector2.zero;
+        }
+        #endregion
     }
 
-    //For future ref
-    void InputLock()
+    #region Input Lock
+    public IEnumerator InputLock(float time)
     {
-        //reset all input
-        directionalInput = Vector2.zero;
+        inputLock = true;
+        yield return new WaitForSeconds(time);
+        inputLock = false;
     }
+
+    #endregion
 }

@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Homing Target
+  - Enemy
+  - Hazard
+  - Ring
+  - Static Ring
+  - ShieldBox
+  - FxTemporaire
+  - Rail
   layers:
   - Default
   - TransparentFX
@@ -14,12 +22,12 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Homeable Object
+  - Player
+  - Ring
+  - StaticRing
+  - NoPlayerCollide
+  - NonPlayerLand
   - 
   - 
   - 

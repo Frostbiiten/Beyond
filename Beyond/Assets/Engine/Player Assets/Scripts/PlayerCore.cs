@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LayerHelper;
 
 public class PlayerCore : MonoBehaviour
 {
@@ -20,6 +21,15 @@ public class PlayerCore : MonoBehaviour
     public InputCore inputCore;
     public AirbornePhysics airbornePhysics;
     public GroundPhysics groundedPhysics;
+    public PlayerHpManager playerHpManager;
+    public PlayerDragCore playerDragCore;
+    public PlayerAnimationManager playerAnimationManager;
+    public PlayerJump playerJump;
+    public PlayerHomingAttack playerHomingAttack;
+    public UIManager UIManager;
+    public CameraShake camShake;
+    public PlayerStompSlide playerStompSlide;
+    public PlayerSideStep PlayerSideStep;
 
     #endregion
 
@@ -38,6 +48,9 @@ public class PlayerCore : MonoBehaviour
     [Tooltip("How far should the player check for ground")]
     public float groundDetectionDistance;
 
+    [Tooltip("Is the player a ball")]
+    public bool ball;
+
     [Tooltip("The normal of the ground - the 'reflection' of the face")]
     public Vector3 groundNormal;
 
@@ -53,9 +66,17 @@ public class PlayerCore : MonoBehaviour
 
     #region Unity Components
     public Rigidbody rb;
-
+    public Animator fadeAnimator;
     #endregion
 
+    public int redRings;
+
+    int groundDetectionMask;
+    void Start()
+    {
+        //oh =~ is opposit for mask
+        groundDetectionMask |= ~(int)PlayerLayerHelper.Layers.Homeable;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -82,7 +103,7 @@ public class PlayerCore : MonoBehaviour
 
         #region Detection
 
-        grounded = Physics.Raycast(transform.position, -transform.up, out playerGroundHit, groundDetectionDistance, 1, QueryTriggerInteraction.Ignore);
+        grounded = Physics.Raycast(transform.position, -transform.up, out playerGroundHit, groundDetectionDistance, groundDetectionMask, QueryTriggerInteraction.Ignore);
 
         if(grounded == true)
         {
