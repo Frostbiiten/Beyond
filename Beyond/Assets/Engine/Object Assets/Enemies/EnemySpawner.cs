@@ -5,7 +5,8 @@ public class EnemySpawner : MonoBehaviour {
     public Object spawnObject;
     public float spawnTime;
     public Renderer rend;
-
+    public Vector3 rotation;
+    public ParticleSystem fx;
 	void Start () {
         InvokeRepeating("SlowUpdate", 0f, 0.2f);
 	}
@@ -24,7 +25,8 @@ public class EnemySpawner : MonoBehaviour {
     IEnumerator Spawn()
     {
         yield return new WaitForSeconds(spawnTime);
-        Instantiate(spawnObject, transform.position, transform.rotation, transform);
+        fx.Play();
+        Instantiate(spawnObject, transform.position, Quaternion.Euler(rotation), transform);
     }
 
     [ExecuteInEditMode]

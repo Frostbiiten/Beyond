@@ -1,0 +1,367 @@
+<?xml version="1.0" ?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+    <asset>
+        <contributor>
+            <authoring_tool>SonicGLvl - COLLADA Exporter</authoring_tool>
+        </contributor>
+        <unit name="meters" meter="1.0" />
+        <up_axis>Y_UP</up_axis>
+    </asset>
+    <library_images>
+        <image id="enm_spina_body_dif_HD-image" name="enm_spina_body_dif_HD-image">
+            <init_from>./textures/enm_spina_body_dif_HD.dds</init_from>
+        </image>
+        <image id="enm_spina_body_spc_HD-image" name="enm_spina_body_spc_HD-image">
+            <init_from>./textures/enm_spina_body_spc_HD.dds</init_from>
+        </image>
+        <image id="enm_spina_body_nrm_HD-image" name="enm_spina_body_nrm_HD-image">
+            <init_from>./textures/enm_spina_body_nrm_HD.dds</init_from>
+        </image>
+        <image id="enm_spina_body_ref_HD-image" name="enm_spina_body_ref_HD-image">
+            <init_from>./textures/enm_spina_body_ref_HD.dds</init_from>
+        </image>
+        <image id="enm_spina_body_fal_HD-image" name="enm_spina_body_fal_HD-image">
+            <init_from>./textures/enm_spina_body_fal_HD.dds</init_from>
+        </image>
+        <image id="enm_spina_metal_ref_HD-image" name="enm_spina_metal_ref_HD-image">
+            <init_from>./textures/enm_spina_metal_ref_HD.dds</init_from>
+        </image>
+        <image id="enm_cmn_pieces_dif_HD-image" name="enm_cmn_pieces_dif_HD-image">
+            <init_from>./textures/enm_cmn_pieces_dif_HD.dds</init_from>
+        </image>
+        <image id="enm_cmn_pieces_spc_HD-image" name="enm_cmn_pieces_spc_HD-image">
+            <init_from>./textures/enm_cmn_pieces_spc_HD.dds</init_from>
+        </image>
+        <image id="enm_cmn_pieces_nrm_HD-image" name="enm_cmn_pieces_nrm_HD-image">
+            <init_from>./textures/enm_cmn_pieces_nrm_HD.dds</init_from>
+        </image>
+        <image id="enm_cmn_pieces_ref_HD-image" name="enm_cmn_pieces_ref_HD-image">
+            <init_from>./textures/enm_cmn_pieces_ref_HD.dds</init_from>
+        </image>
+        <image id="enm_cmn_pieces_fal_HD-image" name="enm_cmn_pieces_fal_HD-image">
+            <init_from>./textures/enm_cmn_pieces_fal_HD.dds</init_from>
+        </image>
+    </library_images>
+    <library_materials>
+        <material id="enm_spina_bodyID" name="enm_spina_body">
+            <instance_effect url="#enm_spina_body-effect" />
+        </material>
+        <material id="enm_spina_metalID" name="enm_spina_metal">
+            <instance_effect url="#enm_spina_metal-effect" />
+        </material>
+        <material id="enm_common_piecesID" name="enm_common_pieces">
+            <instance_effect url="#enm_common_pieces-effect" />
+        </material>
+    </library_materials>
+    <library_effects>
+        <effect id="enm_spina_body-effect" name="enm_spina_body-effect">
+            <profile_COMMON>
+                <newparam sid="enm_spina_body_dif_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_dif_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_dif_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_dif_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_spina_body_spc_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_spc_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_spc_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_spc_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_spina_body_nrm_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_nrm_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_nrm_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_nrm_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_spina_body_ref_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_ref_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_ref_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_ref_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_spina_body_fal_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_fal_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_fal_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_fal_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <technique sid="COMMON">
+                    <phong>
+                        <diffuse>
+                            <texture texture="enm_spina_body_dif_HD-image-sampler" texcoord="UVSET0" />
+                            <color>1.000000 1.000000 1.000000 1</color>
+                        </diffuse>
+                    </phong>
+                </technique>
+            </profile_COMMON>
+        </effect>
+        <effect id="enm_spina_metal-effect" name="enm_spina_metal-effect">
+            <profile_COMMON>
+                <newparam sid="enm_spina_body_dif_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_dif_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_dif_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_dif_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_spina_body_spc_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_spc_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_spc_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_spc_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_spina_body_nrm_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_nrm_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_nrm_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_nrm_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_spina_metal_ref_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_metal_ref_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_metal_ref_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_metal_ref_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_spina_body_fal_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_spina_body_fal_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_spina_body_fal_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_spina_body_fal_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <technique sid="COMMON">
+                    <phong>
+                        <diffuse>
+                            <texture texture="enm_spina_body_dif_HD-image-sampler" texcoord="UVSET0" />
+                            <color>1.000000 1.000000 1.000000 1</color>
+                        </diffuse>
+                    </phong>
+                </technique>
+            </profile_COMMON>
+        </effect>
+        <effect id="enm_common_pieces-effect" name="enm_common_pieces-effect">
+            <profile_COMMON>
+                <newparam sid="enm_cmn_pieces_dif_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_cmn_pieces_dif_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_dif_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_cmn_pieces_dif_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_spc_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_cmn_pieces_spc_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_spc_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_cmn_pieces_spc_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_nrm_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_cmn_pieces_nrm_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_nrm_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_cmn_pieces_nrm_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_ref_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_cmn_pieces_ref_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_ref_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_cmn_pieces_ref_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_fal_HD-image-surface">
+                    <surface type="2D">
+                        <init_from>enm_cmn_pieces_fal_HD-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="enm_cmn_pieces_fal_HD-image-sampler">
+                    <sampler2D>
+                        <source>enm_cmn_pieces_fal_HD-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <technique sid="COMMON">
+                    <phong>
+                        <diffuse>
+                            <texture texture="enm_cmn_pieces_dif_HD-image-sampler" texcoord="UVSET0" />
+                            <color>1.000000 1.000000 1.000000 1</color>
+                        </diffuse>
+                    </phong>
+                </technique>
+            </profile_COMMON>
+        </effect>
+    </library_effects>
+    <library_geometries>
+        <geometry id="enm_spina_brk005-geometry" name="enm_spina_brk005-geometry">
+            <mesh>
+                <source id="enm_spina_brk005-geometry-position">
+                    <float_array id="enm_spina_brk005-geometry-position-array" count="216">0.0724079 -0.0038143 -0.13061 0.0145561 -0.0136324 0.0919471 0.0344352 -0.0070526 0.0965087 0.034834 -0.0102092 -0.15048 -0.0350559 0.00334 -0.170898 -0.0458965 -0.0030842 -0.0199036 -0.0301678 -0.0079608 -0.000986 -0.0301678 -0.0079608 -0.000986 0.0145561 -0.0136324 0.0919471 -0.0235915 -0.0094756 0.0228636 0.0044996 -0.0363147 0.0366558 -0.0338218 -0.0342745 0.0151612 -0.0377519 -0.0341203 0.0359815 0.0065091 -0.0347255 0.0162243 -0.0276446 -0.0179151 0.0041884 0.0069729 -0.0187733 0.0052648 0.036927 -0.0042356 0.0343409 0.0329631 -0.0063384 0.0546483 0.0343756 0.0111937 0.0232044 0.0044996 -0.0363147 0.0366558 0.0227911 0.0023567 0.0590395 0.0329631 -0.0063384 0.0546483 0.0227911 0.0023567 0.0590395 -0.0015098 -0.0022765 0.0553646 -0.0168757 0.0156894 0.0234089 0.0004331 0.0152603 0.0239471 -0.0037905 -0.0067267 0.0492057 -0.0015098 -0.0022765 0.0553646 -0.0037905 -0.0067267 0.0492057 0.0242036 0.0198888 0.0275956 0.0242036 0.0198888 0.0275956 0.0069729 -0.0187733 0.0052648 0.0343756 0.0111937 0.0232044 -0.0276446 -0.0179151 0.0041884 -0.0037905 -0.0067267 0.0492057 -0.0377519 -0.0341203 0.0359815 -0.0168757 0.0156894 0.0234089 -0.0338218 -0.0342745 0.0151612 0.0724079 -0.0038143 -0.13061 0.020462 0.0187314 -0.133877 0.034834 -0.0102092 -0.15048 0.0553007 0.024221 -0.114636 -0.043538 0.0323324 -0.154002 -0.0350559 0.00334 -0.170898 0.0145561 -0.0136324 0.0919471 0.0209609 0.0226863 0.0941941 0.0344352 -0.0070526 0.0965087 0.0025099 0.0165793 0.0899602 -0.0350559 0.00334 -0.170898 -0.0535998 0.0263696 -0.0138551 -0.0458965 -0.0030842 -0.0199036 -0.043538 0.0323324 -0.154002 -0.0235915 -0.0094756 0.0228636 0.0025099 0.0165793 0.0899602 0.0145561 -0.0136324 0.0919471 -0.0328971 0.0204374 0.0258397 -0.0390011 0.0218434 0.0037034 -0.0301678 -0.0079608 -0.000986 -0.0301678 -0.0079608 -0.000986 -0.0390011 0.0218434 0.0037034 0.0344352 -0.0070526 0.0965087 0.0553007 0.024221 -0.114636 0.0724079 -0.0038143 -0.13061 0.0209609 0.0226863 0.0941941 0.020462 0.0187314 -0.133877 0.0209609 0.0226863 0.0941941 0.0025099 0.0165793 0.0899602 0.0553007 0.024221 -0.114636 -0.043538 0.0323324 -0.154002 -0.0390011 0.0218434 0.0037034 -0.0535998 0.0263696 -0.0138551 -0.0328971 0.0204374 0.0258397 </float_array>
+                    <technique_common>
+                        <accessor source="#enm_spina_brk005-geometry-position-array" count="72" stride="3">
+                            <param name="X" type="float" />
+                            <param name="Y" type="float" />
+                            <param name="Z" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="enm_spina_brk005-geometry-normal">
+                    <float_array id="enm_spina_brk005-geometry-normal-array" count="153">0.17465 -0.984629 0.001962 0.200977 -0.979414 0.018888 0.306207 -0.951221 0.037633 -0.027471 -0.9991 -0.032334 -0.17741 -0.982292 -0.060228 -0.231413 -0.971129 -0.057932 -0.117409 -0.992459 -0.035212 0.012081 -0.9977 -0.066703 0.242193 -0.870634 0.428181 -0.655607 -0.595842 -0.463844 -0.812967 -0.337655 0.474419 0.387414 -0.80892 -0.442221 -0.60959 0.168948 -0.774504 0.327125 -0.11774 -0.937617 0.775254 -0.559745 -0.292688 0.358596 -0.706627 0.609989 0.41669 0.155177 -0.895706 -0.039202 -0.486613 0.872738 -0.230856 -0.49965 0.834898 -0.69446 0.511813 -0.505741 0.039202 0.486612 -0.872738 -0.699255 -0.211097 0.682994 0.039203 0.486612 -0.872738 0.305052 0.595118 -0.74349 0.331995 0.592363 -0.734088 0.319855 0.580122 -0.749101 0.309185 0.606197 -0.732755 0.337552 0.559151 -0.757238 0.330737 0.545533 -0.770069 -0.216619 -0.022184 0.976004 -0.216618 -0.022184 0.976004 -0.968269 -0.236894 -0.079596 -0.922639 -0.292841 0.25096 -0.921144 -0.293428 0.255722 -0.884964 -0.309886 0.347578 -0.841076 -0.306027 0.446025 -0.888976 -0.310082 0.337004 -0.85302 -0.317931 0.413856 -0.864959 -0.317502 0.388636 0.89457 0.420747 0.150721 0.881204 0.447184 0.153316 0.879993 0.449488 0.153537 0.89605 0.417696 0.150415 0.04278 0.998754 0.025703 -0.293218 0.955913 -0.015935 -0.214286 0.97674 -0.007795 -0.146552 0.98906 -0.01683 0.192748 0.979437 0.059597 0.150226 0.98789 0.038803 0.231414 0.971129 0.057932 0.088096 0.995935 0.018794 </float_array>
+                    <technique_common>
+                        <accessor source="#enm_spina_brk005-geometry-normal-array" count="51" stride="3">
+                            <param name="X" type="float" />
+                            <param name="Y" type="float" />
+                            <param name="Z" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="enm_spina_brk005-geometry-uv">
+                    <float_array id="enm_spina_brk005-geometry-uv-array" count="108">-0.98256 0.559119 -0.963526 0.317929 -0.991572 0.317929 -0.952849 0.571802 -0.906693 0.586584 -0.891949 0.432339 -0.907148 0.411519 -0.913575 0.387249 -0.447284 0.189099 -0.415265 0.207753 -0.415265 0.189099 -0.447745 0.207753 -0.415265 0.224868 -0.448184 0.224868 -0.478852 0.207541 -0.479407 0.180662 -0.475335 0.233774 -0.479674 0.183513 -0.45023 0.179723 -0.423286 0.233326 -0.439002 0.233934 -0.477349 0.180396 -0.470889 0.232294 -0.356534 0.346966 -0.33663 0.30704 -0.356396 0.293567 -0.336261 0.348601 -0.361386 0.321855 0.134562 0.00144798 0.202692 0.194616 0.200721 -0.0121289 0.133729 0.188783 0.319463 0.189156 0.319463 -0.00185096 0.661674 -0.00185096 0.687526 0.189156 0.687526 -0.00185096 0.661674 0.189156 0.446508 0.189156 0.446508 -0.00185096 0.554551 -0.00185096 0.554551 0.189156 0.499033 0.189156 0.499033 -0.00185096 0.857696 0.168792 0.856217 0.00683498 0.742919 0.744986 0.712149 0.222828 0.660558 0.210644 0.845905 0.731107 0.560173 0.709395 0.554076 0.358135 0.515203 0.381502 0.568603 0.315082 </float_array>
+                    <technique_common>
+                        <accessor source="#enm_spina_brk005-geometry-uv-array" count="54" stride="2">
+                            <param name="S" type="float" />
+                            <param name="T" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <vertices id="enm_spina_brk005-geometry-vertex">
+                    <input semantic="POSITION" source="#enm_spina_brk005-geometry-position" />
+                </vertices>
+                <triangles material="enm_spina_body" count="6">
+                    <input semantic="VERTEX" source="#enm_spina_brk005-geometry-vertex" offset="0" />
+                    <input semantic="NORMAL" source="#enm_spina_brk005-geometry-normal" offset="1" />
+                    <input semantic="TEXCOORD" source="#enm_spina_brk005-geometry-uv" offset="2" set="0" />
+                    <p>6 6 6 5 5 5 4 4 4 1 1 1 0 0 0 2 2 2 0 0 0 1 1 1 3 3 3 7 6 6 8 1 1 9 7 7 8 1 1 7 6 6 3 3 3 4 4 4 3 3 3 7 6 6 </p>
+                </triangles>
+                <triangles material="enm_spina_metal" count="24">
+                    <input semantic="VERTEX" source="#enm_spina_brk005-geometry-vertex" offset="0" />
+                    <input semantic="NORMAL" source="#enm_spina_brk005-geometry-normal" offset="1" />
+                    <input semantic="TEXCOORD" source="#enm_spina_brk005-geometry-uv" offset="2" set="0" />
+                    <p>21 15 15 20 17 17 19 8 8 23 18 18 10 8 8 22 17 17 27 18 18 26 21 21 19 8 8 32 16 16 31 13 13 30 22 22 10 8 8 16 14 14 17 15 15 16 14 14 10 8 8 16 14 14 13 11 11 16 14 14 10 8 8 16 14 14 13 11 11 16 14 14 15 13 13 16 14 14 13 11 11 16 14 14 15 13 13 18 16 16 14 12 12 15 13 13 13 11 11 15 13 13 14 12 12 15 13 13 24 19 19 15 13 13 14 12 12 15 13 13 24 19 19 15 13 13 25 20 20 15 13 13 24 19 19 15 13 13 25 20 20 29 22 22 13 11 11 11 9 9 14 12 12 11 9 9 13 11 11 11 9 9 10 8 8 11 9 9 13 11 11 11 9 9 10 8 8 12 10 10 28 21 21 12 10 10 10 8 8 33 12 23 34 21 24 36 19 26 34 21 24 33 12 23 35 10 25 37 9 27 35 10 25 33 12 23 </p>
+                </triangles>
+                <triangles material="enm_common_pieces" count="27">
+                    <input semantic="VERTEX" source="#enm_spina_brk005-geometry-vertex" offset="0" />
+                    <input semantic="NORMAL" source="#enm_spina_brk005-geometry-normal" offset="1" />
+                    <input semantic="TEXCOORD" source="#enm_spina_brk005-geometry-uv" offset="2" set="0" />
+                    <p>38 23 28 39 24 29 41 26 31 39 24 29 38 23 28 39 24 29 40 25 30 39 24 29 38 23 28 39 24 29 40 25 30 42 27 32 43 28 33 42 27 32 40 25 30 45 30 35 44 29 34 46 29 36 44 29 34 45 30 35 47 30 37 48 31 33 49 32 38 51 31 32 49 32 38 48 31 33 49 32 38 50 33 39 49 32 38 48 31 33 49 32 38 50 33 39 56 37 42 57 38 43 56 37 42 50 33 39 53 35 37 52 34 40 54 35 34 52 34 40 53 35 37 52 34 40 55 36 41 52 34 40 53 35 37 52 34 40 55 36 41 58 38 43 59 37 42 58 38 43 55 36 41 61 40 44 60 39 36 62 41 45 60 39 36 61 40 44 63 42 35 64 43 46 65 44 47 67 46 49 65 44 47 64 43 46 66 45 48 64 43 46 66 45 48 64 43 46 66 45 48 64 43 46 71 50 53 64 43 46 71 50 53 64 43 46 71 50 53 64 43 46 69 48 51 68 47 50 69 48 51 64 43 46 69 48 51 68 47 50 70 49 52 </p>
+                </triangles>
+            </mesh>
+        </geometry>
+    </library_geometries>
+    <library_controllers>
+        <controller id="enm_spina_brk005-controller">
+            <skin source="#enm_spina_brk005-geometry">
+                <bind_shape_matrix>1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0</bind_shape_matrix>
+                <source id="enm_spina_brk005-controller-Joints">
+                    <Name_array id="enm_spina_brk005-controller-Joints-array" count="1">enm_spina_brk005 </Name_array>
+                    <technique_common>
+                        <accessor source="#enm_spina_brk005-controller-Joints-array" count="1">
+                            <param type="name" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="enm_spina_brk005-controller-Matrices">
+                    <float_array id="enm_spina_brk005-controller-Matrices-array" count="16">1 -0 0 -0 -0 1 -0 0 0 -0 1 -0 -0 0 -0 1 </float_array>
+                    <technique_common>
+                        <accessor source="#enm_spina_brk005-controller-Matrices-array" count="1" stride="16">
+                            <param type="float4x4" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="enm_spina_brk005-controller-Weights">
+                    <float_array id="enm_spina_brk005-controller-Weights-array" count="1">1 </float_array>
+                    <technique_common>
+                        <accessor source="#enm_spina_brk005-controller-Weights-array" count="1">
+                            <param type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <joints>
+                    <input semantic="JOINT" source="#enm_spina_brk005-controller-Joints" />
+                    <input semantic="INV_BIND_MATRIX" source="#enm_spina_brk005-controller-Matrices" />
+                </joints>
+                <vertex_weights count="72">
+                    <input semantic="JOINT" offset="0" source="#enm_spina_brk005-controller-Joints" />
+                    <input semantic="WEIGHT" offset="1" source="#enm_spina_brk005-controller-Weights" />
+                    <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </vcount>
+                    <v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </v>
+                </vertex_weights>
+            </skin>
+        </controller>
+    </library_controllers>
+    <library_visual_scenes>
+        <visual_scene id="SonicGLvlScene" name="SonicGLvlScene">
+            <node id="enm_spina_brk005" sid="enm_spina_brk005" name="enm_spina_brk005">
+                <instance_controller url="#enm_spina_brk005-controller">
+                    <bind_material>
+                        <technique_common>
+                            <instance_material symbol="enm_spina_body" target="#enm_spina_bodyID" />
+                            <instance_material symbol="enm_spina_metal" target="#enm_spina_metalID" />
+                            <instance_material symbol="enm_common_pieces" target="#enm_common_piecesID" />
+                        </technique_common>
+                    </bind_material>
+                </instance_controller>
+            </node>
+            <node id="enm_spina_brk005" sid="enm_spina_brk005" name="enm_spina_brk005" type="JOINT">
+                <matrix>1 0 0 -0 0 1 0 -0 0 0 1 -0 0 0 0 1 </matrix>
+                <extra>
+                    <technique profile="FCOLLADA">
+                        <visibility>1.000000</visibility>
+                    </technique>
+                </extra>
+            </node>
+        </visual_scene>
+    </library_visual_scenes>
+    <scene>
+        <instance_visual_scene url="#SonicGLvlScene" />
+    </scene>
+</COLLADA>

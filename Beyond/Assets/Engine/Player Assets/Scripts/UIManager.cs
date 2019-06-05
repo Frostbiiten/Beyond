@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
 
     public List<GameObject> itemsThatStopUnpause = new List<GameObject>();
 
+    public List<MonoBehaviour> monosToDisablePause = new List<MonoBehaviour>();
+
     public Animator redRingAnim;
     public Image[] redRings;
 
@@ -51,6 +53,10 @@ public class UIManager : MonoBehaviour
         {
             if(paused == true)
             {
+                for(int b = 0; b < monosToDisablePause.Count; b++)
+                {
+                    monosToDisablePause[b].enabled = false;
+                }
                 for(int q = 0; q < objectsToRemovePause.Count; q++)
                 {
                     objectsToRemovePause[q].SetActive(false);
@@ -77,6 +83,11 @@ public class UIManager : MonoBehaviour
 
                 if(o == 0)
                 {
+                    for (int b = 0; b < monosToDisablePause.Count; b++)
+                    {
+                        monosToDisablePause[b].enabled = true;
+                    }
+
                     for (int e = 0; e < objectsToRemovePause.Count; e++)
                     {
                         objectsToRemovePause[e].SetActive(true);
@@ -143,7 +154,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLives()
     {
-        livesText.text = playerCore.playerHpManager.lives.ToString();
+        livesText.text = Mathf.Clamp(playerCore.playerHpManager.lives, 0, 999).ToString();
     }
 
 

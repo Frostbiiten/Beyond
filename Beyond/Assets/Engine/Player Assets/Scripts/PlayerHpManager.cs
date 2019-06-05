@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHpManager : MonoBehaviour
 {
@@ -71,9 +72,6 @@ public class PlayerHpManager : MonoBehaviour
     [Tooltip("The prefab for dropped rings")]
     public GameObject ringObject;
 
-    [Tooltip("How long should controls be locked after getting hurt?")]
-    public float controlLockTime;
-
     [Tooltip("How long is the player invincible after hit")]
     public float recoveryTime;
 
@@ -116,6 +114,10 @@ public class PlayerHpManager : MonoBehaviour
 
     public CheckPoint checkpoint;
 
+    public bool dying = false;
+
+    public string gameOverScene;
+
     void Start()
     {
         //TO FIX RING LOSS GLITCH?
@@ -146,7 +148,7 @@ public class PlayerHpManager : MonoBehaviour
         #endregion
 
         #region Basic Conditions
-        if (playerCore.ball == true || playerCore.playerStompSlide.sliding == true || playerCore.playerStompSlide.stomping == true) // Add || for more conditions
+        if (playerCore.ball == true || playerCore.playerStompSlide.sliding == true || playerCore.playerStompSlide.stomping == true || playerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide Kick")) // Add || for more conditions
         {
             attacking = true;
         }
@@ -167,6 +169,11 @@ public class PlayerHpManager : MonoBehaviour
             {
                 rings[e].ring.transform.position = theVoid;
             }
+        }
+
+        if(playerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("DamageGround") || playerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Getup"))
+        {
+            playerCore.inputCore.InputLockForFrame();
         }
     }
 
@@ -223,7 +230,7 @@ public class PlayerHpManager : MonoBehaviour
     }
     #endregion
 
-    void CollisionEvent(Collision collision)
+    public void CollisionEvent(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Hazard"))
         {
@@ -238,7 +245,6 @@ public class PlayerHpManager : MonoBehaviour
                     {
                         StartCoroutine(StopRingCollection());
                         StartCoroutine(LoseRings(hp));
-                        StartCoroutine(playerCore.inputCore.InputLock(controlLockTime));
                         StartCoroutine(Recovery());
                         playerCore.playerAnimationManager.playerAnimator.Play("Damage");
                         hp = 0f;
@@ -256,8 +262,54 @@ public class PlayerHpManager : MonoBehaviour
                 {
                     UpdateLives();
                     lives--;
-                    Debug.Log("Supposed to die");
-                    StartCoroutine(Die());
+                    if(dying == false)
+                    {
+                        StartCoroutine(Die());
+                    }
+                    playerCore.playerAnimationManager.playerAnimator.Play("Die");
+                    //StartCoroutine(Die);
+                }
+            }
+            UpdateRings();
+        }
+    }
+
+    public void ExternalHurt(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Hazard"))
+        {
+            if (invincible == false && attacking == false && recovering == false)
+            {
+                bounceBack = -playerCore.playerAnimationManager.playerSkin.forward;
+                bounceBack.y = bounceBackY;
+                playerCore.rb.velocity = bounceBack * bounceBackPower;
+                if (hp > 0f)
+                {
+                    if (shield == Shield.none)
+                    {
+                        StartCoroutine(StopRingCollection());
+                        StartCoroutine(LoseRings(hp));
+                        StartCoroutine(Recovery());
+                        playerCore.playerAnimationManager.playerAnimator.Play("Damage");
+                        hp = 0f;
+                    }
+                    else
+                    {
+                        shield = 0;
+                        StartCoroutine(Recovery());
+                        playerCore.playerAnimationManager.playerAnimator.Play("Damage");
+                    }
+
+                    //ScriptCore.SoundCore.mainPlayerAudio.PlayOneShot(ScriptCore.SoundCore.hurt[Random.Range(0, ScriptCore.SoundCore.hurt.Count - 1)]);
+                }
+                else
+                {
+                    UpdateLives();
+                    lives--;
+                    if (dying == false)
+                    {
+                        StartCoroutine(Die());
+                    }
                     playerCore.playerAnimationManager.playerAnimator.Play("Die");
                     //StartCoroutine(Die);
                 }
@@ -268,10 +320,20 @@ public class PlayerHpManager : MonoBehaviour
 
     public IEnumerator Die()
     {
+        
+        dying = true;
         playerCore.fadeAnimator.Play("FadeOut");
         yield return new WaitForSeconds(2f);
-        transform.position = checkpoint.transform.position + checkpoint.offset;
-        
+        if(lives < 0)
+        {
+            SceneManager.LoadScene(gameOverScene);
+        }
+        else
+        {
+            transform.position = checkpoint.transform.position + checkpoint.offset;
+        }
+
+        dying = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -307,6 +369,7 @@ public class PlayerHpManager : MonoBehaviour
                 hp += 1;
                 UpdateRings();
                 SpawnRingShine(other.transform.position);
+                SoundCore.nonSpacialSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.ring, 0.3f);
             }
 
             if (other.CompareTag("Static Ring"))
@@ -316,6 +379,7 @@ public class PlayerHpManager : MonoBehaviour
                 hp += 1;
                 SpawnRingShine(other.transform.position);
                 UpdateRings();
+                SoundCore.nonSpacialSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.ring, 0.3f);
             }
         }
 

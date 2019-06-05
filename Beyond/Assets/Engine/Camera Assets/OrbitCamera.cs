@@ -47,6 +47,7 @@ public class OrbitCamera : MonoBehaviour
     public float freeDistance;
     public Transform realLookTarget;
     public bool playStart;
+    public Transform startTarget;
 
 
 
@@ -63,7 +64,7 @@ public class OrbitCamera : MonoBehaviour
     {
         if (state == 0)
         {
-            if (target)
+            if (target && !PlayerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartFast") || !PlayerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartNormal"))
             {
                 if (Vector3.Distance(transform.position, target.position) >= freeDistance)
                 {
@@ -117,6 +118,12 @@ public class OrbitCamera : MonoBehaviour
                 {
                     transform.LookAt(realLookTarget);
                 }
+            }
+
+            if(PlayerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartFast") || PlayerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartNormal"))
+            {
+                transform.position = startTarget.position;
+                transform.LookAt(target);
             }
 
         }

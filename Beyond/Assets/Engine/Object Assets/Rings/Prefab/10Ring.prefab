@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6575326577108981364}
   - component: {fileID: 837480981}
   m_Layer: 12
-  m_Name: StaticRing
+  m_Name: 10Ring
   m_TagString: Static Ring
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpAmount: 10
   fx: {fileID: 8070946218666843544, guid: bfc0842fb599f444e897772bcd474e03, type: 3}
+  sound: {fileID: 8300000, guid: 0d4cd652a2b9c1441a47082c7da55e83, type: 3}
 --- !u!1 &4618431144685264363
 GameObject:
   m_ObjectHideFlags: 0

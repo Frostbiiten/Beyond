@@ -11,6 +11,10 @@ public class CheckPoint : MonoBehaviour
     public Transform r;
     public Transform m;
     public BoxCollider c;
+    public Animator poleAnimator;
+    public GameObject laser;
+    public GameObject lightL;
+    public GameObject lightR;
     void Update()
     {
         if(l && r && c)
@@ -29,7 +33,33 @@ public class CheckPoint : MonoBehaviour
         {
             PlayerCore pc;
             pc = other.gameObject.GetComponent<PlayerCore>();
-            pc.playerHpManager.checkpoint = this;
+            Enter(pc);
+
         }
+    }
+
+    public void Enter(PlayerCore pc)
+    {
+        if(pc.playerHpManager.checkpoint != this)
+        {
+            if (pc.playerHpManager.checkpoint)
+            {
+                pc.playerHpManager.checkpoint.Out(pc);
+            }
+
+            pc.playerHpManager.checkpoint = this;
+            poleAnimator.Play("In");
+            laser.SetActive(false);      
+            lightL.SetActive(true);
+            lightR.SetActive(true);
+        }
+    }
+
+    public void Out(PlayerCore pc)
+    {
+        poleAnimator.Play("Out");
+        laser.SetActive(true);
+        lightL.SetActive(false);
+        lightR.SetActive(false);
     }
 }

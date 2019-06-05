@@ -6,6 +6,7 @@ public class BaseEnemy : MonoBehaviour {
     public float hp;
     public GameObject debris;
 
+
     void OnTriggerEnter(Collider other)
     {
 

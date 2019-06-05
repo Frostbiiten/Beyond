@@ -30,6 +30,8 @@ public class PlayerCore : MonoBehaviour
     public CameraShake camShake;
     public PlayerStompSlide playerStompSlide;
     public PlayerSideStep PlayerSideStep;
+    public PlayerRailGrindVer2 railGrind;
+    public OrbitCamV2 orbitCam;
 
     #endregion
 

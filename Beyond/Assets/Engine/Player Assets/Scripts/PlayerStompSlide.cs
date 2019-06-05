@@ -11,11 +11,19 @@ public class PlayerStompSlide : MonoBehaviour
     public bool stompLand;
     public bool crouch;
 
+    public float dTap;
+    public float tapSpeed = 2f;
+
     void Update()
     {
-
+        if(dTap > 0f)
+        {
+            dTap -= Time.deltaTime * tapSpeed;
+        }
+        
         if (Input.GetButtonDown("Slide"))
         {
+            dTap++;
             if(PlayerCore.airbornePhysics.enabled == true)
             {
                 PlayerCore.playerAnimationManager.playerAnimator.Play("Stomp");
@@ -27,8 +35,13 @@ public class PlayerStompSlide : MonoBehaviour
                 if(PlayerCore.velocityMagnitude >= 0.5f)
                 PlayerCore.playerAnimationManager.playerAnimator.Play("Slide");
                 sliding = true;
-
             }
+        }
+
+        if(dTap > 1.5f && PlayerCore.groundedPhysics.enabled == true)
+        {
+            dTap = 0f;
+            PlayerCore.playerAnimationManager.playerAnimator.Play("Slide Kick");
         }
         crouch = Input.GetButton("Slide") && PlayerCore.groundedPhysics.enabled == true&& PlayerCore.velocityMagnitude < 0.5f;
         if (Input.GetButtonUp("Slide") || !Input.GetButton("Slide") || PlayerCore.velocityMagnitude < 0.5f)

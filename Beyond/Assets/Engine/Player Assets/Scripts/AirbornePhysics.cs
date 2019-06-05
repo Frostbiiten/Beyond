@@ -21,6 +21,8 @@ public class AirbornePhysics : MonoBehaviour
     [Tooltip("extra gravity to be applied")]
     public float extraGravity;
 
+    public bool allowPlayerToTurnIntoBall = false;
+
 
     // Update is called once per frame
     void FixedUpdate()
@@ -34,24 +36,22 @@ public class AirbornePhysics : MonoBehaviour
             playerCore.rb.AddForce(playerCore.playerForward.forward * airMovementSpeed);
         }
 
-        if (Input.GetButton("Jump"))
-        {
-            ball = true;
-        }
-
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(Vector3.zero), 0.05f);
     }
 
     void Update()
     {
-        if (Input.GetButton("Jump"))
+        if(allowPlayerToTurnIntoBall == true)
         {
-            ball = true;
-        }
+            if (Input.GetButton("Jump"))
+            {
+                ball = true;
+            }
 
-        if (Input.GetButtonDown("Jump")) // To make sure
-        {
-            ball = true;
+            if (Input.GetButtonDown("Jump")) // To make sure
+            {
+                ball = true;
+            }
         }
     }
 }

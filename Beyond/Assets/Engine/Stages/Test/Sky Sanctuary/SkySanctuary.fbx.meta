@@ -1,0 +1,404 @@
+fileFormatVersion: 2
+guid: 1928027f145cf9249ab18bfaa461d36a
+ModelImporter:
+  serializedVersion: 25
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_builparts_km1_arch01_dif
+    second: {fileID: 2800000, guid: bf23d10f5cdb25c45b898c27a33890b1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_etc_ay2_sphere01_dif
+    second: {fileID: 2800000, guid: 46ccf6b22986dc74381f9a5aa7ab41b8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_etc_jh1_cloudchip01_dif
+    second: {fileID: 2800000, guid: ff8b0fdcbe873644a96ac97cbd4ca065, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_etc_km1_lightline01_dif
+    second: {fileID: 2800000, guid: 2d15648b77761a44d828e08e889dfcf0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_etc_km1_sphere01_dif
+    second: {fileID: 2800000, guid: af01abb6630b36044ac43489041694c7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_etc_km1_sphere03_dif
+    second: {fileID: 2800000, guid: 2c3ea979a347c774bb0d95e81b1d7201, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_etc_km1_sphere04_dif
+    second: {fileID: 2800000, guid: 55a4d8c219b59ea458dc17ecdeb994ec, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_etc_tn1_LightingLineB_dif
+    second: {fileID: 2800000, guid: 1469f1cfe87d33a42a21481322105232, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_glass_tn1_hexglass_dif
+    second: {fileID: 2800000, guid: 73dcb73685e7d244dacacdb68197007b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_ground_km1_greenglass01_dif
+    second: {fileID: 2800000, guid: 89f353f662020924196063ea9d483355, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_ground_km1_sand01_dif
+    second: {fileID: 2800000, guid: 28a4ccfac55f8c343a81336abde0c569, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_metal_jh1_grind01_dif
+    second: {fileID: 2800000, guid: a94e4200df863e34bbe3f1aa8aa0b030, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_metal_km1_greenmetal01_dif
+    second: {fileID: 2800000, guid: 89d196b988d33d34887bbee6bc58506a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_metal_km1_rockhold02_dif
+    second: {fileID: 2800000, guid: 3ed75e4f9dccc9444b221f87d5b960a9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_metal_tn1_rockhold01_dif
+    second: {fileID: 2800000, guid: 8eae3bd95ae1cd8499093593278626c5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_km1_bush01_dif
+    second: {fileID: 2800000, guid: f32ca25392001c945ac8d4288501d082, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_km1_farplant01_dif
+    second: {fileID: 2800000, guid: e4565afccab314649b1e03cf67260fc1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_km1_flesyplant01_dif
+    second: {fileID: 2800000, guid: d70c1a809b42add4daeabc36ae644d92, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_km1_flesyplant02_dif
+    second: {fileID: 2800000, guid: a618b99083a2e8e499193c22895f1be5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_km1_nearplant01_dif
+    second: {fileID: 2800000, guid: d9cc3e54d9a163542b74fa3443295e7a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_km1_nearplant02_dif
+    second: {fileID: 2800000, guid: 5ad472fb0eaeb5d4a9710270aa2b041d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_km1_weed01_dif
+    second: {fileID: 2800000, guid: a327ec531b0c95a4fa2a78b9ea2141b5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_tn1_farpillar_dif
+    second: {fileID: 2800000, guid: a021936edcf30df40a5e7e99c7975d98, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_yk1_olive01_dif
+    second: {fileID: 2800000, guid: 9a81704bd17f3344f91cf339d792cbcc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_yk1_shida01_dif
+    second: {fileID: 2800000, guid: 6b6605266ab64504885d81b7f1e66194, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_plant_yk1_wildplant01_dif
+    second: {fileID: 2800000, guid: 651984ec08df52f459c162fc99639a6c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_ay2_wall01_dif
+    second: {fileID: 2800000, guid: 5a4eaf01d074a154bbc1d16daa6ab505, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_fy1_warp_dif
+    second: {fileID: 2800000, guid: 13137a22ea9448142934b633c4c88cdd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_in1_rollingfloor01_dif
+    second: {fileID: 2800000, guid: 1f5610fb93bf15f4ba797a049d7ddea8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_in1_rollingfloor02_dif
+    second: {fileID: 2800000, guid: 97b02813a191e0445b7d8b3f43c91b5d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_jh1_relief01_dif
+    second: {fileID: 2800000, guid: b894070444c10c740a70822e307dc10b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_FVroad01_dif
+    second: {fileID: 2800000, guid: 1d4133f74c74d1b46b3067daba91c3ae, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_crystal01_dif
+    second: {fileID: 2800000, guid: 0903773ee0a0840409e11d2e834b1831, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_farwall01_dif
+    second: {fileID: 2800000, guid: 0b5395166c56d56408127fe54f44fe38, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_farwall02_dif
+    second: {fileID: 2800000, guid: bafd0fc8320ab574685f2fa946c61e6a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_farwall03_dif
+    second: {fileID: 2800000, guid: ebc18221f2d73344aaaa1bb18bfaea52, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_farwall04_dif
+    second: {fileID: 2800000, guid: 0f893c8cca11a3149b2189edda74b3be, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_farwall05_dif
+    second: {fileID: 2800000, guid: 5d1ff5c0b61e79146898873681475dd6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_moss01_dif
+    second: {fileID: 2800000, guid: 7d7cb17ba5a89a54899bbf5fb6aa04f8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_moss02_dif
+    second: {fileID: 2800000, guid: 3a6a766230e6f2746917106780854e44, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_normalpillar01_dif
+    second: {fileID: 2800000, guid: 68b375c722af79a4187b106d8a43c8b0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_relief01_dif
+    second: {fileID: 2800000, guid: 6dbf453dc71a35f4da58685c3a4e6601, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_relief02_dif
+    second: {fileID: 2800000, guid: 9b18050a6261bf440b9dd00927d2c261, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_relief03_dif
+    second: {fileID: 2800000, guid: 618a745a6b6377647a9317ebdcdfe0cb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_wall01_dif
+    second: {fileID: 2800000, guid: 77c81bdc8647b7b40927070643d6a389, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_wall02_dif
+    second: {fileID: 2800000, guid: 34b3293f289f87d44b63bb70894da9d5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_wall03_dif
+    second: {fileID: 2800000, guid: 4192aa6c3f819604ea09f2f2ce0cd217, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_wall04_dif
+    second: {fileID: 2800000, guid: e2f91a49c834c784f9350b66a264216d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_km1_wall05_dif
+    second: {fileID: 2800000, guid: e4cf752420a5e7541b0a9cdc6d764dba, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_tn1_pillarbarCplane_dif
+    second: {fileID: 2800000, guid: b4caf84a5ed0835478c2511806ce9726, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_yk1_arch01_dif
+    second: {fileID: 2800000, guid: 810c5388418a13749aaa4d84f21254f1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_yk1_ground01_dif
+    second: {fileID: 2800000, guid: 5e2a18a5ddf85914abcef9fb2718866d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_rock_yk1_wall01_dif
+    second: {fileID: 2800000, guid: ae94f9c395123604f909efba228a245e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_tree_km1_leaf01_dif
+    second: {fileID: 2800000, guid: 14f121e49569d7545b92f94ad69f108f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_tree_km1_roots01_dif
+    second: {fileID: 2800000, guid: 34ecc9afe24c80f488bd839642a14c80, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_tree_km1_roots02_dif
+    second: {fileID: 2800000, guid: cecb2698c02f940419a0fee1bdf587f9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_tree_yk1_leaf02_dif
+    second: {fileID: 2800000, guid: cc15ff8e3f663c846a43284ce65ad29c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_tree_yk1_trunk01_dif
+    second: {fileID: 2800000, guid: d68825d009cb85d46a101c3e87b0a980, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_water_km1_roadwater01_dif
+    second: {fileID: 2800000, guid: affc844374a6b4f43b7541f2ee0dae1b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_water_km1_sidewater01_dif
+    second: {fileID: 2800000, guid: 779d7978abbeeb84f97353be4fcc0ded, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_water_km1_sidewater02_dif
+    second: {fileID: 2800000, guid: 2ab1325b6ac598f4590bbdc017450603, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ssz_water_km1_sidewater03_dif
+    second: {fileID: 2800000, guid: 702cb49fb63cdd14783668b5f2082030, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: d1435f955a3c6b64291de9b8c857a9e8
 ModelImporter:
   serializedVersion: 25
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 134777865263868645
+    second: Trick7
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -32,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: 
+      name: Trick7
       takeName: 
-      internalID: 0
+      internalID: 134777865263868645
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 28.3
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

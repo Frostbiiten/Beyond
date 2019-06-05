@@ -16,8 +16,11 @@ public class InputCore : MonoBehaviour
     public bool JumpKeyDown;
     public bool JumpKey;
     public bool inputLock;
+    bool JumpKeyFix;
+    bool JKey;
+    public bool FixedUpdateKeyDown;
     #endregion
-    // Start is called before the first frame update
+
     void Update()
     {
         #region main conditions
@@ -36,6 +39,20 @@ public class InputCore : MonoBehaviour
         #endregion
     }
 
+    void FixedUpdate()
+    {
+        JumpKeyFix = JumpKey;
+        JumpKey = Input.GetButton("Jump");
+        FixedUpdateKeyDown = false;
+        if(JumpKey != JumpKeyFix)
+        {
+            if (JumpKey == true)
+            {
+                FixedUpdateKeyDown = true;
+            }
+        }
+    }
+
     #region Input Lock
     public IEnumerator InputLock(float time)
     {
@@ -44,5 +61,11 @@ public class InputCore : MonoBehaviour
         inputLock = false;
     }
 
+    public void InputLockForFrame()
+    {
+        JumpKeyDown = false;
+        JumpKey = false;
+        directionalInput = Vector2.zero;
+    }
     #endregion
 }

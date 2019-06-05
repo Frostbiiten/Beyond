@@ -5124,3 +5124,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpAmount: 1
   fx: {fileID: 7107032174507706731, guid: fde3a3f22a2f8094abbd927fae44f58b, type: 3}
+  sound: {fileID: 8300000, guid: e92f3fa76c258144b8e4f634f74148aa, type: 3}

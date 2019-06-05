@@ -10,6 +10,7 @@ public class PlayerHomingAttack : MonoBehaviour
     public bool homing;
     public RaycastHit homingRay;
     public Transform currentTarget;
+    public Transform altCurrentTarget;
     public float maxHomingDistance;
     public float homingSpeed;
     public float homingExplosionY;
@@ -27,11 +28,17 @@ public class PlayerHomingAttack : MonoBehaviour
     public Transform faceVelocity;
 
     int homingDetectionMask;
+
+    Vector3 homingInputRef;
+
+    int layerMask;
     void Start()
     {
         //oh =~ is opposite for mask
         //groundDetectionMask |= (int)PlayerLayerHelper.Layers.Homeable;
         homingDetectionMask = (int)PlayerLayerHelper.Layers.Homeable;
+
+        layerMask = ~((int)PlayerLayerHelper.Layers.NoPlayerCollide);
 
         //Calculate layermask to Raycast to. (Ignore "cube" && "sphere" layers)
         //int layerMask = ~((1 << cubeLayerIndex) | (1 << sphereLayerIndex));
@@ -49,32 +56,38 @@ public class PlayerHomingAttack : MonoBehaviour
         #region Homing Target Main
         homingTarget.gameObject.SetActive(!playerCore.grounded);
         homingTarget.LookAt(cam);
-        oldTarget = currentTarget;
 
         #endregion
 
         #region Main Raycast And Sort
         Physics.OverlapSphereNonAlloc(transform.position, maxHomingDistance, objectsWithinRange, homingDetectionMask, QueryTriggerInteraction.Collide);
         sortedTargets = SortForHoming(objectsWithinRange);
+        //if (Input.GetButtonDown("Jump"))
+        //{
+            homingInputRef = playerCore.velocity;
+        //}
         #endregion
 
         #region Homing Logic p1
-        if (sortedTargets.Count > 0 && playerCore.airbornePhysics.enabled == true)
+        oldTarget = currentTarget;
+        if (sortedTargets.Count > 0)
         {
-
-            homingTarget.position = sortedTargets[0].transform.position;
-            currentTarget = sortedTargets[0].transform;
-            homingIconAnim.enabled = true;
-            if (currentTarget != oldTarget)
+            if (playerCore.airbornePhysics.enabled == true)
             {
-                homingIconAnim.Play("Zoom");
+                homingTarget.position = sortedTargets[0].transform.position;
+                currentTarget = sortedTargets[0].transform;
             }
-        }
-        else
-        {
 
+        }
+
+        if (playerCore.airbornePhysics.enabled == false || currentTarget == null)
+        {
             currentTarget = null;
-            homingIconAnim.enabled = false;
+        }
+
+        if (currentTarget != oldTarget)
+        {
+            homingIconAnim.Play("Zoom");
         }
         #endregion
 
@@ -86,17 +99,18 @@ public class PlayerHomingAttack : MonoBehaviour
         }
         #endregion
 
-        // BIND TO INPUTCORE
         #region MAIN HOMING LOGIC P2
         if (playerCore.airbornePhysics.enabled == true)
         {
-            if (Input.GetButtonDown("Jump"))
+            if (playerCore.inputCore.FixedUpdateKeyDown)
             {
+                playerCore.playerAnimationManager.playerAnimator.Play("Air Ball");
                 if (currentTarget)
                 {
-                    if (Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, out homingRay, maxHomingDistance))
+                    if (Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, out homingRay, maxHomingDistance, layerMask, QueryTriggerInteraction.Collide))
                     {
-                        if (homingRay.collider.CompareTag("Homing Target") || homingRay.collider.CompareTag("Enemy"))
+                        
+                        if (homingRay.collider.CompareTag("Homing Target") || homingRay.collider.CompareTag("Enemy") || homingRay.collider == null)
                         {
                             homing = true;
                         }
@@ -150,8 +164,9 @@ public class PlayerHomingAttack : MonoBehaviour
             }
 
         }
-
-        homing = false;
+        int l = (int)PlayerLayerHelper.Layers.NoPlayerCollide;
+        if(other.gameObject.layer != l)
+            homing = false;
 
         #endregion
     }
@@ -165,7 +180,9 @@ public class PlayerHomingAttack : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        homing = false;
+        int l = (int)PlayerLayerHelper.Layers.NoPlayerCollide;
+        if (other.gameObject.layer != l)
+            homing = false;
     }
 
     #endregion
@@ -174,6 +191,7 @@ public class PlayerHomingAttack : MonoBehaviour
     public List<Collider> SortForHoming(Collider[] input)
     {
         List<Collider> outputNew = new List<Collider>();
+        List<Collider> outPutalt = new List<Collider>();
 
         for (int e = 0; e < input.Length; e++)
         {
@@ -182,10 +200,11 @@ public class PlayerHomingAttack : MonoBehaviour
                 if (input[e].CompareTag("Enemy") || input[e].CompareTag("Homing Target"))
                 {
                     Vector3 dir = (new Vector3(input[e].transform.position.x, transform.position.y, input[e].transform.position.z) - transform.position).normalized;
-                    if (Vector3.Dot(dir, playerCore.playerForward.forward) > 0)
+                    if (Vector3.Dot(dir, homingInputRef) > 0)
                     {
                         outputNew.Add(input[e]);
                     }
+                    outPutalt.Add(input[e]);
                 }
             }
 
@@ -198,7 +217,13 @@ public class PlayerHomingAttack : MonoBehaviour
               Vector3.Distance(transform.position, b.transform.position));
         });
 
-        return outputNew;
+        outPutalt.Sort(delegate (Collider a, Collider b)
+        {
+            return Vector3.Distance(transform.position, a.transform.position)
+        .CompareTo(
+              Vector3.Distance(transform.position, b.transform.position));
+        });
+        return outPutalt;
     }
 
     #endregion

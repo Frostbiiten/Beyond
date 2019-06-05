@@ -13,6 +13,7 @@ public class Options : MonoBehaviour
     public Bloom bloomLayer;
     public MotionBlur mBlurLayer;
 
+
     void Start()
     {
         SetVolumeComponent();
@@ -85,6 +86,7 @@ public class Options : MonoBehaviour
 
     void ToggleVolumeComp(VolumeComponent v)
     {
+        if(enabled)
         v.active = !v.active;
     }
 

@@ -50,6 +50,7 @@ public class PlayerAnimationManager : MonoBehaviour
     public bool playStartAnimation;
     public bool playNormal;
     public float startFastSpeed;
+    float waitTime;
 
     public TrailRenderer trail;
     void Start()
@@ -127,7 +128,7 @@ public class PlayerAnimationManager : MonoBehaviour
         var eulerRot = new Vector3(Mathf.DeltaAngle(0, deltaRot.eulerAngles.x), Mathf.DeltaAngle(0, deltaRot.eulerAngles.y), Mathf.DeltaAngle(0, deltaRot.eulerAngles.z));
         oldRotation = playerSkin.localRotation;
         angularVelocity = eulerRot / Time.fixedDeltaTime;
-        playerTilt = Mathf.Lerp(playerTilt, angularVelocity.y / 90f, 0.4f);
+        playerTilt = Mathf.Lerp(playerTilt, angularVelocity.y / 45f, 0.075f);
 
         if (float.IsNaN(playerTilt))
         {
@@ -137,7 +138,7 @@ public class PlayerAnimationManager : MonoBehaviour
 
         #region Script Dependent
 
-        if (playerCore.airbornePhysics.enabled == true)
+        if (playerCore.airbornePhysics.enabled == true && !playerCore.railGrind.grinding == true)
         {
             if(playerCore.PlayerSideStep.sideStepping == false && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("DashRing"))
             {
@@ -149,10 +150,9 @@ public class PlayerAnimationManager : MonoBehaviour
             {
                 transform.up = playerCore.velocity.normalized;
             }
-
         }
 
-        if (playerCore.groundedPhysics == true)
+        if (playerCore.groundedPhysics == true && !playerCore.railGrind.grinding == true)
         {
             playerSkin.position = transform.position + skinOffset;
             if (playerCore.velocityMagnitude > 0.5f)
@@ -160,6 +160,8 @@ public class PlayerAnimationManager : MonoBehaviour
                 playerSkin.rotation = Quaternion.Slerp(playerSkin.rotation, Quaternion.LookRotation(playerCore.velocity, playerCore.groundNormal), 0.8f);
                 playerSkin.localRotation = Quaternion.Euler(0f, playerSkin.localEulerAngles.y, 0f);
             }
+
+
 
         }
         #endregion
@@ -185,11 +187,11 @@ public class PlayerAnimationManager : MonoBehaviour
             {
                 if (landLayerMask == (landLayerMask | (1 << landDetection.collider.gameObject.layer))) // check if layer hit is not spring or something (specified in void start)
                 {
-                    Debug.Log(landDetection.collider.gameObject.layer);
-                    Debug.Log(landDetection.collider.gameObject);
+                    //Debug.Log(landDetection.collider.gameObject.layer);
+                    //Debug.Log(landDetection.collider.gameObject);
                     if (landDetection.collider.CompareTag("Homing Target") || landDetection.collider.CompareTag("Enemy"))
                     {
-                        playerCore.ball = false; // BALL IS BEING SET TO FALSE HERE. BEWARE
+                        //playerCore.ball = false; // BALL IS BEING SET TO FALSE HERE. BEWARE
                     }
                     else
                     {
@@ -271,6 +273,15 @@ public class PlayerAnimationManager : MonoBehaviour
             weirdMouths[i].localScale = Vector3.zero;
         }
         #endregion
+
+        if(playerCore.inputCore.directionalInput == Vector2.zero)
+        {
+            waitTime += Time.deltaTime;
+        }
+        else
+        {
+            waitTime = 0f;
+        }
     }
 
     #region Workarounds
@@ -291,7 +302,10 @@ public class PlayerAnimationManager : MonoBehaviour
         playerAnimator.SetFloat("Y Velocity", playerCore.velocity.y);
         playerAnimator.SetFloat("Tilt", playerTilt);
         playerAnimator.SetFloat("Acceleration", acceleration);
+        playerAnimator.SetFloat("WaitTime", waitTime);
         playerAnimator.SetBool("Ball", playerCore.ball);
+        playerAnimator.SetBool("Grinding", playerCore.railGrind.grinding);
+        playerAnimator.SetFloat("DirectionalDot", Vector3.Dot(playerCore.playerForward.forward, playerCore.velocity.normalized));
         #endregion
     }
 }

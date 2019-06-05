@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 075cdaec8c2f8d449be785e420a6e7fe
 ModelImporter:
   serializedVersion: 25
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 3856057525689989103
+    second: Sonic Fly 2
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -32,9 +35,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: 
+      name: Sonic Fly 2
       takeName: 
-      internalID: 0
+      internalID: 3856057525689989103
       firstFrame: 0
       lastFrame: 115
       wrapMode: 0

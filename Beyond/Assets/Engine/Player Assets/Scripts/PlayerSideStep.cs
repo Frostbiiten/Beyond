@@ -33,7 +33,7 @@ public class PlayerSideStep : MonoBehaviour
         while (tLeft > 0f) {
             tLeft -= Time.deltaTime;
             //playerCore.rb.velocity = sideStepDirection * sideStepSpeed;
-            playerCore.rb.velocity = playerCore.rb.velocity + sideStepDirection * sideStepSpeed;
+            playerCore.rb.velocity = tmpv + sideStepDirection * sideStepSpeed * Time.deltaTime * 60f;
             yield return null;
         }
         playerCore.rb.velocity = tmpv;
