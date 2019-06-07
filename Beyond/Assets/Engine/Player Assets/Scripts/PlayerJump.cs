@@ -22,6 +22,7 @@ public class PlayerJump : MonoBehaviour
             jumpTakenUp = false;
             if (pCore.inputCore.JumpKeyDown)
             {
+                pCore.playerSoundCore.voiceSource.PlayOneShot(pCore.playerSoundCore.initialJumpSound);
                 pCore.playerStompSlide.stompLand = false;
                 jumpTakenUp = false;
                 pCore.playerAnimationManager.PlayLeap();

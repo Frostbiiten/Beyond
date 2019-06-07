@@ -38,7 +38,7 @@ public class PlayerHomingAttack : MonoBehaviour
         //groundDetectionMask |= (int)PlayerLayerHelper.Layers.Homeable;
         homingDetectionMask = (int)PlayerLayerHelper.Layers.Homeable;
 
-        layerMask = ~((int)PlayerLayerHelper.Layers.NoPlayerCollide);
+        layerMask = ~((int)PlayerLayerHelper.Layers.CameraTrigger | (int)PlayerLayerHelper.Layers.NoPlayerCollide);
 
         //Calculate layermask to Raycast to. (Ignore "cube" && "sphere" layers)
         //int layerMask = ~((1 << cubeLayerIndex) | (1 << sphereLayerIndex));
@@ -105,13 +105,15 @@ public class PlayerHomingAttack : MonoBehaviour
             if (playerCore.inputCore.FixedUpdateKeyDown)
             {
                 playerCore.playerAnimationManager.playerAnimator.Play("Air Ball");
+
                 if (currentTarget)
                 {
                     if (Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, out homingRay, maxHomingDistance, layerMask, QueryTriggerInteraction.Collide))
                     {
-                        
-                        if (homingRay.collider.CompareTag("Homing Target") || homingRay.collider.CompareTag("Enemy") || homingRay.collider == null)
+                        if (homingRay.collider.CompareTag("Homing Target") || homingRay.collider.CompareTag("Enemy"))
                         {
+                            playerCore.playerSoundCore.PlayHome();
+                            playerCore.orbitCam.x = Quaternion.LookRotation((currentTarget.position - transform.position).normalized).eulerAngles.y;
                             homing = true;
                         }
                         else
@@ -158,15 +160,11 @@ public class PlayerHomingAttack : MonoBehaviour
             //playerCore.SoundCore.mainPlayerAudio.PlayOneShot(playerCore.SoundCore.homing[Random.Range(0, playerCore.SoundCore.homing.Count - 1)]);
             if(homing == true)
             {
-                StartCoroutine(SetBallFalse());
                 playerCore.playerAnimationManager.playerAnimator.SetFloat("HomingAnim#", Mathf.RoundToInt(Random.Range(0f, 5f)));
                 playerCore.playerAnimationManager.playerAnimator.Play("Homing");
             }
 
         }
-        int l = (int)PlayerLayerHelper.Layers.NoPlayerCollide;
-        if(other.gameObject.layer != l)
-            homing = false;
 
         #endregion
     }
@@ -180,9 +178,20 @@ public class PlayerHomingAttack : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        int l = (int)PlayerLayerHelper.Layers.NoPlayerCollide;
-        if (other.gameObject.layer != l)
+        //this is temp
+        if (other.gameObject.layer != 15 && other.gameObject.layer != 2)
+        {
+            Debug.Log(other.gameObject.layer);
+            Debug.Log("in LayerMask");
+            StartCoroutine(SetBallFalse());
             homing = false;
+
+        }
+        else
+        {
+            Debug.Log("Not in LayerMask");
+        }
+
     }
 
     #endregion

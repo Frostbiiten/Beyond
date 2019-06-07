@@ -68,6 +68,9 @@ public class PlayerAnimationManager : MonoBehaviour
             (int)PlayerLayerHelper.Layers.Ring |
             (int)PlayerLayerHelper.Layers.StaticRing |
             (int)PlayerLayerHelper.Layers.NoPlayerCollide |
+            (int)PlayerLayerHelper.Layers.CameraTrigger |
+            (int)PlayerLayerHelper.Layers.IgnoreRaycast | //?
+            (int)PlayerLayerHelper.Layers.Water |
             (int)PlayerLayerHelper.Layers.NonPlayerLand
          );
 

@@ -15,6 +15,7 @@ public class CheckPoint : MonoBehaviour
     public GameObject laser;
     public GameObject lightL;
     public GameObject lightR;
+    public AudioSource soundSource;
     void Update()
     {
         if(l && r && c)
@@ -42,6 +43,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(pc.playerHpManager.checkpoint != this)
         {
+            soundSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.checkPoint);
             if (pc.playerHpManager.checkpoint)
             {
                 pc.playerHpManager.checkpoint.Out(pc);

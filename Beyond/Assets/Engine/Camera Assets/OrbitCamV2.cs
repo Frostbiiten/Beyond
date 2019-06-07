@@ -65,6 +65,9 @@ public class OrbitCamV2 : MonoBehaviour
 
     public float lookInterpolation;
 
+    public Transform cameraLockTrigger;
+
+    public Vector3 lookOffset;
     // Use this for initialization
     void Start()
     {
@@ -81,8 +84,12 @@ public class OrbitCamV2 : MonoBehaviour
         {
             if (target)
             {
-                x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
-                y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+                if(currentLook == null)
+                {
+                    x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
+                    y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+                }
+
 
                 y = ClampAngle(y, yMinLimit, yMaxLimit);
 
@@ -108,7 +115,8 @@ public class OrbitCamV2 : MonoBehaviour
 
                 if (currentLook)
                 {
-                    lookRotation = Quaternion.Slerp(lookRotation, Quaternion.LookRotation((currentLook.position - transform.position).normalized), lookInterpolation);
+                    transform.position = cameraLockTrigger.position + lookOffset;
+                    lookRotation = Quaternion.Slerp(lookRotation, Quaternion.LookRotation((currentLook.position - cameraLockTrigger.position).normalized), lookInterpolation);
                     transform.rotation = lookRotation;
                 }
             }

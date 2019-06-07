@@ -21,7 +21,8 @@ public class EggPawn : MonoBehaviour
     public float dieForce;
     public GameObject debris;
     public CameraTrigger trigger;
-    int hittimes;
+    public Transform cameraTrigger;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +33,6 @@ public class EggPawn : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        hittimes = 0;
         if(strike == false)
         {
             chasing = false;
@@ -50,10 +50,10 @@ public class EggPawn : MonoBehaviour
             if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95f)
             {
                 Instantiate(debris, transform.position, transform.rotation);
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
-
+        cameraTrigger.position = transform.position;
 
     }
 
@@ -68,22 +68,22 @@ public class EggPawn : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            hittimes++;
+            Debug.Log("Enter");
             PlayerCore pc = other.gameObject.GetComponent<PlayerCore>();
             if (pc)
             {
-		if(pc.playerHpManager.attacking == true || pc.playerHpManager.invincible == true){
+		        if(pc.playerHpManager.attacking == true || pc.playerHpManager.invincible == true){
                 	pc.playerHpManager.ExternalHurt(other);
 
                 	if(hp > 0)
                 	{
-                    		hp -= 1;
+                        hp -= 1;
                 	}
                 	else
                 	{
-                    		Hit(other);
+                        Hit(other);
                 	}
-		}
+		        }
 
             }
 

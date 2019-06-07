@@ -181,7 +181,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2574898928963241567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.52, z: 0}
+  m_LocalPosition: {x: 0, y: 0.639, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7404291759597656717}
@@ -198,7 +198,7 @@ Light:
   serializedVersion: 9
   m_Type: 2
   m_Color: {r: 0, g: 0.40564013, b: 1, a: 1}
-  m_Intensity: 47.746483
+  m_Intensity: 31.830988
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -288,7 +288,7 @@ MonoBehaviour:
   useVolumetric: 0
   featuresFoldout: 1
   showAdditionalSettings: 0
-  displayLightIntensity: 600
+  displayLightIntensity: 400
   displayAreaLightEmissiveMesh: 0
   areaLightCookie: {fileID: 0}
   areaLightShadowCone: 120
@@ -440,3 +440,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpAmount: 1
   fx: {fileID: 750941044545767059, guid: e665eb33ac75b7a4b87326acd4f4ffcf, type: 3}
+  sound: {fileID: 8300000, guid: 44b14dd759f5f6845ad60ab037eccb6e, type: 3}

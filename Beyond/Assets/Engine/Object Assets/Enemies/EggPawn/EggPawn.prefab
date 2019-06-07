@@ -860,6 +860,7 @@ MonoBehaviour:
   dieForce: -75
   debris: {fileID: 2812533719589720455, guid: c2eb35180d1e51147815fb2b69cdfc2f, type: 3}
   trigger: {fileID: 4506126085137719052}
+  cameraTrigger: {fileID: 0}
 --- !u!65 &4506126084430172455
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1130,7 +1131,7 @@ Transform:
   m_GameObject: {fileID: 5596026940680442660}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8859669566681992786}
   - {fileID: 5926240522445087831}
@@ -1818,6 +1819,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lookat Trigger
       objectReference: {fileID: 0}
+    - target: {fileID: 3413043563011079816, guid: 498704ff4a945724088abd01673a1e1e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3413043563011079819, guid: 498704ff4a945724088abd01673a1e1e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1871,11 +1877,6 @@ PrefabInstance:
     - target: {fileID: 3413043563011079819, guid: 498704ff4a945724088abd01673a1e1e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3413043563011079829, guid: 498704ff4a945724088abd01673a1e1e,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

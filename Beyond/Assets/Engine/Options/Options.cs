@@ -12,7 +12,7 @@ public class Options : MonoBehaviour
     public AmbientOcclusion aoLayer;
     public Bloom bloomLayer;
     public MotionBlur mBlurLayer;
-
+    public UIManager pause;
 
     void Start()
     {
@@ -86,7 +86,7 @@ public class Options : MonoBehaviour
 
     void ToggleVolumeComp(VolumeComponent v)
     {
-        if(enabled)
+        if(pause.paused == false)
         v.active = !v.active;
     }
 

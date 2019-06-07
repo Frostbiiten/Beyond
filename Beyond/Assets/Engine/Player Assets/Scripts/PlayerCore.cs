@@ -32,6 +32,7 @@ public class PlayerCore : MonoBehaviour
     public PlayerSideStep PlayerSideStep;
     public PlayerRailGrindVer2 railGrind;
     public OrbitCamV2 orbitCam;
+    public PlayerSoundManager playerSoundCore;
 
     #endregion
 

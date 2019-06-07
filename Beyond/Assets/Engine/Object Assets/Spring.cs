@@ -25,6 +25,7 @@ public class Spring : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            PlayerCore pc = other.GetComponent<PlayerCore>();
             switch (objType)
             {
                 case Type.spring:
@@ -38,15 +39,17 @@ public class Spring : MonoBehaviour
                     break;
                 case Type.trickRamp:
                     audioSource.PlayOneShot(MainDefSounds.defaultSounds.trickRamp);
+                    pc.playerSoundCore.PlayTrick();
                     break;
                 case Type.dashRing:
                     audioSource.PlayOneShot(MainDefSounds.defaultSounds.dashRing);
                     break;
                 case Type.trickDashRing:
                     audioSource.PlayOneShot(MainDefSounds.defaultSounds.trickDashRing);
+                    pc.playerSoundCore.PlayTrick();
                     break;
             }
-            PlayerCore pc = other.GetComponent<PlayerCore>();
+
 
             pc.rb.velocity = transform.TransformDirection(force);
 

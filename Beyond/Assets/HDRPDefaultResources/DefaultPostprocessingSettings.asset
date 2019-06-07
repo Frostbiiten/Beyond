@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d08ce26990eb1a4a9177b860541e702, type: 3}
   m_Name: Exposure
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
@@ -233,17 +233,17 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 1
   intensity:
-    m_OverrideState: 1
-    m_Value: 0.134
+    m_OverrideState: 0
+    m_Value: 0
     min: 0
     max: 1
   scatter:
-    m_OverrideState: 1
-    m_Value: 0.478
+    m_OverrideState: 0
+    m_Value: 1
     min: 0
     max: 1
   tint:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
     hdr: 0
     showAlpha: 0
@@ -256,10 +256,10 @@ MonoBehaviour:
     m_Value: 3.2
     min: 0
   highQualityFiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   resolution:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 2
   prefilter:
     m_OverrideState: 0
@@ -365,6 +365,6 @@ MonoBehaviour:
     max: 180
   saturation:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 0
     min: -100
     max: 100

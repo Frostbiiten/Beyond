@@ -34,6 +34,7 @@ public class PlayerRailGrindVer2 : MonoBehaviour
 
         float dot = Vector3.Dot(playerCore.rb.velocity.normalized, currentPath.GetTangent(currentRailCompletion, currentPath));
 
+        /*
         if (dot > 0f)
         {
             currentGrindSpeed = baseGrindSpeedFrac * playerCore.velocityMagnitude;
@@ -43,6 +44,10 @@ public class PlayerRailGrindVer2 : MonoBehaviour
         {
             currentGrindSpeed = -baseGrindSpeedFrac * playerCore.velocityMagnitude;
         }
+        */
+
+        currentGrindSpeed = baseGrindSpeedFrac * playerCore.velocityMagnitude * dot;
+
         grinding = true;
         playerCore.playerHomingAttack.airDashed = true;
         //Debug.Log("Player is at " + currentRailCompletion + " Of the rail's normalizedtime");

@@ -23,7 +23,8 @@ namespace LayerHelper
             Ring = 1 << 11,
             StaticRing = 1 << 12,
             NoPlayerCollide = 1 << 13,
-            NonPlayerLand = 1 << 14
+            NonPlayerLand = 1 << 14,
+            CameraTrigger = 1 << 15
         }
     }
 }

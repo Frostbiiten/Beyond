@@ -22,15 +22,19 @@ public class CameraTrigger : MonoBehaviour
         active = false;
 
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+
             if (!currentCam)
             {
                 currentCam = other.GetComponent<PlayerCore>();
             }
 
+            lockPositionTarget = currentCam.orbitCam.cameraLockTrigger;
+            refp = currentCam.orbitCam.transform;
             if(onlyLook == false)
                 active = true;
 
@@ -43,11 +47,15 @@ public class CameraTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            activeOnlyLook = false;
             currentCam.orbitCam.currentLook = null;
+
+            Debug.Log("Exit");
+
             active = false;
 
             if (onlyLook == true)
-                activeOnlyLook = true;
+                activeOnlyLook = false;
 
             currentCam.orbitCam.inCameraTrigger = false;
         }
@@ -69,7 +77,7 @@ public class CameraTrigger : MonoBehaviour
             currentCam.orbitCam.lookInterpolation = lookOnlyInterpolation;
         }
 
-        if (onlyLookTarget)
+        if (onlyLookTarget && lockPositionTarget)
         {
             lockPositionTarget.localPosition = Vector3.Lerp(lockPositionTarget.localPosition, (onlyLookTarget.position - refp.position).normalized * lookDistance, 0.1f);
         }

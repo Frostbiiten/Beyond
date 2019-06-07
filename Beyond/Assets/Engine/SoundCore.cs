@@ -16,6 +16,7 @@ namespace DefaultSounds
         public AudioClip trickDashRing;
         public AudioClip ring;
         public AudioClip hit;
+        public AudioClip checkPoint;
     }
 
     static class MainDefSounds
