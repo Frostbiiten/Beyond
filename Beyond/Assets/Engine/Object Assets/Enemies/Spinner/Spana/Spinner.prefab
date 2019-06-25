@@ -264,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 1
   debris: {fileID: 1085999879236939895, guid: 4ae3742c7f9649f4f829214e51160ea9, type: 3}
+  scoreAdd: 100
 --- !u!114 &1163918220
 MonoBehaviour:
   m_ObjectHideFlags: 0

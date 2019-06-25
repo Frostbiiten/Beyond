@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseEnemy : MonoBehaviour {
     public float hp;
     public GameObject debris;
+    public float scoreAdd;
 
 
     void OnTriggerEnter(Collider other)
@@ -13,8 +14,10 @@ public class BaseEnemy : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             PlayerCore pc = other.GetComponent<PlayerCore>();
+
             if(pc.playerHpManager.attacking == true || pc.playerHpManager.invincible == true)
             {
+
                 hp = hp - 1f;
             }
 
@@ -22,6 +25,8 @@ public class BaseEnemy : MonoBehaviour {
             {
                 Instantiate(debris, transform.position, transform.rotation);
                 Destroy(gameObject);
+                pc.score += scoreAdd;
+                pc.UIManager.UpdateScore();
             }
         }
 

@@ -8,6 +8,7 @@ public class Spring : MonoBehaviour
     public Vector3 force;
     public bool setCameraDirection = false;
     public AudioSource audioSource;
+    public float scoreAdd;
 
     public enum Type
     {
@@ -26,6 +27,8 @@ public class Spring : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerCore pc = other.GetComponent<PlayerCore>();
+            pc.score += scoreAdd;
+            pc.UIManager.UpdateScore();
             switch (objType)
             {
                 case Type.spring:

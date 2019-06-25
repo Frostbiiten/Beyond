@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LayerHelper;
+using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class PlayerCore : MonoBehaviour
 {
@@ -33,6 +35,7 @@ public class PlayerCore : MonoBehaviour
     public PlayerRailGrindVer2 railGrind;
     public OrbitCamV2 orbitCam;
     public PlayerSoundManager playerSoundCore;
+    public RunPath rPath;
 
     #endregion
 
@@ -73,12 +76,44 @@ public class PlayerCore : MonoBehaviour
     #endregion
 
     public int redRings;
+    public float score;
+    public string menuScene;
 
     int groundDetectionMask;
+
+    Collider[] explosionObjs = new Collider[32];
     void Start()
     {
         //oh =~ is opposit for mask
         groundDetectionMask |= ~(int)PlayerLayerHelper.Layers.Homeable;
+
+        //check lives to remove
+        if(PlayerPrefs.GetString("LastSceneLoaded") == SceneManager.GetActiveScene().name) {
+            #if UNITY_EDITOR
+            if(EditorApplication.isPlaying = false && EditorApplication.timeSinceStartup == 0)
+            {
+                PlayerPrefs.SetInt("TimesLoaded", 0);
+            }
+            #endif
+
+            playerHpManager.lives -= PlayerPrefs.GetInt("TimesLoaded");
+
+
+
+            if (playerHpManager.lives < 0)
+            {
+                StartCoroutine(playerHpManager.Die());
+                fadeAnimator.Play("FadeOut", 0, 1f);
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("TimesLoaded", 0);
+        }
+        
+        UIManager.UpdateLives();
+
+
     }
     // Update is called once per frame
     void Update()
@@ -129,5 +164,33 @@ public class PlayerCore : MonoBehaviour
         Debug.DrawRay(transform.position, -transform.up * groundDetectionDistance, Color.blue);
         #endregion
 
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene(menuScene);
+    }
+
+    public void ReloadScene()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        PlayerPrefs.SetInt("TimesLoaded", PlayerPrefs.GetInt("TimesLoaded") + 1);
+        PlayerPrefs.SetString("LastSceneLoaded", scene.name);
+        SceneManager.LoadScene(scene.name);
+
+    }
+
+    public void Explode(Vector3 position, float radius, float force)
+    {
+        explosionObjs = Physics.OverlapSphere(position, radius);
+        for (int i = 0; i < explosionObjs.Length; i++)
+        {
+            Rigidbody r = explosionObjs[i].GetComponent<Rigidbody>();
+            if (r != null)
+            {
+                if(r != rb)
+                r.AddExplosionForce(force, position, radius, 0f, ForceMode.Impulse);
+            }
+        }
     }
 }

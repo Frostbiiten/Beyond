@@ -16,6 +16,7 @@ public class CheckPoint : MonoBehaviour
     public GameObject lightL;
     public GameObject lightR;
     public AudioSource soundSource;
+    public float scoreAdd = 250f;
     void Update()
     {
         if(l && r && c)
@@ -54,6 +55,8 @@ public class CheckPoint : MonoBehaviour
             laser.SetActive(false);      
             lightL.SetActive(true);
             lightR.SetActive(true);
+            pc.score += scoreAdd;
+            pc.UIManager.UpdateScore();
         }
     }
 

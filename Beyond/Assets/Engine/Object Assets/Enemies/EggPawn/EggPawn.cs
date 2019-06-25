@@ -22,6 +22,7 @@ public class EggPawn : MonoBehaviour
     public GameObject debris;
     public CameraTrigger trigger;
     public Transform cameraTrigger;
+    public float scoreAdd;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +52,9 @@ public class EggPawn : MonoBehaviour
             {
                 Instantiate(debris, transform.position, transform.rotation);
                 Destroy(transform.parent.gameObject);
+                PlayerCore pc = playerScan[0].GetComponent<PlayerCore>();
+                pc.score += scoreAdd;
+                pc.UIManager.UpdateScore();
             }
         }
         cameraTrigger.position = transform.position;

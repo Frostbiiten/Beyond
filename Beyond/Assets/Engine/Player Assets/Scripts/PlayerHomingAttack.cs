@@ -15,6 +15,8 @@ public class PlayerHomingAttack : MonoBehaviour
     public float homingSpeed;
     public float homingExplosionY;
     public float airDashPower;
+    public float doubleJumpPower;
+    public float fireAirDashMultiplier;
     public bool utopiaStyleBounce;
     public bool airDashed;
     private Transform oldTarget;
@@ -26,6 +28,7 @@ public class PlayerHomingAttack : MonoBehaviour
     public float homingShakeAmount = 5f;
     public float shakeTime;
     public Transform faceVelocity;
+    public float homingDirectionThreshold = 0.5f;
 
     int homingDetectionMask;
 
@@ -54,7 +57,15 @@ public class PlayerHomingAttack : MonoBehaviour
         #endregion
 
         #region Homing Target Main
-        homingTarget.gameObject.SetActive(!playerCore.grounded);
+        if(!playerCore.grounded && currentTarget)
+        {
+            homingTarget.gameObject.SetActive(true);
+        }
+        else
+        {
+            homingTarget.gameObject.SetActive(false);
+        }
+
         homingTarget.LookAt(cam);
 
         #endregion
@@ -76,6 +87,8 @@ public class PlayerHomingAttack : MonoBehaviour
             {
                 homingTarget.position = sortedTargets[0].transform.position;
                 currentTarget = sortedTargets[0].transform;
+
+               
             }
 
         }
@@ -102,9 +115,15 @@ public class PlayerHomingAttack : MonoBehaviour
         #region MAIN HOMING LOGIC P2
         if (playerCore.airbornePhysics.enabled == true)
         {
+
+            //FixSort(out currentTarget);
+
+
             if (playerCore.inputCore.FixedUpdateKeyDown)
             {
+
                 playerCore.playerAnimationManager.playerAnimator.Play("Air Ball");
+
 
                 if (currentTarget)
                 {
@@ -126,19 +145,59 @@ public class PlayerHomingAttack : MonoBehaviour
                         homing = false;
                     }
                 }
+                
 
                 if (homing == false && airDashed == false)
                 {
                     airDashed = true;
                     playerCore.ball = true;
-                    playerCore.rb.AddForce(playerCore.playerForward.forward * airDashPower, ForceMode.Impulse);
+                    if(playerCore.playerHpManager.shield == PlayerHpManager.Shield.none || playerCore.playerHpManager.shield == PlayerHpManager.Shield.normal)
+                    {
+                        playerCore.rb.AddForce(playerCore.playerForward.forward * airDashPower, ForceMode.Impulse);
+                    }
+                    else
+                    {
+                        if (playerCore.playerHpManager.shield == PlayerHpManager.Shield.electric)
+                        {
+                            playerCore.rb.velocity = new Vector3(playerCore.velocity.x, doubleJumpPower, playerCore.velocity.z);
+                        }
+
+                        if (playerCore.playerHpManager.shield == PlayerHpManager.Shield.fire)
+                        {
+                            playerCore.rb.AddForce(playerCore.playerForward.forward * airDashPower * fireAirDashMultiplier, ForceMode.Impulse);
+                        }
+                        
+                    }
+
                     //playerCore.SoundCore.mainPlayerAudio.PlayOneShot(playerCore.SoundCore.jump[Random.Range(0, playerCore.SoundCore.jump.Count - 1)]);
                 }
+                
             }
         }
         #endregion
 
     }
+
+    void FixSort(out Transform colz)
+    {
+        colz = null;
+        for (int i = 0; i < sortedTargets.Count; i++)
+        {
+            //Vector3 dir = (sortedTargets[i].transform.position - new Vector3(transform.position.x, sortedTargets[i].transform.position.y, transform.position.z)).normalized;
+            //float dot = Vector3.Dot(dir, playerCore.playerAnimationManager.playerSkin.forward)
+
+            Vector3 pos = playerCore.playerAnimationManager.playerSkin.InverseTransformPoint(sortedTargets[i].transform.position);
+            if (pos.z >= -0.5f)
+            {
+
+                colz = sortedTargets[i].transform;
+                break;
+                return;
+
+            }
+        }
+    }
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -179,17 +238,11 @@ public class PlayerHomingAttack : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         //this is temp
-        if (other.gameObject.layer != 15 && other.gameObject.layer != 2)
+        if (other.gameObject.layer != 15 && other.gameObject.layer != 2 && other.gameObject.layer != 4 && playerCore.groundedPhysics.enabled == false)
         {
-            Debug.Log(other.gameObject.layer);
-            Debug.Log("in LayerMask");
-            StartCoroutine(SetBallFalse());
+            //StartCoroutine(SetBallFalse()); instead, check  if homing trick is playing and if so set ball to false
             homing = false;
 
-        }
-        else
-        {
-            Debug.Log("Not in LayerMask");
         }
 
     }
@@ -208,11 +261,39 @@ public class PlayerHomingAttack : MonoBehaviour
             {
                 if (input[e].CompareTag("Enemy") || input[e].CompareTag("Homing Target"))
                 {
-                    Vector3 dir = (new Vector3(input[e].transform.position.x, transform.position.y, input[e].transform.position.z) - transform.position).normalized;
+                    /*
+                    Vector3 loc = (new Vector3(input[e].transform.position.x, transform.position.y, input[e].transform.position.z) - transform.position).normalized;
                     if (Vector3.Dot(dir, homingInputRef) > 0)
                     {
                         outputNew.Add(input[e]);
                     }
+                    */
+
+                    /*
+
+                    Vector3 pos = playerCore.playerAnimationManager.playerSkin.InverseTransformPoint(input[e].transform.position);
+                    if (pos.z >= -0.5f)
+                    {
+
+                        outputNew.Add(input[e]);
+
+                    }
+                    */
+
+                    Vector3 directionToTarget = transform.position - input[e].transform.position;
+                    directionToTarget = new Vector3(directionToTarget.x, 0f, directionToTarget.z);
+                    float angle = Vector3.Angle(-playerCore.playerAnimationManager.playerSkin.forward, directionToTarget);
+                    if (Mathf.Abs(angle) > 90 && Mathf.Abs(angle) < 270)
+                    {
+                        Debug.Log("!");
+                        
+                    }
+                    else
+                    {
+                        outputNew.Add(input[e]);
+                    }
+                        
+
                     outPutalt.Add(input[e]);
                 }
             }
@@ -232,7 +313,7 @@ public class PlayerHomingAttack : MonoBehaviour
         .CompareTo(
               Vector3.Distance(transform.position, b.transform.position));
         });
-        return outPutalt;
+        return outputNew;
     }
 
     #endregion

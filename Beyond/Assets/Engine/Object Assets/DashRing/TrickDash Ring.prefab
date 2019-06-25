@@ -4918,9 +4918,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8729f80655240749a556017d27e60bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: {x: 0, y: 0, z: 32}
+  force: {x: 0, y: 0, z: 48}
   setCameraDirection: 1
   audioSource: {fileID: 5860342720721733057}
+  scoreAdd: 250
   objType: 5
 --- !u!114 &3086024871586500347
 MonoBehaviour:

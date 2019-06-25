@@ -53,6 +53,17 @@ public class PlayerAnimationManager : MonoBehaviour
     float waitTime;
 
     public TrailRenderer trail;
+
+    public GameObject realPlayerSkin;
+
+    public Transform driftBall;
+    public float driftTilt;
+    float driftRot;
+    public float driftThreshold;
+
+    public GameObject stomping;
+    Vector3 diveRot;
+
     void Start()
     {
 
@@ -121,8 +132,20 @@ public class PlayerAnimationManager : MonoBehaviour
     void FixedUpdate()
     {
 
-        #region Jumpballs   
+        #region Jumpballs & drift
         jumpBall.SetActive(playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Air Ball"));
+
+        if(Input.GetAxis("Drift") != 0f && playerCore.groundedPhysics.enabled == true && playerCore.velocityMagnitude > driftThreshold){
+            driftBall.gameObject.SetActive(true);
+            realPlayerSkin.SetActive(false);
+        }else
+        {
+            realPlayerSkin.SetActive(true);
+            driftBall.gameObject.SetActive(false);
+        }
+
+        driftRot = Mathf.Lerp(driftRot, Input.GetAxis("Drift") * driftTilt, 0.1f);
+        driftBall.localRotation = Quaternion.Euler(0f, 0f, driftRot);
         #endregion
 
         #region Tilt
@@ -153,6 +176,7 @@ public class PlayerAnimationManager : MonoBehaviour
             {
                 transform.up = playerCore.velocity.normalized;
             }
+
         }
 
         if (playerCore.groundedPhysics == true && !playerCore.railGrind.grinding == true)
@@ -169,6 +193,25 @@ public class PlayerAnimationManager : MonoBehaviour
         }
         #endregion
 
+        if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("SkyDive"))
+        {
+            playerSkin.localRotation = Quaternion.LookRotation(playerCore.orbitCam.transform.up);
+
+            if (playerAnimator.GetBool("DiveFast") == true)
+            {
+                diveRot = Vector3.Lerp(diveRot, new Vector3(-Input.GetAxis("Y") * 0.75f, 0f, -Input.GetAxis("X")) * 30f, 0.1f);
+                playerCore.playerAnimationManager.playerSkin.Rotate(diveRot);
+            }
+            else
+            {
+                diveRot = Vector3.Lerp(diveRot, new Vector3(Input.GetAxis("Y") * 0.75f, 0f, Input.GetAxis("X")) * 30f, 0.1f);
+                playerCore.playerAnimationManager.playerSkin.Rotate(diveRot);
+            }
+            //diveRot = Vector3.Lerp(diveRot, new Vector3(Input.GetAxis("Y") * 2.5f, 0f, Input.GetAxis("X")) * 30f, 0.1f);
+            //playerSkin.Rotate(diveRot);
+            
+        }
+
         if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartFast") && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartNormal"))
         {
             canPlayLandAnimation = true;
@@ -178,20 +221,19 @@ public class PlayerAnimationManager : MonoBehaviour
             canPlayLandAnimation = false;
         }
 
-        #region Land Animations
 
-        playerAnimator.SetBool("HurtLand", Physics.Raycast(transform.position, -transform.up, hurtLandCollideDistance, landLayerMask));
+
+        #region Land Animations
+        playerAnimator.SetBool("HurtLand", Physics.Raycast(transform.position, -transform.up, hurtLandCollideDistance, landLayerMask, QueryTriggerInteraction.Ignore));
 
         if (canPlayLandAnimation == true)
         {
             landCollideHelper = landCollideColliding;
             // fix below
-            if (Physics.Raycast(transform.position, -transform.up, out landDetection, landCollideDistance, (int)PlayerLayerHelper.Layers.Everything, QueryTriggerInteraction.Collide) && !landDetection.collider.gameObject.CompareTag("Enemy"))
+            if (Physics.Raycast(transform.position, -transform.up, out landDetection, landCollideDistance, (int)PlayerLayerHelper.Layers.Everything, QueryTriggerInteraction.Ignore) && !landDetection.collider.gameObject.CompareTag("Enemy"))
             {
                 if (landLayerMask == (landLayerMask | (1 << landDetection.collider.gameObject.layer))) // check if layer hit is not spring or something (specified in void start)
                 {
-                    //Debug.Log(landDetection.collider.gameObject.layer);
-                    //Debug.Log(landDetection.collider.gameObject);
                     if (landDetection.collider.CompareTag("Homing Target") || landDetection.collider.CompareTag("Enemy"))
                     {
                         //playerCore.ball = false; // BALL IS BEING SET TO FALSE HERE. BEWARE
@@ -210,16 +252,7 @@ public class PlayerAnimationManager : MonoBehaviour
 
             if (landCollideHelper != landCollideColliding && landCollideColliding == true && playerCore.playerHpManager.recovering == false)
             {
-                /*
-                if (ScriptCore.Board.enabled == false)
-                {
-                        
-                }
-                if (ScriptCore.Board.enabled == true)
-                {
-                    ScriptCore.AnimationController.anim.Play("BoardLand");
-                }
-                */
+
                 playerAnimator.Play("Land");
             }
 

@@ -13,9 +13,10 @@ public class Options : MonoBehaviour
     public Bloom bloomLayer;
     public MotionBlur mBlurLayer;
     public UIManager pause;
-
+    public int targetFps;
     void Start()
     {
+        Application.targetFrameRate = targetFps;
         SetVolumeComponent();
     }
     void SetVolumeComponent()
@@ -86,7 +87,7 @@ public class Options : MonoBehaviour
 
     void ToggleVolumeComp(VolumeComponent v)
     {
-        if(pause.paused == false)
+        if(pause.paused == true)
         v.active = !v.active;
     }
 

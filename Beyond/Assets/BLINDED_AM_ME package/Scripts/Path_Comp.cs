@@ -155,6 +155,7 @@ namespace BLINDED_AM_ME{
             //tangentdist should be 0.05 or smth
             Vector3 tangent = Vector3.zero;
             tangent = path.GetPathPoint(dist).forward;
+            //StartCoroutine(Math_Functions.CatmullRomThread());
             return tangent;
         }
 

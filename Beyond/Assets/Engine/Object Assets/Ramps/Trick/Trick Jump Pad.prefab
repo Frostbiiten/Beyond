@@ -154,6 +154,7 @@ MonoBehaviour:
   force: {x: 0, y: 36, z: -48}
   setCameraDirection: 1
   audioSource: {fileID: 3772222888007513987}
+  scoreAdd: 250
   objType: 5
 --- !u!114 &1018531504287919328
 MonoBehaviour:
@@ -176,7 +177,8 @@ AudioSource:
   m_GameObject: {fileID: 5812123146026742071}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 3a76e1429e0476d4d96eb611cdfbd599,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

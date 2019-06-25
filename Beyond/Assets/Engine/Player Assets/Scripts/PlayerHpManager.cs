@@ -107,6 +107,7 @@ public class PlayerHpManager : MonoBehaviour
     public Vector3 theVoid;
 
     public float ringMagnetivityRange;
+    public float electricRingMagnetivity;
     public int ringMagnetivityLayerMask;
     public Collider[] magnetRings;
     public float ringMagnetivityStrength;
@@ -116,7 +117,15 @@ public class PlayerHpManager : MonoBehaviour
 
     public bool dying = false;
 
+    public ParticleSystem electric;
+    public ParticleSystem fire;
+    public GameObject normalShield;
+    public GameObject elecShield;
+    public GameObject fireShield;
+    public GameObject waterShield;
+
     public string gameOverScene;
+
 
     void Start()
     {
@@ -135,20 +144,34 @@ public class PlayerHpManager : MonoBehaviour
         #region Ring Magnet
         if (playerCore.velocityMagnitude >= ringMagnetivitySpeed)
         {
-            Physics.OverlapSphereNonAlloc(transform.position, ringMagnetivityRange, magnetRings, ringMagnetivityLayerMask, QueryTriggerInteraction.Collide);
+            if(shield == Shield.electric)
+            {
+                Physics.OverlapSphereNonAlloc(transform.position, electricRingMagnetivity, magnetRings, ringMagnetivityLayerMask, QueryTriggerInteraction.Collide);
+
+            }
+            else
+            {
+                Physics.OverlapSphereNonAlloc(transform.position, ringMagnetivityRange, magnetRings, ringMagnetivityLayerMask, QueryTriggerInteraction.Collide);
+            }
+            
             if(magnetRings.Length > 0)
             {
                 for(int z = 0; z < magnetRings.Length; z++)
                 {
-                    if(magnetRings[z])
-                    magnetRings[z].transform.position = Vector3.Lerp(magnetRings[z].transform.position, transform.position, 0.05f * ringMagnetivityStrength);
+                    if (magnetRings[z])
+                    {
+                        //magnetRings[z].transform.position = Vector3.Lerp(magnetRings[z].transform.position, transform.position, 0.05f * ringMagnetivityStrength);
+                        magnetRings[z].transform.position = Vector3.MoveTowards(magnetRings[z].transform.position, transform.position, ringMagnetivityStrength * 0.33f);
+
+                    }
+
                 }
             }
         }
         #endregion
 
         #region Basic Conditions
-        if (playerCore.ball == true || playerCore.playerStompSlide.sliding == true || playerCore.playerStompSlide.stomping == true || playerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide Kick")) // Add || for more conditions
+        if (playerCore.ball == true || playerCore.playerStompSlide.sliding == true || playerCore.playerStompSlide.stomping == true || playerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Slide Kick") || playerCore.playerAnimationManager.driftBall.gameObject.activeSelf == true) // Add || for more conditions
         {
             attacking = true;
         }
@@ -161,6 +184,41 @@ public class PlayerHpManager : MonoBehaviour
 
     void Update()
     {
+        #region Shields
+        RemoveShields();
+        if(shield == Shield.normal)
+        {
+            normalShield.SetActive(true);
+        }
+
+        if (shield == Shield.electric)
+        {
+            elecShield.SetActive(true);
+            electric.Play();
+        }
+        else
+        {
+            electric.Stop();
+        }
+
+        if (shield == Shield.fire)
+        {
+            fireShield.SetActive(true);
+            fire.Play();
+        }
+        else
+        {
+            fire.Stop();
+        }
+
+        if (shield == Shield.water)
+        {
+            waterShield.SetActive(true);
+        }
+
+
+        #endregion
+
         for (int e = 0; e < rings.Count; e++)
         {
             rings[e] = new RingPoolObj(rings[e].ring, rings[e].ringRb, rings[e].timeleft - Time.deltaTime, rings[e].Ring);
@@ -177,6 +235,14 @@ public class PlayerHpManager : MonoBehaviour
         }
     }
 
+    void RemoveShields()
+    {
+        normalShield.SetActive(false);
+        elecShield.SetActive(false);
+        fireShield.SetActive(false);
+        waterShield.SetActive(false);
+
+    }
     void OnCollisionEnter(Collision collision)
     {
         CollisionEvent(collision);
@@ -247,6 +313,7 @@ public class PlayerHpManager : MonoBehaviour
                         StartCoroutine(LoseRings(hp));
                         StartCoroutine(Recovery());
                         playerCore.playerAnimationManager.playerAnimator.Play("Damage");
+                        playerCore.playerSoundCore.PlayHurt();
                         hp = 0f;
                     }
                     else
@@ -291,6 +358,7 @@ public class PlayerHpManager : MonoBehaviour
                         StartCoroutine(LoseRings(hp));
                         StartCoroutine(Recovery());
                         playerCore.playerAnimationManager.playerAnimator.Play("Damage");
+                        playerCore.playerSoundCore.PlayHurt();
                         hp = 0f;
                     }
                     else
@@ -323,6 +391,7 @@ public class PlayerHpManager : MonoBehaviour
         
         dying = true;
         playerCore.fadeAnimator.Play("FadeOut");
+        playerCore.playerSoundCore.PlayDie();
         yield return new WaitForSeconds(2f);
         if(lives < 0)
         {

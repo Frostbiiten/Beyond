@@ -50,7 +50,6 @@ public class CameraTrigger : MonoBehaviour
             activeOnlyLook = false;
             currentCam.orbitCam.currentLook = null;
 
-            Debug.Log("Exit");
 
             active = false;
 

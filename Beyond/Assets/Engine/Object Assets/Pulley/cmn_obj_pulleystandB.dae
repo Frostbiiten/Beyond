@@ -1,0 +1,166 @@
+<?xml version="1.0" ?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+    <asset>
+        <contributor>
+            <authoring_tool>SonicGLvl - COLLADA Exporter</authoring_tool>
+        </contributor>
+        <unit name="meters" meter="1.0" />
+        <up_axis>Y_UP</up_axis>
+    </asset>
+    <library_images>
+        <image id="cmn_metal_ms_pulleystand_dif-image" name="cmn_metal_ms_pulleystand_dif-image">
+            <init_from>./textures/cmn_metal_ms_pulleystand_dif.dds</init_from>
+        </image>
+        <image id="cmn_metal_ms_pulleystand_pow-image" name="cmn_metal_ms_pulleystand_pow-image">
+            <init_from>./textures/cmn_metal_ms_pulleystand_pow.dds</init_from>
+        </image>
+    </library_images>
+    <library_materials>
+        <material id="cmn_obj_pulley_HD_pstandID" name="cmn_obj_pulley_HD_pstand">
+            <instance_effect url="#cmn_obj_pulley_HD_pstand-effect" />
+        </material>
+    </library_materials>
+    <library_effects>
+        <effect id="cmn_obj_pulley_HD_pstand-effect" name="cmn_obj_pulley_HD_pstand-effect">
+            <profile_COMMON>
+                <newparam sid="cmn_metal_ms_pulleystand_dif-image-surface">
+                    <surface type="2D">
+                        <init_from>cmn_metal_ms_pulleystand_dif-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulleystand_dif-image-sampler">
+                    <sampler2D>
+                        <source>cmn_metal_ms_pulleystand_dif-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulleystand_pow-image-surface">
+                    <surface type="2D">
+                        <init_from>cmn_metal_ms_pulleystand_pow-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulleystand_pow-image-sampler">
+                    <sampler2D>
+                        <source>cmn_metal_ms_pulleystand_pow-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <technique sid="COMMON">
+                    <phong>
+                        <diffuse>
+                            <texture texture="cmn_metal_ms_pulleystand_dif-image-sampler" texcoord="UVSET0" />
+                            <color>1.000000 1.000000 1.000000 1</color>
+                        </diffuse>
+                    </phong>
+                </technique>
+            </profile_COMMON>
+        </effect>
+    </library_effects>
+    <library_geometries>
+        <geometry id="cmn_obj_pulleystandB-geometry" name="cmn_obj_pulleystandB-geometry">
+            <mesh>
+                <source id="cmn_obj_pulleystandB-geometry-position">
+                    <float_array id="cmn_obj_pulleystandB-geometry-position-array" count="96">-1.03394 0.5 -0.109911 -1.03394 -0.5 0.111218 -1.03394 0.5 0.111218 -1.03394 -0.5 -0.109911 -1.05213 0.5 0.139953 -1.25735 -0.5 0.139953 -1.25735 0.5 0.139953 -1.05213 -0.5 0.139952 -1.27555 0.5 0.111218 -1.27555 -0.5 -0.109911 -1.27555 0.5 -0.109911 -1.27555 -0.5 0.111218 -1.25735 0.5 -0.138645 -1.05213 -0.5 -0.138645 -1.05213 0.5 -0.138645 -1.25735 -0.5 -0.138645 -1.05213 0.5 -0.138645 -1.03394 -0.5 -0.109911 -1.03394 0.5 -0.109911 -1.05213 -0.5 -0.138645 -1.03394 0.5 0.111218 -1.05213 -0.5 0.139952 -1.05213 0.5 0.139953 -1.03394 -0.5 0.111218 -1.25735 0.5 0.139953 -1.27555 -0.5 0.111218 -1.27555 0.5 0.111218 -1.25735 -0.5 0.139953 -1.27555 0.5 -0.109911 -1.25735 -0.5 -0.138645 -1.25735 0.5 -0.138645 -1.27555 -0.5 -0.109911 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandB-geometry-position-array" count="32" stride="3">
+                            <param name="X" type="float" />
+                            <param name="Y" type="float" />
+                            <param name="Z" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="cmn_obj_pulleystandB-geometry-normal">
+                    <float_array id="cmn_obj_pulleystandB-geometry-normal-array" count="24">1 0 0 1e-006 0 1 -1 0 0 0 0 -1 0.844901 0 -0.534922 0.844901 0 0.534922 -0.844895 0 0.534932 -0.844897 0 -0.534929 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandB-geometry-normal-array" count="8" stride="3">
+                            <param name="X" type="float" />
+                            <param name="Y" type="float" />
+                            <param name="Z" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="cmn_obj_pulleystandB-geometry-uv">
+                    <float_array id="cmn_obj_pulleystandB-geometry-uv-array" count="40">-0.21116 1.92628 -0.253949 1.50045 -0.253949 1.92628 -0.21116 1.50045 0.783995 1.92418 0.753914 1.50439 0.753914 1.92418 0.783995 1.50439 -0.211276 1.92628 -0.254065 1.50045 -0.254065 1.92628 -0.211276 1.50045 -0.218421 1.92628 -0.218421 1.50045 -0.248554 1.50045 -0.248554 1.92628 -0.218537 1.92628 -0.218537 1.50045 -0.24867 1.50045 -0.24867 1.92628 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandB-geometry-uv-array" count="20" stride="2">
+                            <param name="S" type="float" />
+                            <param name="T" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <vertices id="cmn_obj_pulleystandB-geometry-vertex">
+                    <input semantic="POSITION" source="#cmn_obj_pulleystandB-geometry-position" />
+                </vertices>
+                <triangles material="cmn_obj_pulley_HD_pstand" count="16">
+                    <input semantic="VERTEX" source="#cmn_obj_pulleystandB-geometry-vertex" offset="0" />
+                    <input semantic="NORMAL" source="#cmn_obj_pulleystandB-geometry-normal" offset="1" />
+                    <input semantic="TEXCOORD" source="#cmn_obj_pulleystandB-geometry-uv" offset="2" set="0" />
+                    <p>1 0 1 0 0 0 2 0 2 0 0 0 1 0 1 3 0 3 5 1 5 4 1 4 6 1 6 4 1 4 5 1 5 7 1 7 9 2 9 8 2 8 10 2 10 8 2 8 9 2 9 11 2 11 13 3 5 12 3 4 14 3 6 12 3 4 13 3 5 15 3 7 17 4 3 16 4 12 18 4 0 16 4 12 17 4 3 19 4 13 21 5 14 20 5 2 22 5 15 20 5 2 21 5 14 23 5 1 25 6 11 24 6 16 26 6 8 24 6 16 25 6 11 27 6 17 29 7 18 28 7 10 30 7 19 28 7 10 29 7 18 31 7 9 </p>
+                </triangles>
+            </mesh>
+        </geometry>
+    </library_geometries>
+    <library_controllers>
+        <controller id="cmn_obj_pulleystandB-controller">
+            <skin source="#cmn_obj_pulleystandB-geometry">
+                <bind_shape_matrix>1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0</bind_shape_matrix>
+                <source id="cmn_obj_pulleystandB-controller-Joints">
+                    <Name_array id="cmn_obj_pulleystandB-controller-Joints-array" count="1">cmn_obj_pulleystandB </Name_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandB-controller-Joints-array" count="1">
+                            <param type="name" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="cmn_obj_pulleystandB-controller-Matrices">
+                    <float_array id="cmn_obj_pulleystandB-controller-Matrices-array" count="16">1 -0 0 -0 -0 1 -0 0 0 -0 1 -0 -0 0 -0 1 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandB-controller-Matrices-array" count="1" stride="16">
+                            <param type="float4x4" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="cmn_obj_pulleystandB-controller-Weights">
+                    <float_array id="cmn_obj_pulleystandB-controller-Weights-array" count="1">1 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandB-controller-Weights-array" count="1">
+                            <param type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <joints>
+                    <input semantic="JOINT" source="#cmn_obj_pulleystandB-controller-Joints" />
+                    <input semantic="INV_BIND_MATRIX" source="#cmn_obj_pulleystandB-controller-Matrices" />
+                </joints>
+                <vertex_weights count="32">
+                    <input semantic="JOINT" offset="0" source="#cmn_obj_pulleystandB-controller-Joints" />
+                    <input semantic="WEIGHT" offset="1" source="#cmn_obj_pulleystandB-controller-Weights" />
+                    <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </vcount>
+                    <v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </v>
+                </vertex_weights>
+            </skin>
+        </controller>
+    </library_controllers>
+    <library_visual_scenes>
+        <visual_scene id="SonicGLvlScene" name="SonicGLvlScene">
+            <node id="cmn_obj_pulleystandB" sid="cmn_obj_pulleystandB" name="cmn_obj_pulleystandB">
+                <instance_controller url="#cmn_obj_pulleystandB-controller">
+                    <bind_material>
+                        <technique_common>
+                            <instance_material symbol="cmn_obj_pulley_HD_pstand" target="#cmn_obj_pulley_HD_pstandID" />
+                        </technique_common>
+                    </bind_material>
+                </instance_controller>
+            </node>
+            <node id="cmn_obj_pulleystandB" sid="cmn_obj_pulleystandB" name="cmn_obj_pulleystandB" type="JOINT">
+                <matrix>1 0 0 -0 0 1 0 -0 0 0 1 -0 0 0 0 1 </matrix>
+                <extra>
+                    <technique profile="FCOLLADA">
+                        <visibility>1.000000</visibility>
+                    </technique>
+                </extra>
+            </node>
+        </visual_scene>
+    </library_visual_scenes>
+    <scene>
+        <instance_visual_scene url="#SonicGLvlScene" />
+    </scene>
+</COLLADA>

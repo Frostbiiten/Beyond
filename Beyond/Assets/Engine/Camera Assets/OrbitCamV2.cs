@@ -68,6 +68,24 @@ public class OrbitCamV2 : MonoBehaviour
     public Transform cameraLockTrigger;
 
     public Vector3 lookOffset;
+
+    public float driftSpeed;
+
+    [System.Serializable]
+    public struct camAnim
+    {
+        public AnimationCurve x;
+        public AnimationCurve y;
+        public AnimationCurve z;
+    }
+
+    public camAnim StartA;
+
+    public camAnim StartB;
+
+    public Transform startPositionReference;
+    public Transform startLookatReference;
+
     // Use this for initialization
     void Start()
     {
@@ -94,6 +112,13 @@ public class OrbitCamV2 : MonoBehaviour
                 y = ClampAngle(y, yMinLimit, yMaxLimit);
 
                 x += pc.inputCore.directionalInput.x * currentTurnSpeed;
+
+                if(pc.groundedPhysics.enabled == true && pc.velocityMagnitude > pc.playerAnimationManager.driftThreshold)
+                {
+                    // drift
+                    x += Input.GetAxis("Drift") * driftSpeed;
+                }
+
 
                 currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, turnSpeedCurve.Evaluate(pc.velocityMagnitude), turnSpeedInterpolation);
 
@@ -139,6 +164,27 @@ public class OrbitCamV2 : MonoBehaviour
             }
 
         }
+
+        if (pc.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartFast"))
+        {
+            float t = pc.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            Vector3 pos = new Vector3(StartB.x.Evaluate(t), StartB.y.Evaluate(t), StartB.z.Evaluate(t));
+            startPositionReference.localPosition = pos;
+            transform.position = startPositionReference.position;
+            transform.LookAt(startLookatReference);
+        }
+
+
+        if (pc.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartNormal"))
+        {
+            float t = pc.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            Vector3 pos = new Vector3(StartA.x.Evaluate(t), StartA.y.Evaluate(t), StartA.z.Evaluate(t));
+            startPositionReference.localPosition = pos;
+            transform.position = startPositionReference.position;
+            transform.LookAt(startLookatReference);
+        }
+
+
 
     }
 

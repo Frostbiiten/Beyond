@@ -8,11 +8,28 @@ public class PlayerStompSlide : MonoBehaviour
     public bool stomping;
     public float stompSpeed;
     public bool sliding;
-    public bool stompLand;
     public bool crouch;
 
     public float dTap;
     public float tapSpeed = 2f;
+
+    public float stompExplosionForce;
+    public float stompExplosionRadius;
+
+    bool old;
+    bool cur;
+
+    public GameObject stompingFx;
+    public ParticleSystem stompLandParticles;
+    public float stompShakeAmount = 1.5f;
+    public float shakeTime = 0.01f;
+    public CapsuleCollider defaultCollider;
+    float defHeight;
+    public float slideMomentum = 0.33f;
+    private void Start()
+    {
+        defHeight = defaultCollider.height;
+    }
 
     void Update()
     {
@@ -28,13 +45,14 @@ public class PlayerStompSlide : MonoBehaviour
             {
                 PlayerCore.playerAnimationManager.playerAnimator.Play("Stomp");
                 stomping = true;
-                stompLand = true;
             }
             if(PlayerCore.groundedPhysics.enabled == true)
             {
                 if(PlayerCore.velocityMagnitude >= 0.5f)
                 PlayerCore.playerAnimationManager.playerAnimator.Play("Slide");
                 sliding = true;
+                defaultCollider.height = 0.5f;
+                defaultCollider.center = new Vector3(0f, -0.5f, 0f);
             }
         }
 
@@ -43,10 +61,13 @@ public class PlayerStompSlide : MonoBehaviour
             dTap = 0f;
             PlayerCore.playerAnimationManager.playerAnimator.Play("Slide Kick");
         }
-        crouch = Input.GetButton("Slide") && PlayerCore.groundedPhysics.enabled == true&& PlayerCore.velocityMagnitude < 0.5f;
+        crouch = Input.GetButton("Slide") && PlayerCore.groundedPhysics.enabled == true && PlayerCore.velocityMagnitude < 0.5f;
+
         if (Input.GetButtonUp("Slide") || !Input.GetButton("Slide") || PlayerCore.velocityMagnitude < 0.5f)
         {
+            defaultCollider.height = defHeight;
             sliding = false;
+            defaultCollider.center = Vector3.zero;
         }
 
         if (PlayerCore.groundedPhysics.enabled == true)
@@ -59,14 +80,27 @@ public class PlayerStompSlide : MonoBehaviour
             sliding = false;
         }
 
+        if(sliding == true)
+        {
+            PlayerCore.rb.AddForce(PlayerCore.velocity * slideMomentum);
+        }
 
 
-        PlayerCore.playerAnimationManager.playerAnimator.SetBool("Stomping", stompLand);
+        PlayerCore.playerAnimationManager.playerAnimator.SetBool("Stomping", stomping);
+        PlayerCore.playerAnimationManager.playerAnimator.SetBool("Stomping", stomping);
         PlayerCore.playerAnimationManager.playerAnimator.SetBool("Sliding", sliding);
         PlayerCore.playerAnimationManager.playerAnimator.SetBool("Crouching", crouch);
+        stompingFx.SetActive(PlayerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Stomp"));
     }
 
+    void OnStompLand()
+    {
+        stompLandParticles.Play();
+        PlayerCore.Explode(transform.position, stompExplosionRadius, stompExplosionForce);
+        StartCoroutine(PlayerCore.camShake.Shake(stompShakeAmount, shakeTime));
+        PlayerCore.playerAnimationManager.playerAnimator.Play("StompLand");
 
+    }
 
     void FixedUpdate()
     {
@@ -75,12 +109,23 @@ public class PlayerStompSlide : MonoBehaviour
             PlayerCore.rb.velocity = Vector3.down * stompSpeed;
         }
 
-        if(sliding == true)
+        old = cur;
+        if(PlayerCore.grounded == false && stomping == true)
         {
-            // shorter collider?
+            cur = true;
+        }
+        else
+        {
+            cur = false;
         }
 
-        if (PlayerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Stompland"))
+        if(old != cur && old == true)
+        {
+            OnStompLand();
+            stompLandParticles.Play();
+        }
+
+        if (PlayerCore.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StompLand"))
         {
             PlayerCore.rb.velocity = Vector3.zero;
         }

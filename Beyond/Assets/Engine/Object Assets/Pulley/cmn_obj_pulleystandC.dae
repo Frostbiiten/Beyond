@@ -1,0 +1,211 @@
+<?xml version="1.0" ?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+    <asset>
+        <contributor>
+            <authoring_tool>SonicGLvl - COLLADA Exporter</authoring_tool>
+        </contributor>
+        <unit name="meters" meter="1.0" />
+        <up_axis>Y_UP</up_axis>
+    </asset>
+    <library_images>
+        <image id="cmn_metal_ms_pulleystand_dif-image" name="cmn_metal_ms_pulleystand_dif-image">
+            <init_from>./textures/cmn_metal_ms_pulleystand_dif.dds</init_from>
+        </image>
+        <image id="cmn_metal_ms_pulleystand_pow-image" name="cmn_metal_ms_pulleystand_pow-image">
+            <init_from>./textures/cmn_metal_ms_pulleystand_pow.dds</init_from>
+        </image>
+        <image id="cmn_metal_ms_pulley_light_dif-image" name="cmn_metal_ms_pulley_light_dif-image">
+            <init_from>./textures/cmn_metal_ms_pulley_light_dif.dds</init_from>
+        </image>
+    </library_images>
+    <library_materials>
+        <material id="cmn_obj_pulley_HD_pstandID" name="cmn_obj_pulley_HD_pstand">
+            <instance_effect url="#cmn_obj_pulley_HD_pstand-effect" />
+        </material>
+        <material id="cmn_obj_pulley_HD_ligntID" name="cmn_obj_pulley_HD_lignt">
+            <instance_effect url="#cmn_obj_pulley_HD_lignt-effect" />
+        </material>
+    </library_materials>
+    <library_effects>
+        <effect id="cmn_obj_pulley_HD_pstand-effect" name="cmn_obj_pulley_HD_pstand-effect">
+            <profile_COMMON>
+                <newparam sid="cmn_metal_ms_pulleystand_dif-image-surface">
+                    <surface type="2D">
+                        <init_from>cmn_metal_ms_pulleystand_dif-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulleystand_dif-image-sampler">
+                    <sampler2D>
+                        <source>cmn_metal_ms_pulleystand_dif-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulleystand_pow-image-surface">
+                    <surface type="2D">
+                        <init_from>cmn_metal_ms_pulleystand_pow-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulleystand_pow-image-sampler">
+                    <sampler2D>
+                        <source>cmn_metal_ms_pulleystand_pow-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <technique sid="COMMON">
+                    <phong>
+                        <diffuse>
+                            <texture texture="cmn_metal_ms_pulleystand_dif-image-sampler" texcoord="UVSET0" />
+                            <color>1.000000 1.000000 1.000000 1</color>
+                        </diffuse>
+                    </phong>
+                </technique>
+            </profile_COMMON>
+        </effect>
+        <effect id="cmn_obj_pulley_HD_lignt-effect" name="cmn_obj_pulley_HD_lignt-effect">
+            <profile_COMMON>
+                <newparam sid="cmn_metal_ms_pulley_light_dif-image-surface">
+                    <surface type="2D">
+                        <init_from>cmn_metal_ms_pulley_light_dif-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulley_light_dif-image-sampler">
+                    <sampler2D>
+                        <source>cmn_metal_ms_pulley_light_dif-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulley_light_dif-image-surface">
+                    <surface type="2D">
+                        <init_from>cmn_metal_ms_pulley_light_dif-image</init_from>
+                    </surface>
+                </newparam>
+                <newparam sid="cmn_metal_ms_pulley_light_dif-image-sampler">
+                    <sampler2D>
+                        <source>cmn_metal_ms_pulley_light_dif-image-surface</source>
+                    </sampler2D>
+                </newparam>
+                <technique sid="COMMON">
+                    <phong>
+                        <diffuse>
+                            <texture texture="cmn_metal_ms_pulley_light_dif-image-sampler" texcoord="UVSET0" />
+                            <color>1.000000 1.000000 1.000000 1</color>
+                        </diffuse>
+                    </phong>
+                </technique>
+            </profile_COMMON>
+        </effect>
+    </library_effects>
+    <library_geometries>
+        <geometry id="cmn_obj_pulleystandC-geometry" name="cmn_obj_pulleystandC-geometry">
+            <mesh>
+                <source id="cmn_obj_pulleystandC-geometry-position">
+                    <float_array id="cmn_obj_pulleystandC-geometry-position-array" count="234">-1.00032 0 -0.154416 -0.936364 -0.14649 0 -0.936364 0 0 -1.00032 -0.14649 -0.154416 -1.15474 0 -0.218377 -1.15474 -0.14649 -0.218377 -1.30916 0 -0.154416 -1.30916 -0.14649 -0.154416 -1.37312 0 0 -1.37312 -0.14649 0 -1.30916 0 0.154416 -1.30916 -0.14649 0.154416 -1.15474 0 0.218377 -1.15474 -0.14649 0.218377 -1.00032 0 0.154416 -1.00032 -0.14649 0.154416 -0.936364 0 0 -0.936364 -0.14649 0 -1.00032 -0.14649 -0.154416 -1.15474 -0.14649 0 -0.936364 -0.14649 0 -0.936364 -0.14649 0 -1.00032 -0.14649 0.154416 -1.15474 -0.14649 0.218377 -1.30916 -0.14649 0.154416 -1.37312 -0.14649 0 -1.30916 -0.14649 -0.154416 -1.15474 -0.14649 -0.218377 -0.936364 0 0 -1.15474 0 0 -1.00032 0 -0.154416 -1.15474 0 -0.218377 -1.30916 0 -0.154416 -1.37312 0 0 -1.30916 0 0.154416 -1.15474 0 0.218377 -1.00032 0 0.154416 -0.936364 0 0 -1.15474 -0.136432 -0.15511 -1.2219 -0.213987 -0.116333 -1.15474 -0.213987 -0.134329 -1.2323 -0.136432 -0.134329 -1.27107 -0.213987 -0.0671647 -1.28907 -0.136432 -0.0775551 -1.28907 -0.213987 0 -1.30985 -0.136432 0 -1.27107 -0.213987 0.0671647 -1.28907 -0.136432 0.0775551 -1.2219 -0.213987 0.116333 -1.2323 -0.136432 0.134329 -1.15474 -0.213987 0.134329 -1.15474 -0.136432 0.15511 -1.08758 -0.213987 0.116333 -1.07719 -0.136432 0.134329 -1.03841 -0.213987 0.0671648 -1.02041 -0.136432 0.0775552 -1.02041 -0.213987 1e-007 -0.99963 -0.136432 1e-007 -1.03841 -0.213987 -0.0671646 -1.02041 -0.136432 -0.077555 -1.02041 -0.136432 -0.077555 -1.08758 -0.213987 -0.116333 -1.03841 -0.213987 -0.0671646 -1.07718 -0.136432 -0.134329 -1.19352 -0.270761 -0.0671647 -1.15474 -0.270761 -0.0775551 -1.2219 -0.270761 -0.0387776 -1.2323 -0.270761 0 -1.2219 -0.270761 0.0387775 -1.19352 -0.270761 0.0671647 -1.15474 -0.270761 0.0775551 -1.11596 -0.270761 0.0671647 -1.08758 -0.270761 0.0387776 -1.07719 -0.270761 1e-007 -1.08758 -0.270761 -0.0387775 -1.11596 -0.270761 -0.0671647 -1.08758 -0.270761 -0.0387775 -1.15474 -0.291542 0 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandC-geometry-position-array" count="78" stride="3">
+                            <param name="X" type="float" />
+                            <param name="Y" type="float" />
+                            <param name="Z" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="cmn_obj_pulleystandC-geometry-normal">
+                    <float_array id="cmn_obj_pulleystandC-geometry-normal-array" count="138">0.707107 0 -0.707107 1 0 0 0 0 -1 -0.707107 0 -0.707107 -1 0 0 -0.707107 0 0.707107 0 0 1 0.707107 0 0.707107 0 -1 0 0 1 0 0 -0.258819 -0.965926 -0.437992 -0.482342 -0.758623 0 -0.482342 -0.875983 -0.482963 -0.258819 -0.836516 -0.758624 -0.482342 -0.437991 -0.836516 -0.258819 -0.482963 -0.875983 -0.482343 -1e-006 -0.965926 -0.25882 -1e-006 -0.758624 -0.482342 0.437991 -0.836516 -0.258819 0.482963 -0.437991 -0.482342 0.758623 -0.482963 -0.258819 0.836516 -1e-006 -0.482342 0.875983 0 -0.258819 0.965926 0.437991 -0.482342 0.758624 0.482962 -0.258819 0.836517 0.758623 -0.482342 0.437992 0.836516 -0.258819 0.482964 0.875983 -0.482343 1e-006 0.965926 -0.25882 1e-006 0.758624 -0.482342 -0.437991 0.836516 -0.258819 -0.482963 0.437992 -0.482342 -0.758623 0.482963 -0.258819 -0.836516 -0.26545 -0.847435 -0.459773 0 -0.847435 -0.5309 -0.459773 -0.847435 -0.26545 -0.5309 -0.847435 0 -0.459773 -0.847435 0.265449 -0.26545 -0.847435 0.459773 0 -0.847435 0.5309 0.265449 -0.847435 0.459773 0.459773 -0.847435 0.26545 0.5309 -0.847435 0 0.459773 -0.847435 -0.265449 0.26545 -0.847435 -0.459773 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandC-geometry-normal-array" count="46" stride="3">
+                            <param name="X" type="float" />
+                            <param name="Y" type="float" />
+                            <param name="Z" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="cmn_obj_pulleystandC-geometry-uv">
+                    <float_array id="cmn_obj_pulleystandC-geometry-uv-array" count="120">0.676447 0.861561 0.492877 0.98197 0.676447 0.981977 0.492878 0.861554 0.676448 0.741145 0.492878 0.741138 0.676448 0.620729 0.492879 0.620722 0.676449 0.500313 0.492879 0.500306 0.676449 0.379897 0.49288 0.37989 0.67645 0.259481 0.49288 0.259474 0.67645 0.139065 0.492881 0.139058 0.676451 0.018649 0.492882 0.018642 0.43995 0.501733 0.748297 0.501744 0.774203 0.047197 0.707784 0.435539 0.774199 0.435539 0.707787 0.047197 0.641368 0.435538 0.641372 0.047197 0.574952 0.435538 0.574956 0.047196 0.508537 0.435538 0.508541 0.047196 0.442121 0.435537 0.442125 0.047195 0.375706 0.435537 0.375709 0.047195 0.30929 0.435536 0.309294 0.047195 0.242875 0.435536 0.242878 0.047194 0.176459 0.435536 0.176463 0.047194 0.110044 0.435535 0.110047 0.047194 0.907034 0.047198 0.840615 0.435539 0.90703 0.43554 0.840618 0.047198 0.707781 0.719824 0.774196 0.719825 0.641365 0.719824 0.57495 0.719824 0.508534 0.719823 0.442119 0.719823 0.375703 0.719823 0.309288 0.719822 0.242872 0.719822 0.176456 0.719822 0.110041 0.719821 0.840612 0.719825 0.907028 0.719825 0.510427 0.823879 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandC-geometry-uv-array" count="60" stride="2">
+                            <param name="S" type="float" />
+                            <param name="T" type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <vertices id="cmn_obj_pulleystandC-geometry-vertex">
+                    <input semantic="POSITION" source="#cmn_obj_pulleystandC-geometry-position" />
+                </vertices>
+                <triangles material="cmn_obj_pulley_HD_pstand" count="44">
+                    <input semantic="VERTEX" source="#cmn_obj_pulleystandC-geometry-vertex" offset="0" />
+                    <input semantic="NORMAL" source="#cmn_obj_pulleystandC-geometry-normal" offset="1" />
+                    <input semantic="TEXCOORD" source="#cmn_obj_pulleystandC-geometry-uv" offset="2" set="0" />
+                    <p>1 1 1 0 0 0 2 1 2 0 0 0 1 1 1 0 0 0 3 0 3 0 0 0 1 1 1 0 0 0 3 0 3 4 2 4 5 2 5 4 2 4 3 0 3 4 2 4 5 2 5 6 3 6 7 3 7 6 3 6 5 2 5 6 3 6 7 3 7 8 4 8 9 4 9 8 4 8 7 3 7 8 4 8 9 4 9 10 5 10 11 5 11 10 5 10 9 4 9 10 5 10 11 5 11 12 6 12 13 6 13 12 6 12 11 5 11 12 6 12 13 6 13 14 7 14 15 7 15 14 7 14 13 6 13 14 7 14 15 7 15 16 1 16 17 1 17 16 1 16 15 7 15 19 8 18 18 8 3 20 8 1 18 8 3 19 8 18 27 8 5 19 8 18 27 8 5 19 8 18 27 8 5 19 8 18 26 8 7 19 8 18 26 8 7 19 8 18 26 8 7 19 8 18 25 8 9 19 8 18 25 8 9 19 8 18 25 8 9 19 8 18 24 8 11 19 8 18 24 8 11 19 8 18 24 8 11 19 8 18 23 8 13 19 8 18 23 8 13 19 8 18 23 8 13 19 8 18 22 8 15 21 8 17 22 8 15 19 8 18 30 9 0 29 9 19 28 9 2 29 9 19 30 9 0 29 9 19 31 9 4 29 9 19 30 9 0 29 9 19 31 9 4 29 9 19 32 9 6 29 9 19 31 9 4 29 9 19 32 9 6 29 9 19 33 9 8 29 9 19 32 9 6 29 9 19 33 9 8 29 9 19 34 9 10 29 9 19 33 9 8 29 9 19 34 9 10 29 9 19 35 9 12 29 9 19 34 9 10 29 9 19 35 9 12 29 9 19 36 9 14 29 9 19 35 9 12 29 9 19 36 9 14 37 9 16 </p>
+                </triangles>
+                <triangles material="cmn_obj_pulley_HD_lignt" count="72">
+                    <input semantic="VERTEX" source="#cmn_obj_pulleystandC-geometry-vertex" offset="0" />
+                    <input semantic="NORMAL" source="#cmn_obj_pulleystandC-geometry-normal" offset="1" />
+                    <input semantic="TEXCOORD" source="#cmn_obj_pulleystandC-geometry-uv" offset="2" set="0" />
+                    <p>57 29 39 58 30 40 59 31 41 58 30 40 57 29 39 58 30 40 56 28 38 58 30 40 57 29 39 58 30 40 56 28 38 74 44 56 73 43 55 74 44 56 56 28 38 74 44 56 73 43 55 77 8 59 72 42 54 77 8 59 73 43 55 77 8 59 72 42 54 77 8 59 71 41 53 77 8 59 72 42 54 77 8 59 71 41 53 77 8 59 70 40 52 77 8 59 71 41 53 77 8 59 70 40 52 77 8 59 69 39 51 77 8 59 70 40 52 77 8 59 69 39 51 77 8 59 68 38 50 77 8 59 69 39 51 77 8 59 68 38 50 77 8 59 67 37 49 77 8 59 68 38 50 77 8 59 67 37 49 77 8 59 66 36 48 77 8 59 67 37 49 77 8 59 66 36 48 77 8 59 64 34 46 77 8 59 66 36 48 77 8 59 64 34 46 77 8 59 65 35 47 77 8 59 64 34 46 77 8 59 65 35 47 77 8 59 75 45 57 77 8 59 65 35 47 77 8 59 75 45 57 76 44 58 75 45 57 76 44 58 75 45 57 76 44 58 75 45 57 62 30 44 61 32 43 62 30 44 75 45 57 62 30 44 61 32 43 60 31 42 61 32 43 60 31 42 61 32 43 60 31 42 61 32 43 63 33 45 40 12 22 63 33 45 61 32 43 63 33 45 40 12 22 38 10 20 39 11 21 38 10 20 40 12 22 38 10 20 39 11 21 41 13 23 42 14 24 41 13 23 39 11 21 41 13 23 42 14 24 43 15 25 44 16 26 43 15 25 42 14 24 43 15 25 44 16 26 45 17 27 46 18 28 45 17 27 44 16 26 45 17 27 46 18 28 47 19 29 48 20 30 47 19 29 46 18 28 47 19 29 48 20 30 49 21 31 50 22 32 49 21 31 48 20 30 49 21 31 50 22 32 51 23 33 52 24 34 51 23 33 50 22 32 51 23 33 52 24 34 53 25 35 54 26 36 53 25 35 52 24 34 53 25 35 54 26 36 55 27 37 56 28 38 55 27 37 54 26 36 55 27 37 56 28 38 57 29 39 54 26 36 73 43 55 56 28 38 73 43 55 54 26 36 72 42 54 52 24 34 72 42 54 54 26 36 72 42 54 52 24 34 71 41 53 50 22 32 71 41 53 52 24 34 71 41 53 50 22 32 70 40 52 48 20 30 70 40 52 50 22 32 70 40 52 48 20 30 69 39 51 46 18 28 69 39 51 48 20 30 69 39 51 46 18 28 68 38 50 44 16 26 68 38 50 46 18 28 68 38 50 44 16 26 67 37 49 42 14 24 67 37 49 44 16 26 67 37 49 42 14 24 66 36 48 39 11 21 66 36 48 42 14 24 66 36 48 39 11 21 64 34 46 40 12 22 64 34 46 39 11 21 64 34 46 40 12 22 65 35 47 61 32 43 65 35 47 40 12 22 65 35 47 61 32 43 75 45 57 </p>
+                </triangles>
+            </mesh>
+        </geometry>
+    </library_geometries>
+    <library_controllers>
+        <controller id="cmn_obj_pulleystandC-controller">
+            <skin source="#cmn_obj_pulleystandC-geometry">
+                <bind_shape_matrix>1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0 0.0 0.0 0.0 0.0 1.0</bind_shape_matrix>
+                <source id="cmn_obj_pulleystandC-controller-Joints">
+                    <Name_array id="cmn_obj_pulleystandC-controller-Joints-array" count="1">cmn_obj_pulleystandC </Name_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandC-controller-Joints-array" count="1">
+                            <param type="name" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="cmn_obj_pulleystandC-controller-Matrices">
+                    <float_array id="cmn_obj_pulleystandC-controller-Matrices-array" count="16">1 -0 0 -0 -0 1 -0 0 0 -0 1 -0 -0 0 -0 1 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandC-controller-Matrices-array" count="1" stride="16">
+                            <param type="float4x4" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <source id="cmn_obj_pulleystandC-controller-Weights">
+                    <float_array id="cmn_obj_pulleystandC-controller-Weights-array" count="1">1 </float_array>
+                    <technique_common>
+                        <accessor source="#cmn_obj_pulleystandC-controller-Weights-array" count="1">
+                            <param type="float" />
+                        </accessor>
+                    </technique_common>
+                </source>
+                <joints>
+                    <input semantic="JOINT" source="#cmn_obj_pulleystandC-controller-Joints" />
+                    <input semantic="INV_BIND_MATRIX" source="#cmn_obj_pulleystandC-controller-Matrices" />
+                </joints>
+                <vertex_weights count="78">
+                    <input semantic="JOINT" offset="0" source="#cmn_obj_pulleystandC-controller-Joints" />
+                    <input semantic="WEIGHT" offset="1" source="#cmn_obj_pulleystandC-controller-Weights" />
+                    <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </vcount>
+                    <v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </v>
+                </vertex_weights>
+            </skin>
+        </controller>
+    </library_controllers>
+    <library_visual_scenes>
+        <visual_scene id="SonicGLvlScene" name="SonicGLvlScene">
+            <node id="cmn_obj_pulleystandC" sid="cmn_obj_pulleystandC" name="cmn_obj_pulleystandC">
+                <instance_controller url="#cmn_obj_pulleystandC-controller">
+                    <bind_material>
+                        <technique_common>
+                            <instance_material symbol="cmn_obj_pulley_HD_pstand" target="#cmn_obj_pulley_HD_pstandID" />
+                            <instance_material symbol="cmn_obj_pulley_HD_lignt" target="#cmn_obj_pulley_HD_ligntID" />
+                        </technique_common>
+                    </bind_material>
+                </instance_controller>
+            </node>
+            <node id="cmn_obj_pulleystandC" sid="cmn_obj_pulleystandC" name="cmn_obj_pulleystandC" type="JOINT">
+                <matrix>1 0 0 -0 0 1 0 -0 0 0 1 -0 0 0 0 1 </matrix>
+                <extra>
+                    <technique profile="FCOLLADA">
+                        <visibility>1.000000</visibility>
+                    </technique>
+                </extra>
+            </node>
+        </visual_scene>
+    </library_visual_scenes>
+    <scene>
+        <instance_visual_scene url="#SonicGLvlScene" />
+    </scene>
+</COLLADA>

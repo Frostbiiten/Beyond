@@ -16,17 +16,17 @@ MonoBehaviour:
   m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.69
+    m_Value: 0
     min: 0
     max: 4
   thicknessModifier:
     m_OverrideState: 1
-    m_Value: 5.05
+    m_Value: 1
     min: 1
     max: 10
   directLightingStrength:
     m_OverrideState: 1
-    m_Value: 0.372
+    m_Value: 0
     min: 0
     max: 1
   noiseFilterTolerance:
@@ -201,7 +201,7 @@ MonoBehaviour:
     min: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 1
     min: 0
   maxVelocity:
     m_OverrideState: 1
@@ -210,7 +210,7 @@ MonoBehaviour:
     max: 1500
   minVel:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
     min: 0
     max: 64
   cameraRotationVelocityClamp:
@@ -230,10 +230,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f077503be6ae942a1e1245dbd53ea9, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 1
   intensity:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
     min: 0
     max: 1
@@ -306,12 +306,12 @@ MonoBehaviour:
     min: 0
   nearSampleCount:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 4
     min: 3
     max: 8
   nearMaxBlur:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 2.65
     min: 0
     max: 8
   farSampleCount:
@@ -348,7 +348,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   contrast:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
     min: -100
     max: 100
@@ -359,12 +359,12 @@ MonoBehaviour:
     showAlpha: 0
     showEyeDropper: 1
   hueShift:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
     min: -180
     max: 180
   saturation:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
     min: -100
     max: 100

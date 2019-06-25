@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI ringsText;
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI fpsCounter;
+    public TextMeshProUGUI scoreText;
     public Image speedBar;
     public float speedBarTopSpeedReference;
     public float time;
@@ -35,6 +36,8 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.SetCursor(normalCursor, Vector2.zero, CursorMode.Auto);
         UpdateRings();
+        UpdateLives();
+        UpdateScore();
         InvokeRepeating("UpdateFPS", 0f, 0.5f);
     }
     void Update()
@@ -124,6 +127,7 @@ public class UIManager : MonoBehaviour
     IEnumerator Pause()
     {
         StopCoroutine(UnPause());
+        playerCore.playerAnimationManager.playerAnimator.enabled = false;
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         yield return null;
@@ -131,6 +135,8 @@ public class UIManager : MonoBehaviour
 
     IEnumerator UnPause()
     {
+
+        playerCore.playerAnimationManager.playerAnimator.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.015f * Time.timeScale;
@@ -144,7 +150,12 @@ public class UIManager : MonoBehaviour
 
     void UpdateFPS()
     {
-        fpsCounter.text = (1f / Time.deltaTime).ToString("N0");
+        fpsCounter.text = ((int)(1f / Time.unscaledDeltaTime)).ToString();
+    }
+
+    public void UpdateScore()
+    {
+        scoreText.text = playerCore.score.ToString();
     }
 
     public void UpdateRings()

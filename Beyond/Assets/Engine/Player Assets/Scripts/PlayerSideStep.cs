@@ -31,9 +31,10 @@ public class PlayerSideStep : MonoBehaviour
         playerCore.playerAnimationManager.playerAnimator.SetFloat("SideStepVel", playerCore.velocityMagnitude);
 
         while (tLeft > 0f) {
+            //tLeft -= Time.deltaTime;
             tLeft -= Time.deltaTime;
             //playerCore.rb.velocity = sideStepDirection * sideStepSpeed;
-            playerCore.rb.velocity = tmpv + sideStepDirection * sideStepSpeed * Time.deltaTime * 60f;
+            playerCore.rb.velocity = tmpv + sideStepDirection * sideStepSpeed;
             yield return null;
         }
         playerCore.rb.velocity = tmpv;

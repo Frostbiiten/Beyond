@@ -24,6 +24,7 @@
 
 using UnityEngine;
 using System.Collections;
+using CielaSpike;
 
 namespace BLINDED_AM_ME{
 
@@ -140,17 +141,25 @@ namespace BLINDED_AM_ME{
 			// Un-magic this, lord vector!
 			return 0.5f * ((2f*p1) + (-p0 + p2)*i + (2f*p0 - 5f*p1 + 4f*p2 - p3)*i*i + (-p0 + 3f*p1 - 3f*p2 + p3)*i*i*i);
 		}
+        
+        public static IEnumerator CatmullRomThread(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 o, float i)
+        {
+            yield return Ninja.JumpBack;
+            o = 0.5f * ((2f * p1) + (-p0 + p2) * i + (2f * p0 - 5f * p1 + 4f * p2 - p3) * i * i + (-p0 + 3f * p1 - 3f * p2 + p3) * i * i * i);
+        }
 
-		#endregion
+        
 
-		#region Trajectory
+        #endregion
 
-		// https://en.wikipedia.org/wiki/Trajectory_of_a_projectile
+        #region Trajectory
 
-		/// <summary>
-		/// if returns false, increase initSpeed
-		/// </summary>
-		public static bool Trajectory_Can_Hit_Point(Vector2 point, float initSpeed, float gravity = 9.81f)
+        // https://en.wikipedia.org/wiki/Trajectory_of_a_projectile
+
+        /// <summary>
+        /// if returns false, increase initSpeed
+        /// </summary>
+        public static bool Trajectory_Can_Hit_Point(Vector2 point, float initSpeed, float gravity = 9.81f)
 		{
 
 			if(initSpeed * initSpeed * initSpeed * initSpeed - 

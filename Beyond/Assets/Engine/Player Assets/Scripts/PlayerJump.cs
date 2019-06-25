@@ -22,8 +22,9 @@ public class PlayerJump : MonoBehaviour
             jumpTakenUp = false;
             if (pCore.inputCore.JumpKeyDown)
             {
+                pCore.playerAnimationManager.playerAnimator.SetBool("OldBall", false);
                 pCore.playerSoundCore.voiceSource.PlayOneShot(pCore.playerSoundCore.initialJumpSound);
-                pCore.playerStompSlide.stompLand = false;
+                pCore.playerSoundCore.AltJump();
                 jumpTakenUp = false;
                 pCore.playerAnimationManager.PlayLeap();
                 pCore.rb.AddForce(transform.up * initialJumpForce, ForceMode.Impulse);
@@ -34,6 +35,7 @@ public class PlayerJump : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if (pCore.airbornePhysics.enabled == true)
         {
             if (Input.GetButtonUp("Jump"))
@@ -49,8 +51,10 @@ public class PlayerJump : MonoBehaviour
 
             if (timeHeld >= timeHeldForBall)
             {
+                pCore.playerAnimationManager.playerAnimator.SetBool("OldBall", true);
                 pCore.ball = true;
             }
         }
+
     }
 }

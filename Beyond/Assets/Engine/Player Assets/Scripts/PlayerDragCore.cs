@@ -19,6 +19,9 @@ public class PlayerDragCore : MonoBehaviour
     [Tooltip("The magnitude of ground drag")]
     public float groundDragMagnitude;
 
+    [Tooltip("The amount of slide drag")]
+    public float slideDrag = 0.1f;
+
     [Header("Airborne")]
 
     [Tooltip("Drag in the air")]
@@ -45,6 +48,11 @@ public class PlayerDragCore : MonoBehaviour
                 currentDrag = groundedDragCurve.Evaluate(playerCore.velocityMagnitude) * groundDragMagnitude * playerCore.groundedPhysics.spindashDragScalar;
             }
 
+        }
+
+        if(playerCore.playerStompSlide.sliding == true)
+        {
+            currentDrag = slideDrag;
         }
         #endregion
 
