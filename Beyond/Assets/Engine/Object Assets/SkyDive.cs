@@ -23,23 +23,24 @@ public class SkyDive : MonoBehaviour
                 skyDiving = false;
             }
 
-            diveFast = Input.GetButton("Boost");
+            diveFast = playerCore.inputCore.LShift;
 
             if (diveFast == true)
             {
-                diveRot = Vector3.Lerp(diveRot, new Vector3(Input.GetAxis("Y") * 0.75f, 0f, Input.GetAxis("X")) * 30f, 0.1f);
-                playerCore.playerAnimationManager.playerSkin.Rotate(diveRot);
+                diveRot = Vector3.Lerp(diveRot, new Vector3(playerCore.inputCore.directionalInput.y * 0.75f, 0f, playerCore.inputCore.directionalInput.x) * 30f, 0.1f);
+                //playerCore.playerAnimationManager.playerSkin.Rotate(diveRot);
                 playerCore.rb.AddForce(Vector3.down * diveFastAdditive);
             }
             else
             {
-                diveRot = Vector3.Lerp(diveRot, new Vector3(-Input.GetAxis("Y") * 0.75f, 0f, -Input.GetAxis("X")) * 30f, 0.1f);
+                diveRot = Vector3.Lerp(diveRot, new Vector3(playerCore.inputCore.directionalInput.y * 0.75f, 0f, -playerCore.inputCore.directionalInput.x) * 30f, 0.1f);
+                
 
                 if(playerCore.velocity.y < -yVelClamp)
                 {
                     playerCore.rb.AddForce(0f, -playerCore.velocity.y, 0f);
                 }
-                playerCore.playerAnimationManager.playerSkin.Rotate(diveRot);
+                //playerCore.playerAnimationManager.playerSkin.Rotate(diveRot);
                 playerCore.rb.AddForce(Vector3.up * diveSlowDrag);
             }
         }

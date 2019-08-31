@@ -5,6 +5,7 @@ using LayerHelper;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
+
 public class PlayerCore : MonoBehaviour
 {
     /* This holds base player stuff like
@@ -36,6 +37,7 @@ public class PlayerCore : MonoBehaviour
     public OrbitCamV2 orbitCam;
     public PlayerSoundManager playerSoundCore;
     public RunPath rPath;
+    public PlayerDrift playerDrift;
 
     #endregion
 
@@ -82,33 +84,20 @@ public class PlayerCore : MonoBehaviour
     int groundDetectionMask;
 
     Collider[] explosionObjs = new Collider[32];
+
+    public AnimationCurve turnSpeedCurve;
     void Start()
     {
         //oh =~ is opposit for mask
         groundDetectionMask |= ~(int)PlayerLayerHelper.Layers.Homeable;
 
-        //check lives to remove
+        //lives playerprefs
         if(PlayerPrefs.GetString("LastSceneLoaded") == SceneManager.GetActiveScene().name) {
-            #if UNITY_EDITOR
-            if(EditorApplication.isPlaying = false && EditorApplication.timeSinceStartup == 0)
-            {
-                PlayerPrefs.SetInt("TimesLoaded", 0);
-            }
-            #endif
 
-            playerHpManager.lives -= PlayerPrefs.GetInt("TimesLoaded");
-
-
-
-            if (playerHpManager.lives < 0)
-            {
-                StartCoroutine(playerHpManager.Die());
-                fadeAnimator.Play("FadeOut", 0, 1f);
-            }
         }
         else
         {
-            PlayerPrefs.SetInt("TimesLoaded", 0);
+
         }
         
         UIManager.UpdateLives();
@@ -126,10 +115,19 @@ public class PlayerCore : MonoBehaviour
     {
 
         #region Lazy System
-        playerForwardParent.localEulerAngles = playerCam.transform.eulerAngles;
+        playerForwardParent.eulerAngles = playerCam.transform.eulerAngles;
         playerForwardParent.localRotation = Quaternion.Euler(0f, playerForwardParent.localEulerAngles.y, 0f);
-        playerForwardDummy.localPosition = new Vector3(inputCore.directionalInput.x, 0f, inputCore.directionalInput.y);
-        playerForward.LookAt(playerForwardDummy);
+        if(playerDrift.drifting == true)
+        {
+            playerForwardDummy.localPosition = new Vector3(inputCore.directionalInput.x * 5f, 0f, inputCore.directionalInput.y * 5f);
+        }
+        else
+        {
+            playerForwardDummy.localPosition = new Vector3(inputCore.directionalInput.x, 0f, inputCore.directionalInput.y);
+        }
+
+        //playerForward.LookAt(playerForwardDummy);
+        playerForward.rotation = Quaternion.Slerp(playerForward.rotation, Quaternion.LookRotation((playerForwardDummy.position - playerForward.position).normalized), turnSpeedCurve.Evaluate(velocityMagnitude));
 
         #endregion
 

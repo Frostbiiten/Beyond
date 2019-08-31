@@ -73,7 +73,7 @@ public class CameraTrigger : MonoBehaviour
         if (activeOnlyLook == true && currentCam)
         {
             currentCam.orbitCam.currentLook = onlyLookTarget;
-            currentCam.orbitCam.lookInterpolation = lookOnlyInterpolation;
+            //currentCam.orbitCam.lookInterpolation = lookOnlyInterpolation;
         }
 
         if (onlyLookTarget && lockPositionTarget)

@@ -14,12 +14,14 @@ public class PlayerJump : MonoBehaviour
     public float jumpHeldVelocityThreshold;
     public float timeHeld;
     public float timeHeldForBall;
+    public bool wentDown;
     void Update()
     {
         if(pCore.groundedPhysics.enabled == true)
         {
             timeHeld = 0f;
             jumpTakenUp = false;
+            wentDown = false;
             if (pCore.inputCore.JumpKeyDown)
             {
                 pCore.playerAnimationManager.playerAnimator.SetBool("OldBall", false);
@@ -38,12 +40,17 @@ public class PlayerJump : MonoBehaviour
         
         if (pCore.airbornePhysics.enabled == true)
         {
-            if (Input.GetButtonUp("Jump"))
+            if (pCore.inputCore.JumpKeyUp)
             {
                 jumpTakenUp = true;
             }
 
-            if (pCore.velocity.y > jumpHeldVelocityThreshold && jumpTakenUp == false && pCore.inputCore.JumpKey)
+            if(pCore.velocity.y < 0f)
+            {
+                wentDown = true;
+            }
+
+            if (pCore.velocity.y > jumpHeldVelocityThreshold && jumpTakenUp == false && pCore.inputCore.JumpKey && wentDown == false)
             {
                 timeHeld += Time.deltaTime;
                 pCore.rb.AddForce(transform.up * jumpHeldForce);

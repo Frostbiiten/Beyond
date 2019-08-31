@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class XECameraRep : MonoBehaviour
 {
+    public PlayerCore playerCore;
+
     public float rotateSpeed;
 
     public float moveSpeed;
@@ -32,26 +34,27 @@ public class XECameraRep : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
 
-        if(Input.GetKey(KeyCode.LeftShift)){
+        if(playerCore.inputCore.LShift){
             currentShiftMultiplier = shiftMultiplier;
         }else{
             currentShiftMultiplier = 1f;
         }
 
-        if(Input.GetMouseButton(1)){
+        if(playerCore.inputCore.rightClick)
+        {
             moveScalar = Mathf.Lerp(moveScalar, maxMoveScalar, 0.075f);
-            lerped = Vector3.Lerp(lerped, new Vector3(Input.GetAxisRaw("X"), 0f, Input.GetAxisRaw("Y")), 0.075f);
+            lerped = Vector3.Lerp(lerped, new Vector3(playerCore.inputCore.directionalInput.x, 0f, playerCore.inputCore.directionalInput.y), 0.075f);
             lerped2 = Vector3.Lerp(lerped2, new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f), 0.5f);
             transform.Translate(lerped * moveSpeed * currentShiftMultiplier, Space.Self);
             transform.Rotate(lerped2 * rotateSpeed);
-            transform.rotation = Quaternion.Euler(new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f));
+            transform.rotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f));
         }
         else
         {
             moveScalar = 0.5f;
         }
 
-        if (Input.GetMouseButtonDown(2))
+        if (playerCore.inputCore.middleClickDown)
         {
             ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))

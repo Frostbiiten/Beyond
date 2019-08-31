@@ -7,8 +7,10 @@ public class Spring : MonoBehaviour
 {
     public Vector3 force;
     public bool setCameraDirection = false;
+	public bool camDirNeg = true;
     public AudioSource audioSource;
     public float scoreAdd;
+    public float camdistance = 10f;
 
     public enum Type
     {
@@ -36,6 +38,7 @@ public class Spring : MonoBehaviour
                     break;
                 case Type.dashPad:
                     audioSource.PlayOneShot(MainDefSounds.defaultSounds.dashPad);
+                    pc.groundedPhysics.currentForce = force.magnitude;
                     break;
                 case Type.normalRamp:
                     audioSource.PlayOneShot(MainDefSounds.defaultSounds.normalRamp);
@@ -56,8 +59,19 @@ public class Spring : MonoBehaviour
 
             pc.rb.velocity = transform.TransformDirection(force);
 
-            if(setCameraDirection == true)
-                pc.orbitCam.x = Quaternion.LookRotation(transform.InverseTransformVector(force).normalized).eulerAngles.y;
+            if(setCameraDirection == true){
+			if(camDirNeg){
+                Vector3 dir = -force;
+                pc.orbitCam.transform.rotation = Quaternion.LookRotation(-dir);
+			}
+            else
+            {
+                Vector3 dir = force;
+                pc.orbitCam.transform.rotation = Quaternion.LookRotation(-dir);
+                
+            }
+		}
+                
             
             pc.ball = false;
 	    StartCoroutine(Set(pc));

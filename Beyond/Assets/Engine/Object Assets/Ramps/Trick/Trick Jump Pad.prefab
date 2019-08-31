@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: {x: 0, y: 36, z: -48}
   setCameraDirection: 1
+  camDirNeg: 0
   audioSource: {fileID: 3772222888007513987}
   scoreAdd: 250
   objType: 5
@@ -337,6 +338,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

@@ -38,6 +38,8 @@ public class GoalRing : MonoBehaviour
 
     public Animator RankAnimator;
 
+    public Collider cameraTrigger;
+
     [System.Serializable]
     public enum Rank{
         D = 0,
@@ -48,6 +50,11 @@ public class GoalRing : MonoBehaviour
     }
 
     public Rank rank;
+
+    private void Start()
+    {
+        cameraTrigger.enabled = false;
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -75,7 +82,8 @@ public class GoalRing : MonoBehaviour
 
     void Goal(PlayerCore pc)
     {
-        for(int i = 0; i < pc.UIManager.objectsToRemovePause.Count; i++)
+        cameraTrigger.enabled = true;
+        for (int i = 0; i < pc.UIManager.objectsToRemovePause.Count; i++)
         {
             pc.UIManager.objectsToRemovePause[i].SetActive(false);
         }

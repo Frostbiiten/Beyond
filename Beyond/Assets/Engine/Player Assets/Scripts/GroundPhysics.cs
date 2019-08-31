@@ -70,7 +70,7 @@ public class GroundPhysics : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (playerCore.inputCore.rightClickDown)
         {
             playerCore.ball = !playerCore.ball;
         }
@@ -167,7 +167,7 @@ public class GroundPhysics : MonoBehaviour
         #endregion
 
         #region Down Force
-        if (!Input.GetButton("Jump"))
+        if (playerCore.inputCore.JumpKeyDown)
         {
             playerCore.rb.AddForce(-transform.up * playerCore.velocityMagnitude * downForce);
             playerCore.rb.AddForce(Vector3.down * extraGravity);

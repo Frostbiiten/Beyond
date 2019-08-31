@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public bool paused;
     bool oldPause;
     public List<GameObject> objectsToRemovePause = new List<GameObject>();
+    public List<GameObject> objectsToRemoveUnpause = new List<GameObject>();
     public List<GameObject> objectsToAddPause = new List<GameObject>();
     public Texture2D normalCursor;
 
@@ -29,6 +30,12 @@ public class UIManager : MonoBehaviour
     public Animator redRingAnim;
     public Image[] redRings;
 
+    public Image sonicEye;
+    public Sprite defaultEye;
+    public Sprite deadEye;
+
+    public Material blur;
+    int o = 0;
 
     private void Start()
     {
@@ -42,6 +49,7 @@ public class UIManager : MonoBehaviour
     }
     void Update()
     {
+        
         time += Time.deltaTime;
         timeText.text = FormatTime(time);
         speedBar.fillAmount = playerCore.velocityMagnitude / speedBarTopSpeedReference;
@@ -54,7 +62,7 @@ public class UIManager : MonoBehaviour
 
         if(oldPause != paused)
         {
-            if(paused == true)
+            if(paused == true && o == 0)
             {
                 for(int b = 0; b < monosToDisablePause.Count; b++)
                 {
@@ -75,7 +83,7 @@ public class UIManager : MonoBehaviour
 
             if(paused == false)
             {
-                int o = 0;
+                o = 0;
                 for(int p = 0; p < itemsThatStopUnpause.Count; p++)
                 {
                     if(itemsThatStopUnpause[p].activeSelf == true)
@@ -86,6 +94,11 @@ public class UIManager : MonoBehaviour
 
                 if(o == 0)
                 {
+                    for (int q = 0; q < objectsToRemoveUnpause.Count; q++)
+                    {
+                        objectsToRemoveUnpause[q].SetActive(false);
+                    }
+
                     for (int b = 0; b < monosToDisablePause.Count; b++)
                     {
                         monosToDisablePause[b].enabled = true;
@@ -129,8 +142,24 @@ public class UIManager : MonoBehaviour
         StopCoroutine(UnPause());
         playerCore.playerAnimationManager.playerAnimator.enabled = false;
         Time.timeScale = 0f;
+        StartCoroutine(Blur());
+
         Cursor.lockState = CursorLockMode.None;
         yield return null;
+    }
+
+    IEnumerator Blur()
+    {
+        blur.SetFloat("_Smoothness", 1f);
+        while (blur.GetFloat("_Smoothness") > 0.25f)
+        {
+
+            
+
+            blur.SetFloat("_Smoothness", Mathf.Lerp(blur.GetFloat("_Smoothness"), 0f, 0.1f));
+            yield return null;
+        }
+
     }
 
     IEnumerator UnPause()

@@ -69,7 +69,7 @@ public class PlayerRailGrind : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (playerCore.inputCore.JumpKeyDown)
         {
             if(grinding == true)
             {

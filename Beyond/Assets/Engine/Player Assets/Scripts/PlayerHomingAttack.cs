@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LayerHelper;
 
+
 public class PlayerHomingAttack : MonoBehaviour
 {
     public PlayerCore playerCore;
@@ -20,7 +21,7 @@ public class PlayerHomingAttack : MonoBehaviour
     public bool utopiaStyleBounce;
     public bool airDashed;
     private Transform oldTarget;
-    public Transform homingTarget;
+    public SpriteRenderer homingTarget;
     public Animator homingIconAnim;
     public Collider[] objectsWithinRange;
     public Vector3 capsuleOffset;
@@ -33,6 +34,8 @@ public class PlayerHomingAttack : MonoBehaviour
     int homingDetectionMask;
 
     Vector3 homingInputRef;
+    public ShakeTransformEventData shake;
+    public ShakeTransform shaker;
 
     int layerMask;
     void Start()
@@ -59,14 +62,14 @@ public class PlayerHomingAttack : MonoBehaviour
         #region Homing Target Main
         if(!playerCore.grounded && currentTarget)
         {
-            homingTarget.gameObject.SetActive(true);
+            homingTarget.enabled = true;
         }
         else
         {
-            homingTarget.gameObject.SetActive(false);
+            homingTarget.enabled = false;
         }
 
-        homingTarget.LookAt(cam);
+        homingTarget.transform.LookAt(cam);
 
         #endregion
 
@@ -85,11 +88,17 @@ public class PlayerHomingAttack : MonoBehaviour
         {
             if (playerCore.airbornePhysics.enabled == true)
             {
-                homingTarget.position = sortedTargets[0].transform.position;
+                homingTarget.transform.position = sortedTargets[0].transform.position;
                 currentTarget = sortedTargets[0].transform;
 
-               
+
             }
+        }
+
+        if (playerCore.airbornePhysics.enabled == false)
+        {
+            currentTarget = null;
+
 
         }
 
@@ -132,7 +141,7 @@ public class PlayerHomingAttack : MonoBehaviour
                         if (homingRay.collider.CompareTag("Homing Target") || homingRay.collider.CompareTag("Enemy"))
                         {
                             playerCore.playerSoundCore.PlayHome();
-                            playerCore.orbitCam.x = Quaternion.LookRotation((currentTarget.position - transform.position).normalized).eulerAngles.y;
+                            
                             homing = true;
                         }
                         else
@@ -174,6 +183,7 @@ public class PlayerHomingAttack : MonoBehaviour
                 
             }
         }
+
         #endregion
 
     }
@@ -207,7 +217,7 @@ public class PlayerHomingAttack : MonoBehaviour
         {
             //playerCore.Score.score = playerCore.Score.enemyScore + scoreEnemyGain;
 
-            StartCoroutine(playerCore.camShake.Shake(homingShakeAmount, shakeTime));
+            shaker.AddShakeEvent(shake);
             if (utopiaStyleBounce == true)
             {
                 playerCore.rb.velocity = new Vector3(playerCore.rb.velocity.x, homingExplosionY, playerCore.rb.velocity.z);
@@ -285,7 +295,7 @@ public class PlayerHomingAttack : MonoBehaviour
                     float angle = Vector3.Angle(-playerCore.playerAnimationManager.playerSkin.forward, directionToTarget);
                     if (Mathf.Abs(angle) > 90 && Mathf.Abs(angle) < 270)
                     {
-                        Debug.Log("!");
+                        //Debug.Log("!");
                         
                     }
                     else

@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: fa57e1272b4c2b7449765dda49f7ef75
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_beetle_body
+    second: {fileID: 2100000, guid: 52c1c81f2ec5ea8439d4f5f186c1a45d, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -38,6 +43,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

@@ -13,12 +13,29 @@ public class InputCore : MonoBehaviour
     #endregion
 
     #region Input bools
+    public bool JumpKeyUp;
     public bool JumpKeyDown;
     public bool JumpKey;
     public bool inputLock;
     bool JumpKeyFix;
     bool JKey;
     public bool FixedUpdateKeyDown;
+
+    public bool LShift;
+    public bool LShiftDown;
+    public bool LCtrl;
+    public bool LCtrlUp;
+    public bool LCtrlDown;
+
+    public bool rightClick;
+    public bool leftClick;
+    public bool middleClick;
+
+    public bool rightClickDown;
+    public bool leftClickDown;
+    public bool middleClickDown;
+
+    
     #endregion
 
     void Update()
@@ -28,7 +45,23 @@ public class InputCore : MonoBehaviour
         {
             JumpKey = Input.GetButton("Jump");
             JumpKeyDown = Input.GetButtonDown("Jump");
+            JumpKeyUp = Input.GetButtonUp("Jump");
+
             directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            LShift = Input.GetButton("Boost");
+            LShiftDown = Input.GetButtonDown("Boost");
+            LCtrl = Input.GetButton("Slide");
+            LCtrlUp = Input.GetButtonUp("Slide");
+            LCtrlDown = Input.GetButtonDown("Slide");
+
+            leftClick = Input.GetMouseButton(0);
+            rightClick = Input.GetMouseButton(1);
+            middleClick = Input.GetMouseButton(2);
+
+            leftClickDown = Input.GetMouseButtonDown(0);
+            rightClickDown = Input.GetMouseButtonDown(1);
+            middleClickDown = Input.GetMouseButtonDown(2);
         }
         else
         {
@@ -50,6 +83,7 @@ public class InputCore : MonoBehaviour
             {
                 FixedUpdateKeyDown = true;
             }
+
         }
     }
 

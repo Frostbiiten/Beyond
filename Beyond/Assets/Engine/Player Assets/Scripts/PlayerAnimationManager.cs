@@ -55,6 +55,7 @@ public class PlayerAnimationManager : MonoBehaviour
     public TrailRenderer trail;
 
     public GameObject realPlayerSkin;
+    public SkinnedMeshRenderer playerSkinRenderer;
 
     public Transform driftBall;
     public float driftTilt;
@@ -66,7 +67,6 @@ public class PlayerAnimationManager : MonoBehaviour
 
     void Start()
     {
-
         //Calculate layermask to Raycast to. (Ignore "cube" && "sphere" layers)
         //int layerMask = ~((1 << cubeLayerIndex) | (1 << sphereLayerIndex));
 
@@ -91,7 +91,9 @@ public class PlayerAnimationManager : MonoBehaviour
 
     IEnumerator PlayStart()
     {
+	
         yield return new WaitForSeconds(0.1f);
+	playerSkin.forward = transform.forward;
         bool happened = false;
         playerCore.inputCore.InputLock(4f);
         if (playStartAnimation == true)
@@ -135,16 +137,22 @@ public class PlayerAnimationManager : MonoBehaviour
         #region Jumpballs & drift
         jumpBall.SetActive(playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Air Ball"));
 
-        if(Input.GetAxis("Drift") != 0f && playerCore.groundedPhysics.enabled == true && playerCore.velocityMagnitude > driftThreshold){
-            driftBall.gameObject.SetActive(true);
-            realPlayerSkin.SetActive(false);
-        }else
+        playerAnimator.SetBool("Drifting", playerCore.playerDrift.drifting);
+
+        if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Drift"))
         {
-            realPlayerSkin.SetActive(true);
+            driftBall.gameObject.SetActive(true);
+            playerSkinRenderer.enabled = false;
+        }
+        else
+        {
+
+            playerSkinRenderer.enabled = true;
             driftBall.gameObject.SetActive(false);
         }
 
-        driftRot = Mathf.Lerp(driftRot, Input.GetAxis("Drift") * driftTilt, 0.1f);
+
+        driftRot = Mathf.Lerp(driftRot, playerCore.inputCore.directionalInput.x * driftTilt, 0.1f);
         driftBall.localRotation = Quaternion.Euler(0f, 0f, driftRot);
         #endregion
 
@@ -199,12 +207,12 @@ public class PlayerAnimationManager : MonoBehaviour
 
             if (playerAnimator.GetBool("DiveFast") == true)
             {
-                diveRot = Vector3.Lerp(diveRot, new Vector3(-Input.GetAxis("Y") * 0.75f, 0f, -Input.GetAxis("X")) * 30f, 0.1f);
+                diveRot = Vector3.Lerp(diveRot, new Vector3(-playerCore.inputCore.directionalInput.y * 0.8f, 0f, playerCore.inputCore.directionalInput.x) * 30f, 0.1f);
                 playerCore.playerAnimationManager.playerSkin.Rotate(diveRot);
             }
             else
             {
-                diveRot = Vector3.Lerp(diveRot, new Vector3(Input.GetAxis("Y") * 0.75f, 0f, Input.GetAxis("X")) * 30f, 0.1f);
+                diveRot = Vector3.Lerp(diveRot, new Vector3(playerCore.inputCore.directionalInput.y * 0.75f, 0f, playerCore.inputCore.directionalInput.x) * 30f, 0.1f);
                 playerCore.playerAnimationManager.playerSkin.Rotate(diveRot);
             }
             //diveRot = Vector3.Lerp(diveRot, new Vector3(Input.GetAxis("Y") * 2.5f, 0f, Input.GetAxis("X")) * 30f, 0.1f);

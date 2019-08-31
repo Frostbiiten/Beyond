@@ -37,7 +37,7 @@ public class RunPath : MonoBehaviour
     public void EnterPath(GameObject other)
     {
         currentPath = other.GetComponent<Path_Comp>();
-
+        Debug.Log(currentPath.TotalDistance);
         currentPathCompletion = currentPath.GetNearestPoint(transform.position, currentPath);
 
         //float dot = Vector3.Dot(playerCore.rb.velocity.normalized, currentPath.GetTangent(currentRailCompletion, currentPath));
@@ -70,7 +70,7 @@ public class RunPath : MonoBehaviour
         {
             //playerCore.rb.velocity = Mathf.Clamp(playerCore.velocityMagnitude, leastRunSpeed, 256f) * currentPath.GetTangent(currentPathCompletion, currentPath);
 
-            currentPathCompletion = currentPath.GetNearestPoint(transform.position, currentPath, 0.5f); // < causing lag but the bigger the step the less lag and accuracy
+            currentPathCompletion = currentPath.GetNearestPoint(transform.position, currentPath, 1.5f); // < causing lag but the bigger the step the less lag and accuracy
 
             PathRun();
 
@@ -114,9 +114,9 @@ public class RunPath : MonoBehaviour
         localVelocity.x = 0;// lock local x
         //localVelocity.y = 0;// lock local y
 
-        playerCore.rb.velocity = Vector3.Lerp(playerCore.rb.velocity, pathRef.TransformDirection(localVelocity), 0.25f);
+        playerCore.rb.velocity = Vector3.Lerp(playerCore.rb.velocity, pathRef.TransformDirection(localVelocity), 0.2f);
 
-        if (currentPathCompletion != Mathf.Clamp(currentPathCompletion, 0.1f, currentPath.TotalDistance - 0.1f))
+        if (currentPathCompletion != Mathf.Clamp(currentPathCompletion, 0.6f, currentPath.TotalDistance - 0.6f))
         {
             StartCoroutine(ExitPath());
         }

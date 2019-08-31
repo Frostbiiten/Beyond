@@ -1,9 +1,24 @@
 fileFormatVersion: 2
 guid: cb96447ce3486e44196fa7676b99730a
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_common_pieces
+    second: {fileID: 2100000, guid: 6f87ad3fd317efe488814bea209f2a10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_spina_body
+    second: {fileID: 2100000, guid: 4855cb5e661e81c4aaea59272b909b88, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_spina_metal
+    second: {fileID: 2100000, guid: 8ad613115c40e244e956cc16ec73e420, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -38,6 +53,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

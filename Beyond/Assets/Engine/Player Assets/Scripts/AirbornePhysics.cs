@@ -43,12 +43,12 @@ public class AirbornePhysics : MonoBehaviour
     {
         if(allowPlayerToTurnIntoBall == true)
         {
-            if (Input.GetButton("Jump"))
+            if (playerCore.inputCore.JumpKey)
             {
                 ball = true;
             }
 
-            if (Input.GetButtonDown("Jump")) // To make sure
+            if (playerCore.inputCore.JumpKeyDown) // To make sure
             {
                 ball = true;
             }

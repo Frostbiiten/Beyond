@@ -16,7 +16,6 @@ public class PlayerRailGrindVer2 : MonoBehaviour
     public float gravityForce;
     public float jumpForce;
     public ParticleSystem ps;
-    public float camXRot;
     public float railLookaheadAmount;
     void OnTriggerEnter(Collider other)
     {
@@ -56,7 +55,7 @@ public class PlayerRailGrindVer2 : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && grinding == true)
+        if (playerCore.inputCore.JumpKeyDown && grinding == true)
         {
             grinding = false;
             
@@ -77,7 +76,7 @@ public class PlayerRailGrindVer2 : MonoBehaviour
     public void RailGrind()
     {
         
-        playerCore.orbitCam.x = camXRot;
+        //playerCore.orbitCam.x = camXRot;
         currentRailCompletion += currentGrindSpeed;
         //playerCore.rb.MovePosition(currentPath.GetPoint(currentRailCompletion, currentPath) * currentGrindSpeed);
         playerCore.rb.MovePosition(currentPath.GetPoint(currentRailCompletion, currentPath) + currentPath.GetUpTangent(currentRailCompletion, currentPath) * yOffset);
@@ -86,13 +85,13 @@ public class PlayerRailGrindVer2 : MonoBehaviour
         playerCore.rb.constraints = locks;
         if (currentGrindSpeed > 0f)
         {
-            camXRot = Mathf.Lerp(camXRot, Quaternion.LookRotation(currentPath.GetTangent(currentRailCompletion + railLookaheadAmount, currentPath)).eulerAngles.y, 0.02f);
+            
             Vector3 cross = Vector3.Cross(currentPath.GetTangent(currentRailCompletion, currentPath), currentPath.GetRightTangent(currentRailCompletion, currentPath));
             playerCore.playerAnimationManager.playerSkin.rotation = Quaternion.LookRotation(currentPath.GetTangent(currentRailCompletion, currentPath), cross);
         }
         else
         {
-            camXRot = Mathf.Lerp(camXRot, Quaternion.LookRotation(-currentPath.GetTangent(currentRailCompletion - railLookaheadAmount, currentPath)).eulerAngles.y, 0.02f);
+            
             Vector3 cross = Vector3.Cross(currentPath.GetTangent(currentRailCompletion, currentPath), currentPath.GetRightTangent(currentRailCompletion, currentPath));
             playerCore.playerAnimationManager.playerSkin.rotation = Quaternion.LookRotation(-currentPath.GetTangent(currentRailCompletion, currentPath), cross);
         }
@@ -125,6 +124,7 @@ public class PlayerRailGrindVer2 : MonoBehaviour
         locks = RigidbodyConstraints.None;
         locks = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
         playerCore.rb.constraints = locks;
+        playerCore.rb.velocity = currentGrindSpeed * currentPath.GetTangent(currentPath.TotalDistance, currentPath) * 32f;
         yield return new WaitForSeconds(1f);
         canGrind = true;
     }

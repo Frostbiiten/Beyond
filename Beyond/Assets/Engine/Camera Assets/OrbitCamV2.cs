@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using BLINDED_AM_ME;
+
 public class OrbitCamV2 : MonoBehaviour
 {
     [System.Serializable]
@@ -31,45 +33,23 @@ public class OrbitCamV2 : MonoBehaviour
         }
     }
 
+    public CameraTriggerV2 currentTrigger;
+
     public PlayerCore pc;
     public Transform target;
-    public float distance = 5.0f;
-    public float xSpeed = 120.0f;
-    public float ySpeed = 120.0f;
-
-    public float yMinLimit = -20f;
-    public float yMaxLimit = 80f;
-
-    public float distanceMin = .5f;
-    public float distanceMax = 15f;
-
-
-    public float x = 0.0f;
-    public float y = 0.0f;
 
     public float rotationDamp = 0.55f;
     public float movementDamp = 0.55f;
-
-    public float lookTurnSpeed;
-
-    public float currentTurnSpeed;
-    public float turnSpeedInterpolation;
-    public AnimationCurve turnSpeedCurve;
 
     public bool inCameraTrigger;
     public CameraTrigger currentCameraTrigger;
 
     public Transform currentLook;
 
-    public Quaternion lookRotation; // do not change
-
-    public float lookInterpolation;
-
     public Transform cameraLockTrigger;
 
-    public Vector3 lookOffset;
-
     public float driftSpeed;
+    public AnimationCurve driftSpeedCurve;
 
     [System.Serializable]
     public struct camAnim
@@ -86,83 +66,84 @@ public class OrbitCamV2 : MonoBehaviour
     public Transform startPositionReference;
     public Transform startLookatReference;
 
-    // Use this for initialization
-    void Start()
-    {
-        Vector3 angles = transform.eulerAngles;
-        x = angles.y;
-        y = angles.x;
+    //public bool betaV2;
 
-    }
+    public Vector3 dir;
+
+    public float distance = 10f;
+    public AnimationCurve distanceCurve;
+    float currentDistance;
+
+    public Transform cameraLookatLock;
+    Vector3 upVector;
 
     void FixedUpdate()
     {
-
-        if(inCameraTrigger == false)
+        if (inCameraTrigger == false)
         {
             if (target)
             {
-                if(currentLook == null)
+                if (!currentTrigger)
                 {
-                    x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
-                    y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
-                }
+                    /*
+                     * OLD
+                    currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, v2TurnSpeedCurve.Evaluate(pc.velocityMagnitude) * pc.inputCore.directionalInput.x, v2TurnSpeedInterpolation);
+                    v2Dir = Quaternion.Euler(0, currentTurnSpeed, 0) * v2Dir;
+
+                    v2CurrentSideLookOffset = Mathf.Lerp(v2CurrentSideLookOffset, pc.inputCore.directionalInput.x * v2SideTurnLook, 0.1f);
+                    Debug.Log(v2CurrentSideLookOffset);
+                    Vector3 d = v2Dir * v2Distance;
+                    Vector3 pos1;
+                    pos1 = (pc.transform.position) - d;
+                    Quaternion look;
+                    Vector3 lookpos;
+                    lookpos = target.position;
+                    lookpos.y = transform.position.y;
+                    look = Quaternion.LookRotation((lookpos - transform.position).normalized);
 
 
-                y = ClampAngle(y, yMinLimit, yMaxLimit);
 
-                x += pc.inputCore.directionalInput.x * currentTurnSpeed;
+                    transform.rotation = look;
+                    transform.position = pos1;
+                    */
 
-                if(pc.groundedPhysics.enabled == true && pc.velocityMagnitude > pc.playerAnimationManager.driftThreshold)
-                {
-                    // drift
-                    x += Input.GetAxis("Drift") * driftSpeed;
-                }
+                    currentDistance = distance * distanceCurve.Evaluate(pc.velocityMagnitude);
+                    Vector3 targetpos = target.position;// add offset etc here
 
+                    dir = (transform.position - targetpos).normalized;
 
-                currentTurnSpeed = Mathf.Lerp(currentTurnSpeed, turnSpeedCurve.Evaluate(pc.velocityMagnitude), turnSpeedInterpolation);
+                    dir.y = Mathf.Clamp(dir.y, 0.15f, 99f);
 
-                Quaternion rotation = Quaternion.Euler(y, x, 0f);
+                    Quaternion look;
+                    
 
-                distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
+                    if (pc.grounded == false)
+                    {
 
-                RaycastHit hit;
-                if (Physics.Linecast(target.position, transform.position, out hit))
-                {
-                    //distance -= hit.distance;
-                }
-                Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
-                Vector3 position = rotation * negDistance + target.position;
-                
+                        look = Quaternion.LookRotation((targetpos - transform.position).normalized);
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationDamp);
-                transform.position = Vector3.Lerp(transform.position, position, movementDamp);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, look, rotationDamp);
+                        transform.position = Vector3.Lerp(transform.position, targetpos + (dir * currentDistance), movementDamp);
+                    }
+                    else
+                    {
+                        upVector = Vector3.Lerp(upVector, pc.transform.up, 0.05f);
+                        look = Quaternion.LookRotation((targetpos - transform.position).normalized, pc.transform.up);
+                        //look = Quaternion.Euler(look.eulerAngles.x, look.eulerAngles.y, look.eulerAngles.z);
 
-                if (currentLook)
-                {
-                    transform.position = cameraLockTrigger.position + lookOffset;
-                    lookRotation = Quaternion.Slerp(lookRotation, Quaternion.LookRotation((currentLook.position - cameraLockTrigger.position).normalized), lookInterpolation);
-                    transform.rotation = lookRotation;
+                        transform.rotation = Quaternion.Slerp(transform.rotation, look, rotationDamp);
+                        transform.position = Vector3.Lerp(transform.position, targetpos + (dir * currentDistance), movementDamp);
+                    }
+
+                    /*
+                    if(pc.velocityMagnitude >= pc.playerAnimationManager.driftThreshold)
+                    {
+                        transform.RotateAround(pc.transform.position, pc.transform.up, Input.GetAxis("Drift") * driftSpeedCurve.Evaluate(pc.velocityMagnitude));
+                    }
+                    */
+
                 }
             }
-        }
-        else
-        {
-            if(currentCameraTrigger.setPosition == true)
-            {
-                transform.position = Vector3.Lerp(transform.position, currentCameraTrigger.positionTarget.position, currentCameraTrigger.positionInterpolate);
-            }
-
-            if (currentCameraTrigger.setRotation == true)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, currentCameraTrigger.rotationTarget.rotation, currentCameraTrigger.rotationInterpolate);
-            }
-
-            if (currentCameraTrigger.setLookat == true && currentCameraTrigger.lookTarget)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation((currentCameraTrigger.lookTarget.position - transform.position).normalized), currentCameraTrigger.rotationInterpolate);
-            }
-
         }
 
         if (pc.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartFast"))
@@ -174,7 +155,6 @@ public class OrbitCamV2 : MonoBehaviour
             transform.LookAt(startLookatReference);
         }
 
-
         if (pc.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("StartNormal"))
         {
             float t = pc.playerAnimationManager.playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
@@ -183,17 +163,5 @@ public class OrbitCamV2 : MonoBehaviour
             transform.position = startPositionReference.position;
             transform.LookAt(startLookatReference);
         }
-
-
-
-    }
-
-    public static float ClampAngle(float angle, float min, float max)
-    {
-        if (angle < -360F)
-            angle += 360F;
-        if (angle > 360F)
-            angle -= 360F;
-        return Mathf.Clamp(angle, min, max);
     }
 }

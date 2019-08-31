@@ -134,7 +134,8 @@ public class PlayerHpManager : MonoBehaviour
         {
             SpawnRing(theVoid, Vector3.zero);
         }
-        
+
+        UpdateLives();
 
         ringMagnetivityLayerMask = (int)PlayerLayerHelper.Layers.StaticRing;
     }
@@ -307,6 +308,7 @@ public class PlayerHpManager : MonoBehaviour
                 playerCore.rb.velocity = bounceBack * bounceBackPower;
                 if (hp > 0f)
                 {
+                    StartCoroutine(playerCore.inputCore.InputLock(0.5f));
                     if (shield == Shield.none)
                     {
                         StartCoroutine(StopRingCollection());
@@ -328,7 +330,7 @@ public class PlayerHpManager : MonoBehaviour
                 else
                 {
                     UpdateLives();
-                    lives--;
+                    
                     if(dying == false)
                     {
                         StartCoroutine(Die());
@@ -388,12 +390,18 @@ public class PlayerHpManager : MonoBehaviour
 
     public IEnumerator Die()
     {
-        
+        lives--;
+        UpdateLives();
         dying = true;
+        playerCore.UIManager.sonicEye.sprite = playerCore.UIManager.deadEye;
         playerCore.fadeAnimator.Play("FadeOut");
         playerCore.playerSoundCore.PlayDie();
+        StartCoroutine(playerCore.inputCore.InputLock(1.9f));
         yield return new WaitForSeconds(2f);
-        if(lives < 0)
+
+        playerCore.UIManager.sonicEye.sprite = playerCore.UIManager.defaultEye;
+
+        if (lives < 0)
         {
             SceneManager.LoadScene(gameOverScene);
         }
@@ -448,7 +456,7 @@ public class PlayerHpManager : MonoBehaviour
                 hp += 1;
                 SpawnRingShine(other.transform.position);
                 UpdateRings();
-                SoundCore.nonSpacialSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.ring, 0.3f);
+                SoundCore.nonSpacialSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.ring, 0.15f);
             }
         }
 

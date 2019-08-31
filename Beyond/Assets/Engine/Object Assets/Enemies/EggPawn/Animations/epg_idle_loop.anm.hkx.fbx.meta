@@ -1,12 +1,32 @@
 fileFormatVersion: 2
 guid: 4112541a8ed4b9b46a07709b00701ec6
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 26
   internalIDToNameTable:
   - first:
       74: 1537574005943530352
     second: EggPawn Idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_eggpawn_body_gunmetal
+    second: {fileID: 2100000, guid: d6bd26948a74d544e97d256c73f2469c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_eggpawn_body_plastic
+    second: {fileID: 2100000, guid: 451e8f80963cc574493a22e241237ac5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_eggpawn_eye
+    second: {fileID: 2100000, guid: 9ed83b2f324c0664cbd1d8389ac73317, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_eggpawn_teeth
+    second: {fileID: 2100000, guid: 7d6ae39bca3b1eb419908efc2ccef951, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -70,6 +90,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

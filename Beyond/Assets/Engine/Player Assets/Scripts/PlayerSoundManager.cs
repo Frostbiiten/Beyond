@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 public class PlayerSoundManager : MonoBehaviour
 {
     public PlayerCore playerCore;
+    public AudioSource footStepSource;
     public AudioClip[] trickSounds;
     public AudioClip[] homingSounds;
     public AudioSource sfxSoundSource;
@@ -40,6 +41,7 @@ public class PlayerSoundManager : MonoBehaviour
 
     public void Update()
     {
+        footStepSource.volume = Mathf.Lerp(footStepSource.volume, Mathf.Clamp(1f - playerCore.velocityMagnitude / 16f, 0f, 1f), 0.2f);
         if(inWater == true)
         {
             waterFx.weight = Mathf.Lerp(waterFx.weight, 1f, 0.1f);
@@ -48,6 +50,10 @@ public class PlayerSoundManager : MonoBehaviour
         else
         {
             waterFx.weight = Mathf.Lerp(waterFx.weight, 0f, 0.1f);
+            if(waterFx.weight < 0.05f)
+            {
+                waterFx.weight = 0f;
+            }
             mixer.SetFloat("Cutoff Frequency", 222000f);
         }
     }

@@ -32,7 +32,7 @@ public class PlayerDragCore : MonoBehaviour
     void FixedUpdate()
     {
         /*
-        Currentdrag is always overrided by the lower section/ region, so the closest update below this message has least priority
+        Currentdrag is always overrid by the lower section/ region, so the closest update below this message has least priority
         *Always check for script enabled, not grounded or something
         */
 
@@ -53,6 +53,11 @@ public class PlayerDragCore : MonoBehaviour
         if(playerCore.playerStompSlide.sliding == true)
         {
             currentDrag = slideDrag;
+        }
+
+        if (playerCore.playerDrift.drifting == true)
+        {
+            currentDrag = 0f;
         }
         #endregion
 

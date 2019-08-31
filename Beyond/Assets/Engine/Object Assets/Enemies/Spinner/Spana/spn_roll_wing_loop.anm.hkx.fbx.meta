@@ -1,12 +1,37 @@
 fileFormatVersion: 2
 guid: 7fbe25f166ca87a4da48f4b1ee6bb829
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 26
   internalIDToNameTable:
   - first:
       74: 6546287578010504354
     second: Spin 1
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_spana_ball
+    second: {fileID: 2100000, guid: 0e5570e8c88176f49aec0c44d6de8b34, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_spana_body
+    second: {fileID: 2100000, guid: 596470decea7ed544a013911f3719167, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_spana_eye
+    second: {fileID: 2100000, guid: 37411c8b615120846ab655ddf0534736, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_spana_light
+    second: {fileID: 2100000, guid: 9d7d625fea896b44aaa3a7d3c8c210f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_spana_metal
+    second: {fileID: 2100000, guid: 977b3e73daa4619488924bb19184076c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -70,6 +95,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

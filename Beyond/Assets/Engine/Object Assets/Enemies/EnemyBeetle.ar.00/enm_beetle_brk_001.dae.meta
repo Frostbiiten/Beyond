@@ -1,9 +1,29 @@
 fileFormatVersion: 2
 guid: b26be40805a2a2a4f8125781a10f18af
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_beetle_body
+    second: {fileID: 2100000, guid: 505f7593e6c84194bb765d25fce65c1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_beetle_camera
+    second: {fileID: 2100000, guid: 4b2b2621e90cf284fb011bfbb1886342, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_beetle_lamp
+    second: {fileID: 2100000, guid: 173c526f5ee36ef408eef0a4aab9d950, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: enm_beetle_metal
+    second: {fileID: 2100000, guid: d033b1db8ec1b6b4a909e6f9381df4b9, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -38,6 +58,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

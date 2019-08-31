@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerStompSlide : MonoBehaviour
 {
     public PlayerCore PlayerCore;
@@ -26,6 +27,10 @@ public class PlayerStompSlide : MonoBehaviour
     public CapsuleCollider defaultCollider;
     float defHeight;
     public float slideMomentum = 0.33f;
+
+    public ShakeTransformEventData shake;
+    public ShakeTransform shaker;
+
     private void Start()
     {
         defHeight = defaultCollider.height;
@@ -38,7 +43,7 @@ public class PlayerStompSlide : MonoBehaviour
             dTap -= Time.deltaTime * tapSpeed;
         }
         
-        if (Input.GetButtonDown("Slide"))
+        if (PlayerCore.inputCore.LCtrlDown)
         {
             dTap++;
             if(PlayerCore.airbornePhysics.enabled == true)
@@ -63,7 +68,7 @@ public class PlayerStompSlide : MonoBehaviour
         }
         crouch = Input.GetButton("Slide") && PlayerCore.groundedPhysics.enabled == true && PlayerCore.velocityMagnitude < 0.5f;
 
-        if (Input.GetButtonUp("Slide") || !Input.GetButton("Slide") || PlayerCore.velocityMagnitude < 0.5f)
+        if (PlayerCore.inputCore.LCtrlUp || !PlayerCore.inputCore.LCtrl || PlayerCore.velocityMagnitude < 0.5f)
         {
             defaultCollider.height = defHeight;
             sliding = false;
@@ -97,7 +102,8 @@ public class PlayerStompSlide : MonoBehaviour
     {
         stompLandParticles.Play();
         PlayerCore.Explode(transform.position, stompExplosionRadius, stompExplosionForce);
-        StartCoroutine(PlayerCore.camShake.Shake(stompShakeAmount, shakeTime));
+        //CameraShaker.Instance.ShakeOnce(shakeMagnitude, shakeRoughness, 0.1f, shakeFade);
+        shaker.AddShakeEvent(shake);
         PlayerCore.playerAnimationManager.playerAnimator.Play("StompLand");
 
     }

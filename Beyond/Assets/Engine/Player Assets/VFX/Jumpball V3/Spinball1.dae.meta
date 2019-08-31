@@ -1,14 +1,14 @@
 fileFormatVersion: 2
 guid: b6d8365f5fbc3f94894de9d9bd8d2634
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 26
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: epm_ch_sng_yh1_spinball1
-    second: {fileID: 2100000, guid: c0c9762bc13ce7845896d5890389b4c7, type: 2}
+    second: {fileID: 2100000, guid: 0ffb2c46cd8c969488c9370ad9840f03, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -43,6 +43,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
