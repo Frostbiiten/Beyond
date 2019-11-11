@@ -77,8 +77,10 @@ public class OrbitCamV2 : MonoBehaviour
     public Transform cameraLookatLock;
     Vector3 upVector;
 
+    public AnimationCurve fovCurve;
     void FixedUpdate()
     {
+        pc.playerCam.fieldOfView = fovCurve.Evaluate(pc.velocityMagnitude);    
         if (inCameraTrigger == false)
         {
             if (target)

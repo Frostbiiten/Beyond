@@ -17,10 +17,10 @@ public class Ring : MonoBehaviour {
         rb.AddForce(rb.velocity * force, ForceMode.Impulse);
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        transform.Rotate(0f, rotSpeed, 0f);
-        rb.AddForce(Vector3.down * downForce);
+        transform.Rotate(0f, rotSpeed * Time.deltaTime, 0f);
+        rb.AddForce(Vector3.down * downForce * Time.deltaTime);
     }
 
     IEnumerator EnableCollider()

@@ -36,8 +36,20 @@ public class PlayerDrift : MonoBehaviour
             driftDir = Mathf.Lerp(driftDir, playerCore.inputCore.directionalInput.x * driftPower, driftInterpolate);
         }
 
+        float drift2 = 0f;
 
-        if(drifting == true)
+        if(driftDir < 0f)
+        {
+            drift2 = Mathf.Clamp(driftDir, -1f, -0.4f);
+        }
+
+        if (driftDir > 0f)
+        {
+            drift2 = Mathf.Clamp(driftDir, 0.4f, 1f);
+        }
+
+
+        if (drifting == true)
         {
             playerCore.rb.velocity = Vector3.ClampMagnitude((Quaternion.AngleAxis(driftDir, transform.up) * playerCore.velocity), initial);
 

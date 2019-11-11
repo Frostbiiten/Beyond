@@ -1,26 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class AirbornePhysics : MonoBehaviour
 {
-
+    [Required("PlayerCore is required")]
     public PlayerCore playerCore;
 
     [Header("Air Movement")]
 
+    [BoxGroup("Main")]
     [Tooltip("Movement speed in the air")]
     public float airMovementSpeed;
 
+    [BoxGroup("Main")]
     [Tooltip("Is the player in a 'ball' ")]
     public bool ball;
 
+    [BoxGroup("Main")]
     [Tooltip("The least velocity that the player's movement force can actually increase")]
     public float groundSpeedScalar;
 
+    [BoxGroup("Main")]
     [Tooltip("extra gravity to be applied")]
     public float extraGravity;
 
+    [BoxGroup("Main")]
     public bool allowPlayerToTurnIntoBall = false;
 
 

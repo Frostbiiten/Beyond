@@ -30,11 +30,18 @@ public class XECameraRep : MonoBehaviour
 
     Ray ray;
     RaycastHit hit;
+
+    public float mouseScroll;
+    public float scrollSensitivity = 1f;
     void Update()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined;
 
-        if(playerCore.inputCore.LShift){
+        mouseScroll = Mathf.Lerp(mouseScroll, Input.mouseScrollDelta.y, 0.1f);
+
+        cam.fieldOfView -= mouseScroll * scrollSensitivity;
+
+        if (playerCore.inputCore.LShift){
             currentShiftMultiplier = shiftMultiplier;
         }else{
             currentShiftMultiplier = 1f;

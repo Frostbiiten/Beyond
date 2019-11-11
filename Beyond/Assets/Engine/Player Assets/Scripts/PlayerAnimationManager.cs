@@ -8,7 +8,11 @@ public class PlayerAnimationManager : MonoBehaviour
     public PlayerCore playerCore;
 
     #region Base Variables
+    
+
     public Animator playerAnimator;
+    public Animator superPlayerAnimatorInstance;
+    public Animator defaultPlayerAnimatorInstance;
     public Transform playerSkin;
     #endregion
 
@@ -54,8 +58,8 @@ public class PlayerAnimationManager : MonoBehaviour
 
     public TrailRenderer trail;
 
-    public GameObject realPlayerSkin;
     public SkinnedMeshRenderer playerSkinRenderer;
+    public SkinnedMeshRenderer superSonicPlayerSkinRenderer;
 
     public Transform driftBall;
     public float driftTilt;
@@ -64,6 +68,18 @@ public class PlayerAnimationManager : MonoBehaviour
 
     public GameObject stomping;
     Vector3 diveRot;
+
+    public bool unleashedBoi;
+    public Transform arml;
+    public Vector3 armlRot;
+
+    public Transform armr;
+    public Vector3 armrRot;
+
+    public float unleashedSpeedThreshold = 60f;
+    float unleashedStr;
+
+    public bool faceSpringDir;
 
     void Start()
     {
@@ -143,11 +159,13 @@ public class PlayerAnimationManager : MonoBehaviour
         {
             driftBall.gameObject.SetActive(true);
             playerSkinRenderer.enabled = false;
+            superSonicPlayerSkinRenderer.enabled = false;
         }
         else
         {
 
             playerSkinRenderer.enabled = true;
+            superSonicPlayerSkinRenderer.enabled = true;
             driftBall.gameObject.SetActive(false);
         }
 
@@ -162,7 +180,7 @@ public class PlayerAnimationManager : MonoBehaviour
         var eulerRot = new Vector3(Mathf.DeltaAngle(0, deltaRot.eulerAngles.x), Mathf.DeltaAngle(0, deltaRot.eulerAngles.y), Mathf.DeltaAngle(0, deltaRot.eulerAngles.z));
         oldRotation = playerSkin.localRotation;
         angularVelocity = eulerRot / Time.fixedDeltaTime;
-        playerTilt = Mathf.Lerp(playerTilt, angularVelocity.y / 45f, 0.075f);
+        playerTilt = Mathf.Lerp(playerTilt, angularVelocity.y / 45f, 0.1f);
 
         if (float.IsNaN(playerTilt))
         {
@@ -183,6 +201,11 @@ public class PlayerAnimationManager : MonoBehaviour
             if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("DashRing"))
             {
                 transform.up = playerCore.velocity.normalized;
+            }
+
+            if (faceSpringDir)
+            {
+                playerSkin.transform.up = -playerCore.velocity;
             }
 
         }
@@ -318,7 +341,24 @@ public class PlayerAnimationManager : MonoBehaviour
         }
         #endregion
 
-        if(playerCore.inputCore.directionalInput == Vector2.zero)
+        if(unleashedBoi == true)
+        {
+            if (playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grounded") && playerCore.velocityMagnitude > unleashedSpeedThreshold)
+            {
+                unleashedStr = Mathf.Lerp(unleashedStr, 1f, 0.1f);
+                arml.Rotate(armlRot * unleashedStr, Space.Self);
+
+                armr.Rotate(armrRot * unleashedStr, Space.Self);
+            }
+            else
+            {
+                unleashedStr = Mathf.Lerp(unleashedStr, 0f, 0.1f);
+            }
+
+        }
+
+
+        if (playerCore.inputCore.directionalInput == Vector2.zero)
         {
             waitTime += Time.deltaTime;
         }
@@ -339,6 +379,16 @@ public class PlayerAnimationManager : MonoBehaviour
 
     void UpdateAnimator()
     {
+        if (!playerCore.isSuperSonic)
+        {
+            playerAnimator = defaultPlayerAnimatorInstance;
+        }
+        else
+        {
+            playerAnimator = superPlayerAnimatorInstance;
+        }
+
+
         #region Setting Base Variables
 
         playerAnimator.SetBool("Grounded", playerCore.grounded);

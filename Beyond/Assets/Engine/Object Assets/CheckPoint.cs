@@ -44,7 +44,7 @@ public class CheckPoint : MonoBehaviour
     {
         if(pc.playerHpManager.checkpoint != this)
         {
-            soundSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.checkPoint);
+            soundSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.checkPoint, 0.3f);
             if (pc.playerHpManager.checkpoint)
             {
                 pc.playerHpManager.checkpoint.Out(pc);

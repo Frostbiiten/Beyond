@@ -49,12 +49,16 @@ public class PlayerSoundManager : MonoBehaviour
         }
         else
         {
-            waterFx.weight = Mathf.Lerp(waterFx.weight, 0f, 0.1f);
-            if(waterFx.weight < 0.05f)
+            if (waterFx)
             {
-                waterFx.weight = 0f;
+                waterFx.weight = Mathf.Lerp(waterFx.weight, 0f, 0.1f);
+                if (waterFx.weight < 0.05f)
+                {
+                    waterFx.weight = 0f;
+                }
+                mixer.SetFloat("Cutoff Frequency", 222000f);
             }
-            mixer.SetFloat("Cutoff Frequency", 222000f);
+
         }
     }
 

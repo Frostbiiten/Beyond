@@ -62,7 +62,18 @@ public class PlayerHomingAttack : MonoBehaviour
         #region Homing Target Main
         if(!playerCore.grounded && currentTarget)
         {
-            homingTarget.enabled = true;
+            Vector3 directionToTarget = transform.position - currentTarget.position;
+            directionToTarget = new Vector3(directionToTarget.x, 0f, directionToTarget.z);
+            float angle = Vector3.Angle(-playerCore.playerAnimationManager.playerSkin.forward, directionToTarget);
+            if (Mathf.Abs(angle) > 90 && Mathf.Abs(angle) < 270)
+            {
+                homingTarget.enabled = false;
+            }
+            else
+            {
+                homingTarget.enabled = true;
+            }
+            
         }
         else
         {
@@ -109,7 +120,23 @@ public class PlayerHomingAttack : MonoBehaviour
 
         if (currentTarget != oldTarget)
         {
-            homingIconAnim.Play("Zoom");
+            if (currentTarget)
+            {
+                Vector3 directionToTarget = transform.position - currentTarget.position;
+                directionToTarget = new Vector3(directionToTarget.x, 0f, directionToTarget.z);
+                float angle = Vector3.Angle(-playerCore.playerAnimationManager.playerSkin.forward, directionToTarget);
+                if (Mathf.Abs(angle) > 90 && Mathf.Abs(angle) < 270)
+                {
+                    //Debug.Log("!");
+
+                }
+                else
+                {
+                    homingIconAnim.Play("Zoom");
+                }
+            }
+
+            
         }
         #endregion
 
@@ -224,7 +251,11 @@ public class PlayerHomingAttack : MonoBehaviour
             }
             else
             {
-                playerCore.rb.velocity = new Vector3(0f, homingExplosionY, 0f);
+                if(playerCore.grounded == false)
+                {
+                    playerCore.rb.velocity = new Vector3(0f, homingExplosionY, 0f);
+                }
+
             }
             //playerCore.SoundCore.mainPlayerAudio.PlayOneShot(playerCore.SoundCore.homing[Random.Range(0, playerCore.SoundCore.homing.Count - 1)]);
             if(homing == true)

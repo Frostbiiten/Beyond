@@ -30,7 +30,7 @@ public class PlayerWalljump : MonoBehaviour
         {
             collisionPoints = collision.contacts;
 
-            if (Vector3.Dot(pc.playerForward.forward, -collisionPoints[0].normal) > -0.1f && pc.airbornePhysics.enabled == true)
+            if (Vector3.Dot(pc.playerForward.forward, -collisionPoints[0].normal) > -0.3f && pc.airbornePhysics.enabled == true && Vector3.Dot(collision.impulse.normalized, -collisionPoints[0].normal) < 0.3f)
             {
                 stickGo = true;
             }
@@ -42,7 +42,11 @@ public class PlayerWalljump : MonoBehaviour
                 {
                     //Debug.Log(collisionPoints[0].otherCollider);
 
-                    StartCoroutine(WallJump(wallJumpFreezeTime, collisionPoints[0]));
+                    if(Vector3.Dot(pc.rb.velocity, collisionPoints[0].normal) < 0f)
+                    {
+                        StartCoroutine(WallJump(wallJumpFreezeTime, collisionPoints[0]));
+                    }
+
                 }
 
 

@@ -56,7 +56,7 @@ public class CameraTriggerV2 : MonoBehaviour
 
             if (path)
             {
-                float distance = path.GetNearestPoint(currentCam.transform.position, path, 0.5f);
+                float distance = path.GetNearestPoint(currentCam.transform.position, path, 5f);
                 point = path.GetPoint(distance + pathTimeOffset, path);
 
                 if (Vector3.Distance((path.GetPoint(0, path) + path.GetPoint(path.TotalDistance, path) / 2f), currentCam.transform.position) < checkRadius)
@@ -150,10 +150,14 @@ public class CameraTriggerV2 : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                if (currentCam.orbitCam.currentTrigger == this)
+                if (other.GetComponent<PlayerCore>() == currentCam)
                 {
-                    currentCam.orbitCam.currentTrigger = null;
+                    if (currentCam.orbitCam.currentTrigger == this)
+                    {
+                        currentCam.orbitCam.currentTrigger = null;
+                    }
                 }
+
             }
 
         }

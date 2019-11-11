@@ -35,8 +35,8 @@ public class LevelLoader : MonoBehaviour {
         loadingScreen.SetActive(true);
         yield return new WaitForSeconds(delay);
         AsyncOperation opereation = SceneManager.LoadSceneAsync(sceneIn);
-        Scene scene = SceneManager.GetActiveScene();
-        PlayerPrefs.SetString("LastSceneLoaded", scene.name);
+        
+
 
         while (!opereation.isDone)
         {

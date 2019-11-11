@@ -3,9 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using NaughtyAttributes;
 
 public class PlayerHpManager : MonoBehaviour
 {
+    [Required("PlayerCore is required")]
+    public PlayerCore playerCore;
+
+    #region Rings
+
     [System.Serializable]
     public struct RingShinePoolObj
     {
@@ -35,46 +41,66 @@ public class PlayerHpManager : MonoBehaviour
             Ring = inRingScr;
         }
     }
-    public PlayerCore playerCore;
 
+    [Header("Rings")]
+
+    [BoxGroup("Rings")]
     public GameObject ringShinePreset;
 
+    [BoxGroup("Rings")]
     public Transform ringShineParent;
 
+    [BoxGroup("Rings")]
     public Transform ringObjParent;
 
+    [BoxGroup("Rings")]
     public float ringNormalTimeLeft;
 
+    [BoxGroup("Rings")]
+    [ReorderableList]
     public List<RingShinePoolObj> ringShines = new List<RingShinePoolObj>();
 
+    [BoxGroup("Rings")]
+    [ReorderableList]
     public List<RingPoolObj> rings = new List<RingPoolObj>();
 
+    [BoxGroup("Rings")]
     public int maxRingsToLose;
+
+    #endregion
 
     [Header("Health Variables")]
     #region Variables
 
+    [BoxGroup("Main")]
     [Tooltip("The player's Health (or rings)")]
     public float hp;
 
+    [BoxGroup("Main")]
     [Tooltip("The current hurt bounce back force")]
     public Vector3 bounceBack;
 
+    [BoxGroup("Main")]
     [Tooltip("The hurt bounce back Y value")]
     public float bounceBackY = 1f;
 
+    [BoxGroup("Main")]
     [Tooltip("How far back does the enemy push you")]
     public float bounceBackPower;
 
+    [BoxGroup("Main")]
     [Tooltip("Can the player collect rings at the moment?")]
     public bool canCollectRings;
 
+    [BoxGroup("Main")]
     [Tooltip("The prefab for dropped rings")]
     public GameObject ringObject;
 
+    [BoxGroup("Main")]
     [Tooltip("How long is the player invincible after hit")]
     public float recoveryTime;
 
+    [BoxGroup("Main")]
     [Tooltip("How many lives the player has")]
     public float lives;
 
@@ -83,15 +109,21 @@ public class PlayerHpManager : MonoBehaviour
     #region Conditions
     [Header("Main Conditions")]
 
+
+    [BoxGroup("Conditions")]
     [Tooltip("Is the player in an attack state")]
     public bool attacking;
 
+    [BoxGroup("Conditions")]
     [Tooltip("Is the player (not) allowed to be damaged")]
     public bool invincible;
 
+    [BoxGroup("Conditions")]
     [Tooltip("Is the player recovering")]
     public bool recovering;
     #endregion
+
+
 
     public enum Shield
     {
@@ -102,28 +134,56 @@ public class PlayerHpManager : MonoBehaviour
         water = 4,
     }
 
+    [BoxGroup("Shield")]
     public Shield shield;
 
+    [BoxGroup("Other")]
     public Vector3 theVoid;
 
+    [BoxGroup("Other")]
     public float ringMagnetivityRange;
+
+    [BoxGroup("Other")]
     public float electricRingMagnetivity;
+
+    [BoxGroup("Other")]
     public int ringMagnetivityLayerMask;
+
+    [BoxGroup("Other")]
     public Collider[] magnetRings;
+
+    [BoxGroup("Other")]
     public float ringMagnetivityStrength;
+
+    [BoxGroup("Other")]
     public float ringMagnetivitySpeed;
 
+
+    [BoxGroup("Other")]
     public CheckPoint checkpoint;
 
+    [BoxGroup("Other")]
     public bool dying = false;
 
+    [BoxGroup("Shield")]
     public ParticleSystem electric;
+
+    [BoxGroup("Shield")]
     public ParticleSystem fire;
+
+    [BoxGroup("Shield")]
     public GameObject normalShield;
+
+    [BoxGroup("Shield")]
     public GameObject elecShield;
+
+    [BoxGroup("Shield")]
     public GameObject fireShield;
+
+    [BoxGroup("Shield")]
     public GameObject waterShield;
 
+    [BoxGroup("Other")]
     public string gameOverScene;
 
 
@@ -179,6 +239,15 @@ public class PlayerHpManager : MonoBehaviour
         else
         {
             attacking = false;
+        }
+
+        if(playerCore.isSuperSonic == true)
+        {
+            invincible = true;
+        }
+        else
+        {
+            invincible = false;
         }
         #endregion
     }
@@ -446,7 +515,7 @@ public class PlayerHpManager : MonoBehaviour
                 hp += 1;
                 UpdateRings();
                 SpawnRingShine(other.transform.position);
-                SoundCore.nonSpacialSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.ring, 0.3f);
+                SoundCore.nonSpacialSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.ring, 0.075f);
             }
 
             if (other.CompareTag("Static Ring"))
@@ -456,7 +525,7 @@ public class PlayerHpManager : MonoBehaviour
                 hp += 1;
                 SpawnRingShine(other.transform.position);
                 UpdateRings();
-                SoundCore.nonSpacialSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.ring, 0.15f);
+                SoundCore.nonSpacialSource.PlayOneShot(DefaultSounds.MainDefSounds.defaultSounds.ring, 0.075f);
             }
         }
 

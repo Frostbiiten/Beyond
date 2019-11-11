@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class GroundPhysics : MonoBehaviour
 {
@@ -9,33 +10,45 @@ public class GroundPhysics : MonoBehaviour
     #region Movement
     [Header("Main Movement")]
 
+    [BoxGroup("Main")]
     [Tooltip("The default speed when directional input is first entered")]
     public float defaultForce;
 
+    [BoxGroup("Main")]
     [Tooltip("The current speed to be added - for acceleration")]
     public float currentForce;
 
     [Header("Drag and Acceleration")]
 
-
+    [BoxGroup("Drag and Acceleration")]
     [Tooltip("The least velocity that the player's movement force can actually increase")]
     public float leastVelocityToStartAccelerating;
 
+    [BoxGroup("Drag and Acceleration")]
     [Tooltip("Pretty much the same thing as above, but this is because if the player stops moving, and begins again, things can go crazy")]
     public float leastVelocityToStartAcceleratingNoInput;
 
+    [BoxGroup("Drag and Acceleration")]
     [Tooltip("The current amount of acceleration to 'add' ")]
     public float currentAcceleration;
 
+    [BoxGroup("Drag and Acceleration")]
     [Tooltip("This is a curve for acceleration based on how fast the player is going")]
     public AnimationCurve accelerationCurve;
 
+    [BoxGroup("Drag and Acceleration")]
     [Tooltip("The fraction of speed retained base on velocity")]
     public float deceleration;
 
+    [BoxGroup("Drag and Acceleration")]
+    [Tooltip("The fraction of speed retained base on velocity and DotProduct")]
+    public float dotProductDeceleration;
+
+    [BoxGroup("Drag and Acceleration")]
     [Tooltip("The least speed that you can run in loops and such")]
     public float leastSpeedToAlignToGround;
 
+    [BoxGroup("Drag and Acceleration")]
     [Tooltip("extra gravity")]
     public float extraGravity;
 
@@ -44,33 +57,47 @@ public class GroundPhysics : MonoBehaviour
     #region Slope
     [Header("Slope Physics")]
 
+    [BoxGroup("Slope Physics")]
     [Tooltip("For physics")]
     public AnimationCurve slopeCurve;
 
+    [BoxGroup("Slope Physics")]
     [Tooltip("For physics")]
     public AnimationCurve spinSlopeCurve;
 
+    [BoxGroup("Slope Physics")]
     [Tooltip("how much force for slopes")]
     public float slopeMagnitude;
 
+    [BoxGroup("Slope Physics")]
     [Tooltip("current slope force")]
     public float currentSlopeForce;
 
+    [BoxGroup("Slope Physics")]
     [Tooltip("The force for going down")]
     public float downForce;
 
     #endregion
 
     #region Spindash
+    [BoxGroup("Spindash")]
     public float spindashDragScalar;
+
+    [BoxGroup("Spindash")]
     public float spindashForceScalar;
+
+    [BoxGroup("Spindash")]
     public float spindashSlopeScalar;
+
+    [BoxGroup("Spindash")]
     public float spinDashMomentum = 0.1f;
     #endregion
 
+    Vector3 curDir;
+    Vector3 oldDir;
     private void Update()
     {
-        if (playerCore.inputCore.rightClickDown)
+        if (playerCore.inputCore.leftClickDown)
         {
             playerCore.ball = !playerCore.ball;
         }
@@ -120,6 +147,8 @@ public class GroundPhysics : MonoBehaviour
 
         #region Acceleration
 
+
+
         if (playerCore.inputCore.directionalInput == Vector2.zero)
         {
             if (playerCore.velocityMagnitude < leastVelocityToStartAcceleratingNoInput)
@@ -139,6 +168,9 @@ public class GroundPhysics : MonoBehaviour
             }
         }
 
+        float dot = (Vector3.Dot(playerCore.playerForward.forward, playerCore.velocity.normalized) - 1f) * dotProductDeceleration;
+        
+        currentForce -= dot; 
         #endregion
 
         #region Slope

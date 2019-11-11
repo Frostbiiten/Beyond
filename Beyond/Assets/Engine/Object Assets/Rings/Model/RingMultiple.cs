@@ -12,7 +12,7 @@ public class RingMultiple : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SoundCore.nonSpacialSource.PlayOneShot(sound);
+            SoundCore.nonSpacialSource.PlayOneShot(sound, 0.4f);
             PlayerCore pc = other.GetComponent<PlayerCore>();
             pc.playerHpManager.hp += hpAmount - 1;
             pc.playerHpManager.UpdateRings();

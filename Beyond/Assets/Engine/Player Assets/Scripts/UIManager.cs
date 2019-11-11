@@ -4,44 +4,92 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using NaughtyAttributes;
 
 public class UIManager : MonoBehaviour
 {
+    [Required("PlayerCore is Required")]
     public PlayerCore playerCore;
+
+    [BoxGroup("Main")]
     public TextMeshProUGUI timeText;
+
+    [BoxGroup("Main")]
     public TextMeshProUGUI ringsText;
+
+    [BoxGroup("Main")]
     public TextMeshProUGUI livesText;
+
+    [BoxGroup("Main")]
     public TextMeshProUGUI fpsCounter;
+
+    [BoxGroup("Main")]
     public TextMeshProUGUI scoreText;
+
+    [BoxGroup("Main")]
     public Image speedBar;
+
+    [BoxGroup("Main")]
     public float speedBarTopSpeedReference;
+
+    [BoxGroup("Main")]
     public float time;
+
+    [BoxGroup("Main")]
     public bool paused;
     bool oldPause;
-    public List<GameObject> objectsToRemovePause = new List<GameObject>();
-    public List<GameObject> objectsToRemoveUnpause = new List<GameObject>();
-    public List<GameObject> objectsToAddPause = new List<GameObject>();
-    public Texture2D normalCursor;
 
+    [ProgressBar("Speed", 100, ProgressBarColor.Blue)]
+    public float speedRef;
+
+    [ReorderableList]
+    [BoxGroup("Pause")]
+    public List<GameObject> objectsToRemovePause = new List<GameObject>();
+
+    [ReorderableList]
+    [BoxGroup("Pause")]
+    public List<GameObject> objectsToRemoveUnpause = new List<GameObject>();
+
+    [ReorderableList]
+    [BoxGroup("Pause")]
+    public List<GameObject> objectsToAddPause = new List<GameObject>();
+
+    [ReorderableList]
+    [BoxGroup("Pause")]
     public List<GameObject> itemsThatStopUnpause = new List<GameObject>();
 
+    [ReorderableList]
+    [BoxGroup("Pause")]
     public List<MonoBehaviour> monosToDisablePause = new List<MonoBehaviour>();
 
+    [BoxGroup("Other")]
     public Animator redRingAnim;
+
+    [BoxGroup("Other")]
     public Image[] redRings;
 
+    [BoxGroup("Other")]
     public Image sonicEye;
+
+    [BoxGroup("Other")]
     public Sprite defaultEye;
+
+    [BoxGroup("Other")]
     public Sprite deadEye;
 
+    [BoxGroup("Pause")]
     public Material blur;
     int o = 0;
+
+    [BoxGroup("Other")]
+    public Texture2D normalCursor;
 
     private void Start()
     {
         StartCoroutine(UnPause());
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.SetCursor(normalCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.visible = false;
+        //Cursor.SetCursor(normalCursor, Vector2.zero, CursorMode.Auto);
         UpdateRings();
         UpdateLives();
         UpdateScore();
@@ -54,7 +102,7 @@ public class UIManager : MonoBehaviour
         timeText.text = FormatTime(time);
         speedBar.fillAmount = playerCore.velocityMagnitude / speedBarTopSpeedReference;
         oldPause = paused;
-
+        speedRef = playerCore.velocityMagnitude;
         if (Input.GetKeyDown("p"))
         {
             paused = !paused;
@@ -145,6 +193,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(Blur());
 
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         yield return null;
     }
 
@@ -167,6 +216,7 @@ public class UIManager : MonoBehaviour
 
         playerCore.playerAnimationManager.playerAnimator.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.015f * Time.timeScale;
         if(paused == false)

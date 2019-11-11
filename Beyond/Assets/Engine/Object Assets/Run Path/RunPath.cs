@@ -16,6 +16,7 @@ public class RunPath : MonoBehaviour
     public bool raycastToGround;
     public Transform pathRef;
     string colTag = "RunPath";
+    public float exitDistance = 4f;
 
 
 
@@ -37,7 +38,6 @@ public class RunPath : MonoBehaviour
     public void EnterPath(GameObject other)
     {
         currentPath = other.GetComponent<Path_Comp>();
-        Debug.Log(currentPath.TotalDistance);
         currentPathCompletion = currentPath.GetNearestPoint(transform.position, currentPath);
 
         //float dot = Vector3.Dot(playerCore.rb.velocity.normalized, currentPath.GetTangent(currentRailCompletion, currentPath));
@@ -116,7 +116,8 @@ public class RunPath : MonoBehaviour
 
         playerCore.rb.velocity = Vector3.Lerp(playerCore.rb.velocity, pathRef.TransformDirection(localVelocity), 0.2f);
 
-        if (currentPathCompletion != Mathf.Clamp(currentPathCompletion, 0.6f, currentPath.TotalDistance - 0.6f))
+
+        if(Vector3.Distance(transform.position, currentPath.GetPoint(currentPathCompletion, currentPath)) > exitDistance)
         {
             StartCoroutine(ExitPath());
         }

@@ -34,6 +34,7 @@ public class EggPawn : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        playerScan.Clone();
         if(strike == false)
         {
             chasing = false;
@@ -72,7 +73,6 @@ public class EggPawn : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Enter");
             PlayerCore pc = other.gameObject.GetComponent<PlayerCore>();
             if (pc)
             {
