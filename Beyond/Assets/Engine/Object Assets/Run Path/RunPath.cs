@@ -17,6 +17,7 @@ public class RunPath : MonoBehaviour
     public Transform pathRef;
     string colTag = "RunPath";
     public float exitDistance = 4f;
+    public float tightness = 0.075f;
 
 
 
@@ -114,7 +115,7 @@ public class RunPath : MonoBehaviour
         localVelocity.x = 0;// lock local x
         //localVelocity.y = 0;// lock local y
 
-        playerCore.rb.velocity = Vector3.Lerp(playerCore.rb.velocity, pathRef.TransformDirection(localVelocity), 0.2f);
+        playerCore.rb.velocity = Vector3.Lerp(playerCore.rb.velocity, pathRef.TransformDirection(localVelocity), tightness);
 
 
         if(Vector3.Distance(transform.position, currentPath.GetPoint(currentPathCompletion, currentPath)) > exitDistance)

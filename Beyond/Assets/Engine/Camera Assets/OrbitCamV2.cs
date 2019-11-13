@@ -78,6 +78,10 @@ public class OrbitCamV2 : MonoBehaviour
     Vector3 upVector;
 
     public AnimationCurve fovCurve;
+
+    public Transform dirReference;
+
+    float zPower = 2f;
     void FixedUpdate()
     {
         pc.playerCam.fieldOfView = fovCurve.Evaluate(pc.velocityMagnitude);    
@@ -113,6 +117,14 @@ public class OrbitCamV2 : MonoBehaviour
                     Vector3 targetpos = target.position;// add offset etc here
 
                     dir = (transform.position - targetpos).normalized;
+
+                    dirReference.forward = dir;
+
+                    Vector3 t = dirReference.InverseTransformDirection(dir);
+
+                    t.z *= zPower;
+
+                    //dir = dirReference.TransformDirection(dir);
 
                     dir.y = Mathf.Clamp(dir.y, 0.15f, 99f);
 

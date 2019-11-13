@@ -31,6 +31,7 @@ public class PlayerHomingAttack : MonoBehaviour
     public Transform faceVelocity;
     public float homingDirectionThreshold = 0.5f;
 
+    
     int homingDetectionMask;
 
     Vector3 homingInputRef;

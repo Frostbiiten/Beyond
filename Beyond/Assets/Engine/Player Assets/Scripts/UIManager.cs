@@ -114,15 +114,18 @@ public class UIManager : MonoBehaviour
             {
                 for(int b = 0; b < monosToDisablePause.Count; b++)
                 {
+                    if (monosToDisablePause[b])
                     monosToDisablePause[b].enabled = false;
                 }
                 for(int q = 0; q < objectsToRemovePause.Count; q++)
                 {
+                    if(objectsToRemovePause[q])
                     objectsToRemovePause[q].SetActive(false);
                 }
 
                 for (int w = 0; w < objectsToAddPause.Count; w++)
                 {
+                    if(objectsToAddPause[w])
                     objectsToAddPause[w].SetActive(true);
                 }
                 StopCoroutine(Pause());
@@ -149,16 +152,19 @@ public class UIManager : MonoBehaviour
 
                     for (int b = 0; b < monosToDisablePause.Count; b++)
                     {
+                        if(monosToDisablePause[b])
                         monosToDisablePause[b].enabled = true;
                     }
 
                     for (int e = 0; e < objectsToRemovePause.Count; e++)
                     {
+                        if(objectsToRemovePause[e])
                         objectsToRemovePause[e].SetActive(true);
                     }
 
                     for (int r = 0; r < objectsToAddPause.Count; r++)
                     {
+                        if(objectsToAddPause[r])
                         objectsToAddPause[r].SetActive(false);
                     }
 

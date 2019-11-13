@@ -34,6 +34,8 @@ public class CameraTriggerV2 : MonoBehaviour
     public float lookLockDistance;
     public Vector3 lookLockOffset;
 
+    public AnimationCurve speedCurve;
+
     private void Start()
     {
         if (path)
@@ -56,7 +58,8 @@ public class CameraTriggerV2 : MonoBehaviour
 
             if (path)
             {
-                float distance = path.GetNearestPoint(currentCam.transform.position, path, 5f);
+                //float distance = path.GetNearestPoint(currentCam.transform.position, path, 0.5f);
+                float distance = path.GetNearestPointCustom(currentCam.transform.position, path, speedCurve.Evaluate(currentCam.velocityMagnitude), 0.5f);
                 point = path.GetPoint(distance + pathTimeOffset, path);
 
                 if (Vector3.Distance((path.GetPoint(0, path) + path.GetPoint(path.TotalDistance, path) / 2f), currentCam.transform.position) < checkRadius)
@@ -166,7 +169,8 @@ public class CameraTriggerV2 : MonoBehaviour
 
     void EnterTrigger()
     {
-
+        //rot = currentCam.orbitCam.transform.rotation;
+        //point = currentCam.orbitCam.transform.position;
         currentCam.orbitCam.currentTrigger = this;
     }
 

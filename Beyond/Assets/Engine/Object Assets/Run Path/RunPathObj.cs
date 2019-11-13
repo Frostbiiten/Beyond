@@ -6,14 +6,20 @@ public class RunPathObj : MonoBehaviour
 {
     public string colTag = "Player";
     public float triggerSize = 4f;
+    public float tightness = 0.075f;
     void OnTriggerEnter(Collider other)
     {
-        PlayerCore pc = other.GetComponent<PlayerCore>();
-        if (pc.rPath.canGoOnPath == true && other.CompareTag(colTag) && pc.rPath.runningOnPath == false)
+        if (other.CompareTag(colTag))
         {
-            pc.rPath.exitDistance = triggerSize;
-            pc.rPath.EnterPath(gameObject);
+            PlayerCore pc = other.GetComponent<PlayerCore>();
+            if (pc.rPath.canGoOnPath == true && pc.rPath.runningOnPath == false)
+            {
+                pc.rPath.tightness = tightness;
+                pc.rPath.exitDistance = triggerSize;
+                pc.rPath.EnterPath(gameObject);
+            }
         }
+
 
     }
 }

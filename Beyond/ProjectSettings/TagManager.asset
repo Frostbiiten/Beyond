@@ -16,6 +16,11 @@ TagManager:
   - Grass
   - Sand
   - RunPath
+  - WaterCapsule
+  - FireCapsule
+  - CapsuleNormalShield
+  - ElectricCapsule
+  - CapsuleRings
   layers:
   - Default
   - TransparentFX

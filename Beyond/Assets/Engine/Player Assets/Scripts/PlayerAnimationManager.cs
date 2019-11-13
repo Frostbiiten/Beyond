@@ -203,10 +203,7 @@ public class PlayerAnimationManager : MonoBehaviour
                 transform.up = playerCore.velocity.normalized;
             }
 
-            if (faceSpringDir)
-            {
-                playerSkin.transform.up = -playerCore.velocity;
-            }
+
 
         }
 
@@ -252,7 +249,18 @@ public class PlayerAnimationManager : MonoBehaviour
             canPlayLandAnimation = false;
         }
 
+        if (faceSpringDir)
+        {
+            if (playerCore.velocity.y > 0f)
+            {
+                playerSkin.transform.up = playerCore.velocity;
+            }
+            else
+            {
+                playerSkin.transform.up = -playerCore.velocity;
+            }
 
+        }
 
         #region Land Animations
         playerAnimator.SetBool("HurtLand", Physics.Raycast(transform.position, -transform.up, hurtLandCollideDistance, landLayerMask, QueryTriggerInteraction.Ignore));

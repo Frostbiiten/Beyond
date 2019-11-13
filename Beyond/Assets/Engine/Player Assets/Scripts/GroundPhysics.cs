@@ -199,7 +199,7 @@ public class GroundPhysics : MonoBehaviour
         #endregion
 
         #region Down Force
-        if (playerCore.inputCore.JumpKeyDown)
+        if (!playerCore.inputCore.JumpKeyDown)
         {
             playerCore.rb.AddForce(-transform.up * playerCore.velocityMagnitude * downForce);
             playerCore.rb.AddForce(Vector3.down * extraGravity);

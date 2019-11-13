@@ -186,6 +186,8 @@ public class PlayerHpManager : MonoBehaviour
     [BoxGroup("Other")]
     public string gameOverScene;
 
+    [BoxGroup("Other")]
+    public float capsuleExplosionForce;
 
     void Start()
     {
@@ -485,11 +487,47 @@ public class PlayerHpManager : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-
-        if (other.CompareTag("ShieldBox"))
+        if (playerCore.playerHpManager.attacking)
         {
-            // whomst
+            if (other.CompareTag("WaterCapsule"))
+            {
+                shield = Shield.water;
+                playerCore.rb.velocity = Vector3.up * capsuleExplosionForce;
+                Destroy(other.gameObject);
+            }
+
+            if (other.CompareTag("FireCapsule"))
+            {
+                shield = Shield.fire;
+                playerCore.rb.velocity = Vector3.up * capsuleExplosionForce;
+                Destroy(other.gameObject);
+            }
+
+            if (other.CompareTag("ElectricCapsule"))
+            {
+                shield = Shield.electric;
+                playerCore.rb.velocity = Vector3.up * capsuleExplosionForce;
+                Destroy(other.gameObject);
+            }
+
+            if (other.CompareTag("CapsuleNormalShield"))
+            {
+                shield = Shield.normal;
+                playerCore.rb.velocity = Vector3.up * capsuleExplosionForce;
+                Destroy(other.gameObject);
+            }
+
+            if (other.CompareTag("CapsuleRings"))
+            {
+                CapsuleRing cr = other.gameObject.GetComponent<CapsuleRing>();
+                playerCore.playerHpManager.hp += cr.amount;
+                playerCore.playerHpManager.UpdateRings();
+                playerCore.rb.velocity = Vector3.up * capsuleExplosionForce;
+                Destroy(other.gameObject);
+            }
         }
+
+
 
         if (canCollectRings == true)
         {
