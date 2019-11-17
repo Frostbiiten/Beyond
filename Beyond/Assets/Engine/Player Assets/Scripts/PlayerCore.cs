@@ -160,9 +160,14 @@ public class PlayerCore : MonoBehaviour
     public GameObject chaosEmeralds;
 
     [BoxGroup("Experimental")]
+    public ParticleSystem superTransformParticles;
+
+    [BoxGroup("Experimental")]
     public float hpToTurnSuper = 50f;
 
     bool transforming;
+
+    bool transformEmerald;
 
     [BoxGroup("Other")]
     public GameObject defaultJumpBall;
@@ -215,6 +220,14 @@ public class PlayerCore : MonoBehaviour
             StartCoroutine(Transform());
         }
 
+        if (transformEmerald == true)
+        {
+            chaosEmeralds.transform.localScale = Vector3.Lerp(chaosEmeralds.transform.localScale, Vector3.one, 0.3f);
+        }
+        else
+        {
+            chaosEmeralds.transform.localScale = Vector3.Lerp(chaosEmeralds.transform.localScale, Vector3.one * 0.001f, 0.3f);
+        }
 
     }
 
@@ -228,9 +241,12 @@ public class PlayerCore : MonoBehaviour
                 playerAnimationManager.playerAnimator.Play("Transform");
                 transforming = true;
                 chaosEmeralds.SetActive(true);
+                transformEmerald = true;
                 yield return new WaitForSeconds(transformTime / 2f);
                 isSuperSonic = false;
-                yield return new WaitForSeconds(transformTime / 2f);
+                yield return new WaitForSeconds(transformTime / 4f);
+                transformEmerald = false;
+                yield return new WaitForSeconds(transformTime / 4f);
                 chaosEmeralds.SetActive(false);
                 transforming = false;
             }
@@ -239,14 +255,18 @@ public class PlayerCore : MonoBehaviour
         {
             if (transforming == false && playerHpManager.hp >= hpToTurnSuper)
             {
-                
+                superTransformParticles.Play(true);
                 playerAnimationManager.superPlayerAnimatorInstance.Play("Transform");
                 playerAnimationManager.playerAnimator.Play("Transform");
                 transforming = true;
                 chaosEmeralds.SetActive(true);
+                transformEmerald = true;
                 yield return new WaitForSeconds(transformTime / 2f);
                 isSuperSonic = true;
-                yield return new WaitForSeconds(transformTime / 2f);
+                playerAnimationManager.superPlayerAnimatorInstance.Play("Transform");
+                yield return new WaitForSeconds(transformTime / 4f);
+                transformEmerald = false;
+                yield return new WaitForSeconds(transformTime / 4f);
                 chaosEmeralds.SetActive(false);
                 transforming = false;
                 StartCoroutine(ringDrain());
@@ -292,7 +312,12 @@ public class PlayerCore : MonoBehaviour
         }
 
         //playerForward.LookAt(playerForwardDummy);
-        playerForward.rotation = Quaternion.Slerp(playerForward.rotation, Quaternion.LookRotation((playerForwardDummy.position - playerForward.position).normalized), turnSpeedCurve.Evaluate(velocityMagnitude));
+
+        if(inputCore.directionalInput != Vector2.zero)
+        {
+            playerForward.rotation = Quaternion.Slerp(playerForward.rotation, Quaternion.LookRotation((playerForwardDummy.position - playerForward.position).normalized), turnSpeedCurve.Evaluate(velocityMagnitude));
+        }
+        
 
         #endregion
 

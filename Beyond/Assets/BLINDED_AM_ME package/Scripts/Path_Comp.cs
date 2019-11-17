@@ -227,8 +227,6 @@ namespace BLINDED_AM_ME
             if (newNearestAlgorithm)
             {
                 
-                Stopwatch s = new Stopwatch();
-                s.Start();
                 float f = GetNearestPointTree(position, path, 10, 10f, 20f);
                 
                 // 1024 recursions takes 7-12 ms
@@ -236,9 +234,6 @@ namespace BLINDED_AM_ME
                 // 400 and below takes 1-2 ms
                 // 64 and less takes 0 ms!
 
-                s.Stop();
-
-                UnityEngine.Debug.Log(s.ElapsedMilliseconds);
 
                 return f;
 
@@ -246,8 +241,6 @@ namespace BLINDED_AM_ME
             }
             else
             {
-                Stopwatch stopWatch = new Stopwatch();
-                stopWatch.Start();
                 float currentDistanceL = 9999f;
                 float currentDistance;
                 float currentClosestT = path.TotalDistance;
@@ -260,7 +253,6 @@ namespace BLINDED_AM_ME
                         currentClosestT = i;
                     }
                 }
-                stopWatch.Stop();
 
                 return currentClosestT;
             }
@@ -271,8 +263,8 @@ namespace BLINDED_AM_ME
             if (newNearestAlgorithm)
             {
 
-                Stopwatch s = new Stopwatch();
-                s.Start();
+                //Stopwatch s = new Stopwatch();
+                //s.Start();
                 float f = GetNearestPointTree(position, path, (int)recursions, 10f, 20f);
 
                 // 1024 recursions takes 7-12 ms
@@ -280,9 +272,9 @@ namespace BLINDED_AM_ME
                 // 400 and below takes 1-2 ms
                 // 64 and less takes 0 ms!
 
-                s.Stop();
+                //s.Stop();
 
-                UnityEngine.Debug.Log(s.ElapsedMilliseconds);
+                //UnityEngine.Debug.Log(s.ElapsedMilliseconds);
 
                 return f;
 

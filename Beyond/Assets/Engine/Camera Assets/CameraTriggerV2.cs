@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using NaughtyAttributes;
 public class CameraTriggerV2 : MonoBehaviour
 {
     public PlayerCore currentCam;
 
     public Path_Comp path;//optional
+
+    [ShowIf("path")]
     public Vector3 pathPositionOffset;
 
     public Transform cameraTransformReference;
@@ -26,6 +28,7 @@ public class CameraTriggerV2 : MonoBehaviour
 
     public Quaternion rot;
 
+    [ShowIf("path")]
     public float pathTimeOffset;
 
     float checkRadius;
@@ -34,13 +37,19 @@ public class CameraTriggerV2 : MonoBehaviour
     public float lookLockDistance;
     public Vector3 lookLockOffset;
 
+    [ShowIf("path")]
     public AnimationCurve speedCurve;
+
+    [ShowIf("path")]
+    public Transform centerRef;
 
     private void Start()
     {
         if (path)
         {
             checkRadius = Vector3.Distance(path.GetPoint(0, path), path.GetPoint(path.TotalDistance, path));
+            centerRef = new GameObject().transform;
+            centerRef.position = path.GetPoint(path.TotalDistance / 2f, path);
         }
     }
     void FixedUpdate()
@@ -62,7 +71,7 @@ public class CameraTriggerV2 : MonoBehaviour
                 float distance = path.GetNearestPointCustom(currentCam.transform.position, path, speedCurve.Evaluate(currentCam.velocityMagnitude), 0.5f);
                 point = path.GetPoint(distance + pathTimeOffset, path);
 
-                if (Vector3.Distance((path.GetPoint(0, path) + path.GetPoint(path.TotalDistance, path) / 2f), currentCam.transform.position) < checkRadius)
+                if (Vector3.Distance(centerRef.position, currentCam.transform.position) < checkRadius)
                 {
                     if (Vector3.Distance(point, currentCam.transform.position) < triggerSize)
                     {
@@ -83,7 +92,7 @@ public class CameraTriggerV2 : MonoBehaviour
                 
 
                     rot = Quaternion.Slerp(rot, Quaternion.LookRotation(dir), rotationInterpolationSpeed);
-                    currentCam.orbitCam.transform.rotation = rot;
+                    currentCam.orbitCam.transform.rotation = Quaternion.Slerp(currentCam.orbitCam.transform.rotation, rot, 0.75f);
 
                     Vector3 camoffset = Quaternion.LookRotation(dir) * offsetFixed; //thats to local space
                     currentCam.orbitCam.transform.position = Vector3.Lerp(currentCam.orbitCam.transform.position, point + camoffset, postionInterpolationSpeed);
@@ -97,7 +106,7 @@ public class CameraTriggerV2 : MonoBehaviour
                     if(lookLock == true)
                     {
                         Vector3 dir = (cameraLookReference.position - currentCam.transform.position).normalized;
-                        currentCam.orbitCam.cameraLookatLock.position = currentCam.transform.position - dir * lookLockDistance;
+                        currentCam.orbitCam.cameraLookatLock.position = Vector3.Slerp(currentCam.orbitCam.cameraLookatLock.position, currentCam.transform.position - dir * lookLockDistance, postionInterpolationSpeed);
 
                         Vector3 offset = new Vector3(dir.x * lookLockOffset.x, dir.y * lookLockOffset.y, dir.z * lookLockOffset.z);
                         currentCam.orbitCam.transform.position = currentCam.orbitCam.cameraLookatLock.position + offset;
@@ -108,7 +117,9 @@ public class CameraTriggerV2 : MonoBehaviour
                     }
                     else
                     {
+                        /*
                         currentCam.orbitCam.transform.position = Vector3.Lerp(currentCam.orbitCam.transform.position, cameraTransformReference.position, postionInterpolationSpeed);
+
                         if(cameraLook == true)
                         {
                             rot = Quaternion.Slerp(rot, Quaternion.LookRotation(cameraLookReference.position - currentCam.orbitCam.transform.position), rotationInterpolationSpeed);
@@ -119,6 +130,20 @@ public class CameraTriggerV2 : MonoBehaviour
                         }
 
                         currentCam.orbitCam.transform.rotation = rot;
+                        */
+
+                        currentCam.orbitCam.transform.position = Vector3.Lerp(currentCam.orbitCam.transform.position, cameraTransformReference.position, postionInterpolationSpeed);
+
+                        if (cameraLook == true)
+                        {
+                            rot =  Quaternion.LookRotation(cameraLookReference.position - currentCam.orbitCam.transform.position);
+                        }
+                        else
+                        {
+                            rot = cameraTransformReference.rotation;
+                        }
+
+                        currentCam.orbitCam.transform.rotation = Quaternion.Slerp(currentCam.orbitCam.transform.rotation, rot, rotationInterpolationSpeed);
                     }
 
                 }

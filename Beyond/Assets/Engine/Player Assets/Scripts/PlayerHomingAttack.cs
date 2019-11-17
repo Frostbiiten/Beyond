@@ -34,7 +34,6 @@ public class PlayerHomingAttack : MonoBehaviour
     
     int homingDetectionMask;
 
-    Vector3 homingInputRef;
     public ShakeTransformEventData shake;
     public ShakeTransform shaker;
 
@@ -88,10 +87,6 @@ public class PlayerHomingAttack : MonoBehaviour
         #region Main Raycast And Sort
         Physics.OverlapSphereNonAlloc(transform.position, maxHomingDistance, objectsWithinRange, homingDetectionMask, QueryTriggerInteraction.Collide);
         sortedTargets = SortForHoming(objectsWithinRange);
-        //if (Input.GetButtonDown("Jump"))
-        //{
-            homingInputRef = playerCore.velocity;
-        //}
         #endregion
 
         #region Homing Logic p1
@@ -166,7 +161,7 @@ public class PlayerHomingAttack : MonoBehaviour
                 {
                     if (Physics.Raycast(transform.position, (currentTarget.position - transform.position).normalized, out homingRay, maxHomingDistance, layerMask, QueryTriggerInteraction.Collide))
                     {
-                        if (homingRay.collider.CompareTag("Homing Target") || homingRay.collider.CompareTag("Enemy"))
+                        if (homingRay.collider.CompareTag("Homing Target") || homingRay.collider.CompareTag("Enemy") || homingRay.collider.CompareTag("ElectricCapsule") || homingRay.collider.CompareTag("FireCapsule") || homingRay.collider.CompareTag("WaterCapsule") || homingRay.collider.CompareTag("CapsuleNormalShield") || homingRay.collider.CompareTag("CapsuleRings"))
                         {
                             playerCore.playerSoundCore.PlayHome();
                             
@@ -301,36 +296,16 @@ public class PlayerHomingAttack : MonoBehaviour
         {
             if (input[e])
             {
-                if (input[e].CompareTag("Enemy") || input[e].CompareTag("Homing Target"))
+                if (input[e].CompareTag("Enemy") || input[e].CompareTag("Homing Target") || input[e].CompareTag("ElectricCapsule") || input[e].CompareTag("FireCapsule") || input[e].CompareTag("WaterCapsule") || input[e].CompareTag("CapsuleNormalShield") || input[e].CompareTag("CapsuleRings"))
                 {
-                    /*
-                    Vector3 loc = (new Vector3(input[e].transform.position.x, transform.position.y, input[e].transform.position.z) - transform.position).normalized;
-                    if (Vector3.Dot(dir, homingInputRef) > 0)
-                    {
-                        outputNew.Add(input[e]);
-                    }
-                    */
 
-                    /*
+                    Vector3 dirToTarget = (transform.position - input[e].transform.position).normalized;
+                    dirToTarget.y = 0f;
 
-                    Vector3 pos = playerCore.playerAnimationManager.playerSkin.InverseTransformPoint(input[e].transform.position);
-                    if (pos.z >= -0.5f)
-                    {
+                    Vector3 v = new Vector3(playerCore.playerAnimationManager.playerSkin.forward.x, 0f, playerCore.playerAnimationManager.playerSkin.forward.z).normalized;
+                    v.y = 0f;
 
-                        outputNew.Add(input[e]);
-
-                    }
-                    */
-
-                    Vector3 directionToTarget = transform.position - input[e].transform.position;
-                    directionToTarget = new Vector3(directionToTarget.x, 0f, directionToTarget.z);
-                    float angle = Vector3.Angle(-playerCore.playerAnimationManager.playerSkin.forward, directionToTarget);
-                    if (Mathf.Abs(angle) > 90 && Mathf.Abs(angle) < 270)
-                    {
-                        //Debug.Log("!");
-                        
-                    }
-                    else
+                    if (Vector3.Dot(dirToTarget, -v) > 0)
                     {
                         outputNew.Add(input[e]);
                     }

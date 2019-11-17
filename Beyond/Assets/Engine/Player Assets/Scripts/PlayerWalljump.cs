@@ -13,6 +13,8 @@ public class PlayerWalljump : MonoBehaviour
     public bool stickGo;
     public Collider lastObjectJumpedOff;
     public ContactPoint[] points;
+
+    GameObject currentWall;
     private void Update()
     {
         if(pc.groundedPhysics.enabled == true){
@@ -22,7 +24,8 @@ public class PlayerWalljump : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        StopCoroutine("WallJump");
+        //StopCoroutine("WallJump");
+        //currentWall = null;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -44,7 +47,11 @@ public class PlayerWalljump : MonoBehaviour
 
                     if(Vector3.Dot(pc.rb.velocity, collisionPoints[0].normal) < 0f)
                     {
-                        StartCoroutine(WallJump(wallJumpFreezeTime, collisionPoints[0]));
+                        if(currentWall == null)
+                        {
+                            StartCoroutine(WallJump(wallJumpFreezeTime, collisionPoints[0]));
+                        }
+
                     }
 
                 }
@@ -68,6 +75,7 @@ public class PlayerWalljump : MonoBehaviour
     }
     public IEnumerator WallJump(float stayTime, ContactPoint c)
     {
+        currentWall = c.otherCollider.gameObject;
         float t;
         t = stayTime;
         bool down = false;
@@ -82,7 +90,7 @@ public class PlayerWalljump : MonoBehaviour
         while (t > 0f && down == false && Physics.Raycast(transform.position, c.point - transform.position, Vector3.Distance(c.point, transform.position) + 1f) && pc.grounded == false)
         {
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
             if (pc.inputCore.JumpKeyDown)
             {
                 down = true;
@@ -93,8 +101,10 @@ public class PlayerWalljump : MonoBehaviour
             pc.rb.velocity = new Vector3(0f, -0.2f - t, 0f);
         }
 
-        if(down == true)
+        currentWall = null;
+        if (down == true)
         {
+            
             lastObjectJumpedOff = c.otherCollider;
             JumpOff(c);
         }

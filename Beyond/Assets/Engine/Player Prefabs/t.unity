@@ -192,10 +192,30 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3285817963334514233, guid: e1d3a568b36f4a74cb2f4af7717f2e2a,
+        type: 3}
+      propertyPath: m_ColorTemperature
+      value: 12122
+      objectReference: {fileID: 0}
     - target: {fileID: 3285817963334514238, guid: e1d3a568b36f4a74cb2f4af7717f2e2a,
         type: 3}
       propertyPath: displayLightIntensity
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294786215503940795, guid: e1d3a568b36f4a74cb2f4af7717f2e2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630490006730570513, guid: e1d3a568b36f4a74cb2f4af7717f2e2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686441517035273328, guid: e1d3a568b36f4a74cb2f4af7717f2e2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1d3a568b36f4a74cb2f4af7717f2e2a, type: 3}
@@ -580,6 +600,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267906203628676276, guid: 88baa0c17b4fc4241a937909d2aaae6d,
+        type: 3}
+      propertyPath: hp
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88baa0c17b4fc4241a937909d2aaae6d, type: 3}

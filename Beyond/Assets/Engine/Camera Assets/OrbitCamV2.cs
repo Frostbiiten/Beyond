@@ -118,14 +118,6 @@ public class OrbitCamV2 : MonoBehaviour
 
                     dir = (transform.position - targetpos).normalized;
 
-                    dirReference.forward = dir;
-
-                    Vector3 t = dirReference.InverseTransformDirection(dir);
-
-                    t.z *= zPower;
-
-                    //dir = dirReference.TransformDirection(dir);
-
                     dir.y = Mathf.Clamp(dir.y, 0.15f, 99f);
 
                     Quaternion look;
