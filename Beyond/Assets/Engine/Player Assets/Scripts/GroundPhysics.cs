@@ -95,6 +95,7 @@ public class GroundPhysics : MonoBehaviour
 
     Vector3 curDir;
     Vector3 oldDir;
+
     private void Update()
     {
         if (playerCore.inputCore.leftClickDown)
@@ -107,6 +108,7 @@ public class GroundPhysics : MonoBehaviour
     void FixedUpdate()
     {
         playerCore.playerHomingAttack.airDashed = false;
+
         #region Align To Ground and Some Slope Physics
 
         if (playerCore.velocityMagnitude >= leastSpeedToAlignToGround || playerCore.ball == true)
@@ -146,8 +148,6 @@ public class GroundPhysics : MonoBehaviour
         #endregion
 
         #region Acceleration
-
-
 
         if (playerCore.inputCore.directionalInput == Vector2.zero)
         {

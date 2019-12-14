@@ -110,7 +110,8 @@ public class RunPath : MonoBehaviour
 
         }
 
-        pathRef.forward = currentPath.GetTangent(currentPathCompletion, currentPath);
+        //pathRef.forward = currentPath.GetTangent(currentPathCompletion, currentPath);
+        pathRef.rotation = Quaternion.LookRotation(currentPath.GetTangent(currentPathCompletion, currentPath), currentPath.GetUpTangent(currentPathCompletion, currentPath));
         Vector3 localVelocity = pathRef.InverseTransformDirection(playerCore.rb.velocity);
         localVelocity.x = 0;// lock local x
         //localVelocity.y = 0;// lock local y

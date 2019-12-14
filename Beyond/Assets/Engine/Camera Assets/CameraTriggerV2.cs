@@ -9,7 +9,7 @@ public class CameraTriggerV2 : MonoBehaviour
 
     public Path_Comp path;//optional
 
-    [ShowIf("path")]
+    [ShowIf("IfPath")]
     public Vector3 pathPositionOffset;
 
     public Transform cameraTransformReference;
@@ -28,7 +28,7 @@ public class CameraTriggerV2 : MonoBehaviour
 
     public Quaternion rot;
 
-    [ShowIf("path")]
+    [ShowIf("IfPath")]
     public float pathTimeOffset;
 
     float checkRadius;
@@ -37,11 +37,23 @@ public class CameraTriggerV2 : MonoBehaviour
     public float lookLockDistance;
     public Vector3 lookLockOffset;
 
-    [ShowIf("path")]
+    [ShowIf("IfPath")]
     public AnimationCurve speedCurve;
 
-    [ShowIf("path")]
+    [ShowIf("IfPath")]
     public Transform centerRef;
+
+    bool IfPath()
+    {
+        if (path)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     private void Start()
     {

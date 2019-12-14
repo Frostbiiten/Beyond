@@ -175,6 +175,12 @@ public class PlayerCore : MonoBehaviour
     [BoxGroup("Other")]
     public GameObject superJumpBall;
 
+    Vector3 platformOldPos;
+    Vector3 platformNewPos;
+    public Vector3 platformVelocity;
+
+    Transform oldPlat;
+    Transform newPlat;
 
     void Start()
     {
@@ -329,6 +335,7 @@ public class PlayerCore : MonoBehaviour
 
         #region Detection
 
+        
         grounded = Physics.Raycast(transform.position, -transform.up, out playerGroundHit, groundDetectionDistance, groundDetectionMask, QueryTriggerInteraction.Ignore);
 
         if (grounded == true)
@@ -345,6 +352,23 @@ public class PlayerCore : MonoBehaviour
             airbornePhysics.enabled = true;
 
         }
+        #endregion
+
+        #region Platform
+        oldPlat = newPlat;
+        newPlat = playerGroundHit.transform;
+
+        
+        platformOldPos = platformNewPos;
+        platformNewPos = playerGroundHit.transform.position;
+
+        platformVelocity = platformNewPos - platformOldPos;
+
+        if(oldPlat == newPlat)
+        {
+            transform.position += platformVelocity;
+        }
+
         #endregion
 
         #region Debug
